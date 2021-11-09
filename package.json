@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android --port=8050",
-    "ios": "react-native run-ios --simulator=\"iPhone 12\" --port=8040",
+    "ios": "react-native run-ios --simulator=\"iPhone 12\"",
     "start": "react-native start --port=8030",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios'"
   },
   "dependencies": {
     "@react-native-masked-view/masked-view": "^0.2.6",
@@ -20,7 +21,7 @@
     "react-native": "0.66.1",
     "react-native-calendar-picker": "^7.1.2",
     "react-native-gesture-handler": "^1.10.3",
-    "react-native-maps": "^0.29.3",
+    "react-native-maps": ">=0.29.3",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.8.0"
   },
