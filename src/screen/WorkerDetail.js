@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View, Pressable } from 'react-native';
-import MapView, { PROVIDER_DEFAULT } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import config from '../../com.config.json';
 import GS from '../GlobalStyles';
 
@@ -59,7 +59,7 @@ export default function WorkerDetail({ navigation, route, ...props }) {
 						</Text>
 						<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 							<MapView style={{ width: '100%', height: '100%' }}
-								provider={PROVIDER_DEFAULT}
+								provider={PROVIDER_GOOGLE}
 							/>
 
 						</View>

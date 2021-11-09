@@ -11,8 +11,8 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		4526535DC0BAE492B1650592 /* libPods-ojtproject-ojtprojectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F04EA922EF29631A43EF3DC /* libPods-ojtproject-ojtprojectTests.a */; };
-		714EECA4DEFB9FCD3449C7EA /* libPods-ojtproject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 228767B165E1650AD33F9BCD /* libPods-ojtproject.a */; };
+		194104AA2FA0B09224587000 /* libPods-ojtproject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B277BFBCC5A324BB9CC938C8 /* libPods-ojtproject.a */; };
+		33D3D4C75090B5CB0950C863 /* libPods-ojtproject-ojtprojectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3FBEA76A1B26414EA241CC0 /* libPods-ojtproject-ojtprojectTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -30,19 +30,19 @@
 		00E356EE1AD99517003FC87E /* ojtprojectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ojtprojectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ojtprojectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ojtprojectTests.m; sourceTree = "<group>"; };
+		07A7BE538F6C0EDAB3F8F974 /* Pods-ojtproject-ojtprojectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ojtproject-ojtprojectTests.release.xcconfig"; path = "Target Support Files/Pods-ojtproject-ojtprojectTests/Pods-ojtproject-ojtprojectTests.release.xcconfig"; sourceTree = "<group>"; };
+		086C2A159003BA9F2420F8AF /* Pods-ojtproject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ojtproject.release.xcconfig"; path = "Target Support Files/Pods-ojtproject/Pods-ojtproject.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* ojtproject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ojtproject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ojtproject/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ojtproject/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ojtproject/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ojtproject/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ojtproject/main.m; sourceTree = "<group>"; };
-		1C571001B3C4CFB324DC3495 /* Pods-ojtproject-ojtprojectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ojtproject-ojtprojectTests.release.xcconfig"; path = "Target Support Files/Pods-ojtproject-ojtprojectTests/Pods-ojtproject-ojtprojectTests.release.xcconfig"; sourceTree = "<group>"; };
-		228767B165E1650AD33F9BCD /* libPods-ojtproject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ojtproject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F08C5858B4ED5FE829A2054 /* Pods-ojtproject-ojtprojectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ojtproject-ojtprojectTests.debug.xcconfig"; path = "Target Support Files/Pods-ojtproject-ojtprojectTests/Pods-ojtproject-ojtprojectTests.debug.xcconfig"; sourceTree = "<group>"; };
-		4C70C9192588765733DA7C5B /* Pods-ojtproject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ojtproject.debug.xcconfig"; path = "Target Support Files/Pods-ojtproject/Pods-ojtproject.debug.xcconfig"; sourceTree = "<group>"; };
-		4F04EA922EF29631A43EF3DC /* libPods-ojtproject-ojtprojectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ojtproject-ojtprojectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2011DD95EAB10531F37D5441 /* Pods-ojtproject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ojtproject.debug.xcconfig"; path = "Target Support Files/Pods-ojtproject/Pods-ojtproject.debug.xcconfig"; sourceTree = "<group>"; };
+		697CC5AE9124FA62AF332013 /* Pods-ojtproject-ojtprojectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ojtproject-ojtprojectTests.debug.xcconfig"; path = "Target Support Files/Pods-ojtproject-ojtprojectTests/Pods-ojtproject-ojtprojectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ojtproject/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		B4B1A3A851083A8B098BD845 /* Pods-ojtproject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ojtproject.release.xcconfig"; path = "Target Support Files/Pods-ojtproject/Pods-ojtproject.release.xcconfig"; sourceTree = "<group>"; };
+		B277BFBCC5A324BB9CC938C8 /* libPods-ojtproject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ojtproject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3FBEA76A1B26414EA241CC0 /* libPods-ojtproject-ojtprojectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ojtproject-ojtprojectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4526535DC0BAE492B1650592 /* libPods-ojtproject-ojtprojectTests.a in Frameworks */,
+				33D3D4C75090B5CB0950C863 /* libPods-ojtproject-ojtprojectTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				714EECA4DEFB9FCD3449C7EA /* libPods-ojtproject.a in Frameworks */,
+				194104AA2FA0B09224587000 /* libPods-ojtproject.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,8 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				228767B165E1650AD33F9BCD /* libPods-ojtproject.a */,
-				4F04EA922EF29631A43EF3DC /* libPods-ojtproject-ojtprojectTests.a */,
+				B277BFBCC5A324BB9CC938C8 /* libPods-ojtproject.a */,
+				C3FBEA76A1B26414EA241CC0 /* libPods-ojtproject-ojtprojectTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -121,7 +121,7 @@
 				00E356EF1AD99517003FC87E /* ojtprojectTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				C47180750ECC893211C0ED5E /* Pods */,
+				D4D6573066A8B527B1C99EDC /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -137,13 +137,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C47180750ECC893211C0ED5E /* Pods */ = {
+		D4D6573066A8B527B1C99EDC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4C70C9192588765733DA7C5B /* Pods-ojtproject.debug.xcconfig */,
-				B4B1A3A851083A8B098BD845 /* Pods-ojtproject.release.xcconfig */,
-				3F08C5858B4ED5FE829A2054 /* Pods-ojtproject-ojtprojectTests.debug.xcconfig */,
-				1C571001B3C4CFB324DC3495 /* Pods-ojtproject-ojtprojectTests.release.xcconfig */,
+				2011DD95EAB10531F37D5441 /* Pods-ojtproject.debug.xcconfig */,
+				086C2A159003BA9F2420F8AF /* Pods-ojtproject.release.xcconfig */,
+				697CC5AE9124FA62AF332013 /* Pods-ojtproject-ojtprojectTests.debug.xcconfig */,
+				07A7BE538F6C0EDAB3F8F974 /* Pods-ojtproject-ojtprojectTests.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -156,12 +156,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ojtprojectTests" */;
 			buildPhases = (
-				0EBE1ADC1E5EFA7CCE1F5ADA /* [CP] Check Pods Manifest.lock */,
+				4DE899F555AEC852025AFE82 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				D818D72AF6913196DFD7D480 /* [CP] Embed Pods Frameworks */,
-				B81E6382A6690AAE204FC181 /* [CP] Copy Pods Resources */,
+				8CF4285E4A01E8B6FE4DB434 /* [CP] Embed Pods Frameworks */,
+				5C46AC95B7607156F72C33AC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -177,14 +177,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ojtproject" */;
 			buildPhases = (
-				D2C8668CBF97BD7B014378F9 /* [CP] Check Pods Manifest.lock */,
+				8CA7F608D61D9C7C6BD17864 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				AD02E5C45DC7CEDC3838BC9B /* [CP] Embed Pods Frameworks */,
-				EC22E473B7B53C7BF66427E9 /* [CP] Copy Pods Resources */,
+				DB6CFE8C76B234E3C0371D8C /* [CP] Embed Pods Frameworks */,
+				1C24771306ACBB7441C13765 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -265,7 +265,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		0EBE1ADC1E5EFA7CCE1F5ADA /* [CP] Check Pods Manifest.lock */ = {
+		1C24771306ACBB7441C13765 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ojtproject/Pods-ojtproject-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ojtproject/Pods-ojtproject-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ojtproject/Pods-ojtproject-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4DE899F555AEC852025AFE82 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -287,24 +304,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AD02E5C45DC7CEDC3838BC9B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ojtproject/Pods-ojtproject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ojtproject/Pods-ojtproject-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ojtproject/Pods-ojtproject-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B81E6382A6690AAE204FC181 /* [CP] Copy Pods Resources */ = {
+		5C46AC95B7607156F72C33AC /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -321,7 +321,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ojtproject-ojtprojectTests/Pods-ojtproject-ojtprojectTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D2C8668CBF97BD7B014378F9 /* [CP] Check Pods Manifest.lock */ = {
+		8CA7F608D61D9C7C6BD17864 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -343,7 +343,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D818D72AF6913196DFD7D480 /* [CP] Embed Pods Frameworks */ = {
+		8CF4285E4A01E8B6FE4DB434 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -360,21 +360,21 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ojtproject-ojtprojectTests/Pods-ojtproject-ojtprojectTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EC22E473B7B53C7BF66427E9 /* [CP] Copy Pods Resources */ = {
+		DB6CFE8C76B234E3C0371D8C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ojtproject/Pods-ojtproject-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ojtproject/Pods-ojtproject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ojtproject/Pods-ojtproject-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ojtproject/Pods-ojtproject-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ojtproject/Pods-ojtproject-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ojtproject/Pods-ojtproject-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -429,7 +429,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F08C5858B4ED5FE829A2054 /* Pods-ojtproject-ojtprojectTests.debug.xcconfig */;
+			baseConfigurationReference = 697CC5AE9124FA62AF332013 /* Pods-ojtproject-ojtprojectTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -456,7 +456,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C571001B3C4CFB324DC3495 /* Pods-ojtproject-ojtprojectTests.release.xcconfig */;
+			baseConfigurationReference = 07A7BE538F6C0EDAB3F8F974 /* Pods-ojtproject-ojtprojectTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -480,7 +480,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4C70C9192588765733DA7C5B /* Pods-ojtproject.debug.xcconfig */;
+			baseConfigurationReference = 2011DD95EAB10531F37D5441 /* Pods-ojtproject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -506,7 +506,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B4B1A3A851083A8B098BD845 /* Pods-ojtproject.release.xcconfig */;
+			baseConfigurationReference = 086C2A159003BA9F2420F8AF /* Pods-ojtproject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
