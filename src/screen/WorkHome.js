@@ -18,8 +18,6 @@ export default function WorkHome({ navigation, route, ...props }) {
 
 	useEffect(() => {
 		return navigation.addListener('focus', () => {
-			console.log('focused from ' + context.status);
-			// if (context.status === route.name)
 			context.setStatus(route.name);
 		});
 	}, []);
@@ -69,7 +67,7 @@ export default function WorkHome({ navigation, route, ...props }) {
 										)
 									}}
 									keyExtractor={item => item.workSn}
-									onEndReached={e => console.log(e)}
+
 								/>
 							) : (
 								<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -118,7 +116,9 @@ export default function WorkHome({ navigation, route, ...props }) {
 							},
 							{
 								value: '거리로\n작업 배정하기',
-								onPress: () => { },
+								onPress: () => {
+									navigation.navigate('WorkerAssignByLocation', { workData: selectedWorkData })
+								},
 								disable: !selectedWorkData && true,
 								fontStyle: { lineHeight: 18, fontSize: 14 },
 							},
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
 	list: {
 		flex: 1,
 		maxWidth: 512,
-		paddingTop: GS.padding
+		paddingTop: GS.padding / 2
 	},
 	backgroundFilter: {
 		position: 'absolute',

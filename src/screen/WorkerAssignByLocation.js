@@ -8,6 +8,7 @@ import WorkerBlock from '../component/WorkerBlock';
 import GS from '../GlobalStyles';
 import BottomTabMenu from '../component/BottomTabMenu';
 import SearchInput from '../component/SearchInput'
+import MapView from 'react-native-maps';
 let windowSize = Dimensions.get('window')
 
 export default function WorkerAssign({ navigation, route, ...props }) {
@@ -30,13 +31,16 @@ export default function WorkerAssign({ navigation, route, ...props }) {
         <GlobalContext.Consumer>
             {state => (
                 <View style={styles.container}>
-                    <View style={[{ flex: 1 }, onLandScape && { flexDirection: 'row', justifyContent: 'center' }]}>
+                    <View style={[{ flex: 1 }]}>
                         <View style={styles.list}>
                             <WorkBlock
                                 {...route.params.workData}
                                 navigation={navigation}
                                 route={route}
                             />
+                        </View>
+                        <View style={styles.map}>
+                            <MapView style={{ flex: 1 }} />
                         </View>
                         <View style={{ flex: 1 }}>
                             <Text style={styles.title}>배정할 작업자 선택</Text>
@@ -54,7 +58,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                                         select={workerData => setSelectedWorkerData(workerData)}
                                     />
                                 )}
-                                onEndReached={e => console.log(e)}
+
                                 keyExtractor={item => item.workerSn}
                             />
                         </View>
@@ -117,6 +121,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
     },
+    map: {
+        height: 100,
+        marginHorizontal: GS.margin,
+        marginBottom: GS.margin
+    },
     title: {
         paddingVertical: 4,
         color: GS.text_color,
@@ -131,7 +140,7 @@ const styles = StyleSheet.create({
     },
     list: {
         maxWidth: 512,
-        paddingVertical: GS.padding
+        paddingVertical: GS.padding / 2
     },
     backgroundFilter: {
         position: 'absolute',

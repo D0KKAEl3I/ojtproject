@@ -11,6 +11,7 @@ import { getHeaderTitle } from '@react-navigation/elements';
 import WorkHomeScreen from './src/screen/WorkHome';
 import WorkDetailScreen from './src/screen/WorkDetail';
 import WorkerAssignScreen from './src/screen/WorkerAssign';
+import WorkerAssignByLocScreen from './src/screen/WorkerAssignByLocation';
 import WorkerDetailScreen from './src/screen/WorkerDetail';
 import AlarmScreen from './src/screen/Alarm';
 import AlarmDetailScreen from './src/screen/AlarmDetail';
@@ -72,6 +73,7 @@ export default function App() {
 			await loadAlarmList();
 			setOnLoading(false);
 		})();
+		console.log(1);
 	}, []); // 앱 렌더링시 리스트 로딩
 
 	const getWorkerList = useCallback(async function () {
@@ -192,6 +194,14 @@ export default function App() {
 								component={WorkerAssignScreen}
 								options={{
 									title: '작업자 배정',
+									animation: 'slide_from_bottom',
+								}}
+							/>
+							<Stack.Screen
+								name="WorkerAssignByLocation"
+								component={WorkerAssignByLocScreen}
+								options={{
+									title: '거리로 작업자 배정',
 									animation: 'slide_from_bottom',
 								}}
 							/>

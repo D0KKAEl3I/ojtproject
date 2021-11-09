@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		paddingVertical: GS.padding,
 		paddingHorizontal: GS.padding + 4,
-		elevation: 8,
+		elevation: GS.elevation,
 		...GS.shadow
 	},
 	disable: {

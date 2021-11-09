@@ -88,9 +88,9 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: '#ffffff',
 		borderRadius: GS.borderRadius,
-		marginVertical: 8,
-		marginHorizontal: 16,
-		elevation: 8,
+		marginVertical: GS.margin / 2,
+		marginHorizontal: GS.margin,
+		elevation: GS.elevation,
 		...GS.shadow
 	},
 	selected: {

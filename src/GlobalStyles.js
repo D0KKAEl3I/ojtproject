@@ -14,7 +14,7 @@ const GS = {
     text_disabled_color: '#b0b0b0',
     red: '#ff0000',
     padding: 8,
-    margin: 16,
+    margin: 8,
     borderWidth: 2,
     borderColor: '#a0a0a0',
     borderRadius: 8,

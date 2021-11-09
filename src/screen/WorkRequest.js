@@ -1,15 +1,37 @@
 import 'react-native-gesture-handler';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View, Pressable } from 'react-native';
 import config from '../../com.config.json';
 import GS from '../GlobalStyles';
+import GlobalContext from '../GlobalContext';
 
 export default function WorkRequest({ navigation, route, ...props }) {
+	const context = useContext(GlobalContext)
 	const [{ workData, workerData }, setWorkRequestData] = useState({ workData: {}, workerData: {} });
 
 	useEffect(() => {
 		setWorkRequestData({ ...route.params });
+		console.log(workData);
 	}, []);
+
+	const requestWork = async () => {
+		let response;
+		try {
+			response = await fetch(config.APISERVER.URL + '/api/v1/workerRequest', {
+				method: "POST",
+				body: {
+					requesterSn: context.userData.userSn,
+					workSn: workData.workSn,
+					workerSn: workerData.workerSn
+				}
+			})
+			response = await response.json();
+			console.log(response);
+		} catch (e) {
+			console.log(e);
+			return e;
+		}
+	}
 
 	return (
 		<View style={styles.container}>
@@ -25,7 +47,7 @@ export default function WorkRequest({ navigation, route, ...props }) {
 						요청사항: 작업요청
 					</Text>
 					<Text style={styles.info}>
-						요청사유: 없음
+						요청사유: 없음
 					</Text>
 					<Text style={styles.info}>
 						작업주소: {workData.workLocation}
@@ -36,10 +58,13 @@ export default function WorkRequest({ navigation, route, ...props }) {
 					<Text style={styles.info}>
 						작업예정자: {workerData.workerName}
 					</Text>
+					<Text style={styles.info}>
+						작업자연락처: {workData.userPhoneNumber}
+					</Text>
 
 				</View>
 				<View style={{ flexDirection: 'row' }}>
-					<Pressable onPress={() => { }} style={[styles.button, { borderRightWidth: 1, borderColor: '#fff', borderBottomLeftRadius: GS.borderRadius }]}>
+					<Pressable onPress={requestWork} style={[styles.button, { borderRightWidth: 1, borderColor: '#fff', borderBottomLeftRadius: GS.borderRadius }]}>
 						<Text style={{ color: '#ffffff', fontFamily: GS.fontFamily, fontWeight: '900', fontSize: 20 }}>
 							작업 요청하기
 						</Text>

@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     list: {
         flex: 1,
         maxWidth: 512,
-        paddingTop: GS.padding
+        paddingTop: GS.padding / 2
     },
     backgroundFilter: {
         position: 'absolute',

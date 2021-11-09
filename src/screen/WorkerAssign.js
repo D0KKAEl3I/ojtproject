@@ -54,7 +54,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                                         select={workerData => setSelectedWorkerData(workerData)}
                                     />
                                 )}
-                                onEndReached={e => console.log(e)}
+
                                 keyExtractor={item => item.workerSn}
                             />
                         </View>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     },
     list: {
         maxWidth: 512,
-        paddingVertical: GS.padding
+        paddingVertical: GS.padding / 2
     },
     backgroundFilter: {
         position: 'absolute',

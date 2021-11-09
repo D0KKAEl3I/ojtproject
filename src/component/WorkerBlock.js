@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         borderRadius: GS.borderRadius,
         marginVertical: GS.margin / 2,
         marginHorizontal: GS.margin,
-        elevation: 8,
+        elevation: GS.elevation,
         ...GS.shadow
     },
     profileImage: {
