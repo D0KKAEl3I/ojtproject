@@ -5,7 +5,7 @@ import IconButton from './IconButton';
 import GlobalContext from '../GlobalContext';
 import GS from '../GlobalStyles';
 
-export default function Header({ title, navigation, route, ...props }) {
+export default function Header({ title, navigation, route, options, ...props }) {
 	const context = useContext(GlobalContext);
 
 	return (
@@ -22,12 +22,12 @@ export default function Header({ title, navigation, route, ...props }) {
 				}>
 				<Image
 					style={{ width: 36, height: 36 }}
-					source={
-						route.name === 'Alarm' || route.name === 'WorkerAssign' //알람 화면 또는 작업자 배정 화면일 때
+					source={props.back ?
+						options.animation === "slide_from_bottom" //아래에서 올라온 화면일때
 							? require('../../public/downarrow_black.png') //아래방향 화살표
-							: props.back //알람 화면이 아니지만 뒤로 돌아갈 페이지가 있을 때
-								? require('../../public/back_black.png') //왼쪽방향 화살표
-								: require('../../public/menu_black.png') //기본은 햄버거 메뉴
+							:  //아래에서 올라오지 않을 경우 모두 오른쪽에서 슬라이드된 화면이기에
+							require('../../public/back_black.png') //왼쪽방향 화살표
+						: require('../../public/menu_black.png') //기본은 햄버거 메뉴
 					}
 				/>
 			</IconButton>

@@ -8,7 +8,7 @@ import WorkerBlock from '../component/WorkerBlock';
 import GS from '../GlobalStyles';
 import BottomTabMenu from '../component/BottomTabMenu';
 import SearchInput from '../component/SearchInput'
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 let windowSize = Dimensions.get('window')
 
 export default function WorkerAssign({ navigation, route, ...props }) {
@@ -40,7 +40,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                             />
                         </View>
                         <View style={styles.map}>
-                            <MapView style={{ flex: 1 }} />
+                            <MapView style={{ flex: 1 }} provider={PROVIDER_GOOGLE} />
                         </View>
                         <View style={{ flex: 1 }}>
                             <Text style={styles.title}>배정할 작업자 선택</Text>
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     },
     list: {
         maxWidth: 512,
-        paddingTop: GS.padding / 2
+        paddingTop: GS.padding
     },
     backgroundFilter: {
         position: 'absolute',
