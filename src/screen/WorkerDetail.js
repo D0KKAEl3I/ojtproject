@@ -59,7 +59,7 @@ export default function WorkerDetail({ navigation, route, ...props }) {
 						</Text>
 						<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 							<MapView style={{ width: '100%', height: '100%' }}
-							// provider={PROVIDER_DEFAULT}
+								provider={PROVIDER_DEFAULT}
 							/>
 
 						</View>

@@ -73,7 +73,6 @@ export default function App() {
 			await loadAlarmList();
 			setOnLoading(false);
 		})();
-		console.log(1);
 	}, []); // 앱 렌더링시 리스트 로딩
 
 	const getWorkerList = useCallback(async function () {
