@@ -137,9 +137,8 @@ const styles = StyleSheet.create({
 		backgroundColor: '#f9f9fa',
 	},
 	list: {
-		flex: 1,
 		maxWidth: 512,
-		paddingTop: GS.padding / 2
+		paddingTop: GS.padding
 	},
 	backgroundFilter: {
 		position: 'absolute',

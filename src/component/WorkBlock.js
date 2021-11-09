@@ -38,6 +38,8 @@ export default function WorkBlock({ navigation, route, select = () => { }, ...pr
                     onTouchEnd={e => {
                         if (props.workState === '미배정') {
                             !props.selected ? select(props) : select(null);
+                        } else if (props.workState === '배정완료') {
+                            !props.selected ? select(props) : select(null);
                         } else {
                             select(null);
                         }
@@ -73,7 +75,7 @@ export default function WorkBlock({ navigation, route, select = () => { }, ...pr
                             {'\n'}
                         </Text>
                         <Text style={styles.info}>
-                            작업자명: {'추후에 추가'}
+                            작업자명: {props.userName}
                             {'\n'}
                         </Text>
                         <Text style={styles.info}>
@@ -94,10 +96,10 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ffffff',
         borderRadius: GS.borderRadius,
-        marginVertical: GS.margin / 2,
+        marginBottom: GS.margin,
         marginHorizontal: GS.margin,
         elevation: GS.elevation,
-        ...GS.shadow
+        ...GS.shadow,
     },
     selected: {
         backgroundColor: '#a0d9ff',

@@ -5,7 +5,7 @@ import config from '../../com.config.json';
 import GS from '../GlobalStyles';
 import GlobalContext from '../GlobalContext';
 
-export default function WorkRequest({ navigation, route, ...props }) {
+export default function CancleWorkRequest({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext)
 	const [onRequest, setOnRequest] = useState(false);
 	const [{ workData, workerData }, setWorkRequestData] = useState({ workData: {}, workerData: {} });
@@ -16,9 +16,9 @@ export default function WorkRequest({ navigation, route, ...props }) {
 
 	const requestWork = async () => {
 		setOnRequest(true)
-		let workResponse, messageResponse;
+		let response;
 		try {
-			workResponse = await fetch(config.APISERVER.URL + '/api/v1/workRequest', {
+			response = await fetch(config.APISERVER.URL + '/api/v1/workRequestCancle', {
 				method: "POST",
 				body: {
 					requesterSn: context.userData.userSn,
@@ -26,39 +26,25 @@ export default function WorkRequest({ navigation, route, ...props }) {
 					workerSn: workerData.workerSn
 				}
 			})
+			if (response.ok) {
+				Alert.alert('작업 배정 취소 완료', '작업 배정 취소 요청이 성공적으로 전송되었습니다.', [
+					{
+						text: "확인 및 뒤로가기",
+						onPress: navigation.goBack,
+						style: "default"
+					}
+				])
+				setOnRequest(false)
+			} else {
+				Alert.alert('작업 배정 취소 실패', '작업 배정 취소 요청이 전송되지 않았습니다.')
+				setOnRequest(false)
+
+			}
 		} catch (e) {
 			console.error(e);
 			return e;
 		}
-		if (workResponse.ok) {
-			try {
-				messageResponse = await fetch(config.APISERVER.URL + '/api/v1/workerAssignMessage', {
-					method: "POST",
-					body: {
-						requesterSn: context.userData.userSn,
-						workSn: workData.workSn,
-						workerSn: workerData.workerSn
-					}
-				})
-			} catch (e) {
-				console.error(e)
-				return e;
-			}
-		}
-		if (workResponse.ok && messageResponse.ok) {
-			Alert.alert('작업 요청 완료', '작업 요청이 성공적으로 전송되었습니다.', [
-				{
-					text: "확인 및 뒤로가기",
-					onPress: navigation.goBack,
-					style: "cancel"
-				}
-			])
-			setOnRequest(false)
-		} else {
-			console.log(messageResponse.status);
-			Alert.alert('작업 요청 실패', '작업 요청이 전송되지 않았습니다.')
-			setOnRequest(false)
-		}
+
 	}
 
 	return (
@@ -72,10 +58,10 @@ export default function WorkRequest({ navigation, route, ...props }) {
 						작업지점: {workData.workName}
 					</Text>
 					<Text style={styles.info}>
-						요청사항: 작업요청
+						요청사항: 작업배정취소
 					</Text>
 					<Text style={styles.info}>
-						요청사유: 없음
+						요청사유: 현장작업취소
 					</Text>
 					<Text style={styles.info}>
 						작업주소: {workData.workLocation}
@@ -99,7 +85,7 @@ export default function WorkRequest({ navigation, route, ...props }) {
 						:
 						<Pressable onPress={requestWork} style={[styles.button, { borderRightWidth: 1, borderColor: '#fff', borderBottomLeftRadius: GS.borderRadius }]}>
 							<Text style={{ color: '#ffffff', fontFamily: GS.fontFamily, fontWeight: '900', fontSize: 20 }}>
-								작업 요청하기
+								작업 취소 요청하기
 							</Text>
 						</Pressable>
 					}

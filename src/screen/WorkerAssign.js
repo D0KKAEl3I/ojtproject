@@ -12,18 +12,22 @@ let windowSize = Dimensions.get('window')
 
 export default function WorkerAssign({ navigation, route, ...props }) {
     const context = useContext(GlobalContext)
+    const [isWorkAlreadyRequested, setIsWorkAlreadyRequested] = useState()
     const [onLandScape, setOnLandScape] = useState(false); // 화면이 눕혀져있는가?
     const [onSearch, setOnSearch] = useState(false);
     const [searchData, setSearchData] = useState('');
     const [selectedWorkerData, setSelectedWorkerData] = useState(null);
 
     useEffect(() => {
-        windowSize.width > windowSize.height && setOnLandScape(true)
-        Dimensions.addEventListener('change', ({ window: { width, height } }) => {
-            windowSize = Dimensions.get('window');
-            setOnLandScape(width > height);
+        setIsWorkAlreadyRequested(route.params.workData.workState === "배정완료")
+        return navigation.addListener('focus', () => {
+            windowSize.width > windowSize.height && setOnLandScape(true)
+            Dimensions.addEventListener('change', ({ window: { width, height } }) => {
+                windowSize = Dimensions.get('window');
+                setOnLandScape(width > height);
+            })
+            context.setStatus(route.name);
         })
-        context.setStatus(route.name);
     }, [])
 
     return (
@@ -88,20 +92,17 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                                     setOnSearch(true);
                                 },
                                 disable: false,
+                                fontStyle: { fontSize: 15 }
                             },
                             {
-                                value: '작업자 요청',
-                                onPress: () => {
-                                    navigation.navigate('WorkRequest', { workData: route.params.workData, workerData: selectedWorkerData })
-                                },
-                                disable: !selectedWorkerData && true,
-                                // fontStyle: { lineHeight: 18, fontSize: 14 },
+                                value: isWorkAlreadyRequested ? "작업 취소" : "작업 배정",
+                                onPress: () => navigation.navigate(isWorkAlreadyRequested ? "CancleWorkRequest" : "WorkRequest", { workData: route.params.workData, workerData: selectedWorkerData, }),
+                                disable: !selectedWorkerData
                             },
                             {
                                 value: '작업자 변경',
-                                onPress: () => { },
-                                disable: !selectedWorkerData && true,
-                                // fontStyle: { lineHeight: 18, fontSize: 14 },
+                                onPress: () => navigation.navigate('ChangeWorker', { workData: route.params.workData, workerData: selectedWorkerData }),
+                                disable: !selectedWorkerData || route.params.workData.workState !== "배정완료",
                             },
                         ]}
                     />
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
     },
     list: {
         maxWidth: 512,
-        paddingVertical: GS.padding / 2
+        paddingTop: GS.padding
     },
     backgroundFilter: {
         position: 'absolute',
