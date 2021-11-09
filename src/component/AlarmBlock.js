@@ -88,10 +88,10 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: '#ffffff',
 		borderRadius: GS.borderRadius,
-		marginVertical: GS.margin / 2,
+		marginBottom: GS.margin,
 		marginHorizontal: GS.margin,
 		elevation: GS.elevation,
-		...GS.shadow
+		...GS.shadow,
 	},
 	selected: {
 		backgroundColor: '#a0d9ff',

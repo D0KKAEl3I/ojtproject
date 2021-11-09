@@ -18,7 +18,7 @@ const GS = {
     borderWidth: 2,
     borderColor: '#a0a0a0',
     borderRadius: 8,
-    elevation: 8,
+    elevation: 4,
     shadow: {
         shadowColor: '#505090',
         shadowRadius: 6,

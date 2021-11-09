@@ -25,6 +25,8 @@ import FilterMenu from './src/component/FilterMenu';
 import config from './com.config.json';
 import GlobalContext from './src/GlobalContext';
 import WorkRequestScreen from './src/screen/WorkRequest';
+import ChangeWorkerScreen from './src/screen/ChangeWorker';
+import CancleWorkRequestScreen from './src/screen/CancleWorkRequest';
 
 const Stack = createNativeStackNavigator();
 
@@ -73,7 +75,6 @@ export default function App() {
 			await loadAlarmList();
 			setOnLoading(false);
 		})();
-		console.log(1);
 	}, []); // 앱 렌더링시 리스트 로딩
 
 	const getWorkerList = useCallback(async function () {
@@ -217,7 +218,23 @@ export default function App() {
 								name="WorkRequest"
 								component={WorkRequestScreen}
 								options={{
-									title: '작업자에게 작업 요청',
+									title: '작업 요청',
+									animation: 'slide_from_bottom'
+								}}
+							/>
+							<Stack.Screen
+								name="CancleWorkRequest"
+								component={CancleWorkRequestScreen}
+								options={{
+									title: '작업 취소',
+									animation: 'slide_from_bottom'
+								}}
+							/>
+							<Stack.Screen
+								name="ChangeWorker"
+								component={ChangeWorkerScreen}
+								options={{
+									title: '작업자 변경',
 									animation: 'slide_from_bottom'
 								}}
 							/>

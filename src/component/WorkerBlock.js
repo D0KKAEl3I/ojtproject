@@ -18,7 +18,7 @@ export default function WorkerBlock({ navigation, route, select = () => { }, ...
                     </View>
                     <View style={styles.infoContainer}>
                         <View style={styles.title}>
-                            <Text style={styles.titleText}>{props.workerName}</Text>
+                            <Text style={styles.titleText}>{props.workerName} 작업자</Text>
                             <IconButton
                                 onPress={() =>
                                     navigation.navigate('WorkerDetail', {
@@ -70,10 +70,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#ffffff',
         borderRadius: GS.borderRadius,
-        marginVertical: GS.margin / 2,
+        marginBottom: GS.margin,
         marginHorizontal: GS.margin,
         elevation: GS.elevation,
-        ...GS.shadow
+        ...GS.shadow,
     },
     profileImage: {
         width: 100,
