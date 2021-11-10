@@ -3,18 +3,20 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import IconButton from './IconButton';
 import GlobalContext from '../GlobalContext';
-import GS from '../GlobalStyles';
+import GS, { BS } from '../GlobalStyles';
+import ContentView from './ContentView';
 
 export default function WorkerBlock({ navigation, route, select = () => { }, ...props }) {
     return (
+        //블록이 특수하게 생겨서 Block 컴포넌트로 감싸지 않았음.
         <GlobalContext.Consumer>
             {state => (
-                <View style={[styles.container, props.selected && styles.selected]}
+                <ContentView style={[{ flexDirection: 'row', paddingHorizontal: 0 }, props.selected && styles.selected]}
                     onTouchEnd={e => {
                         !props.selected ? select(props) : select(null);
                     }}>
                     <View style={styles.profileImage}>
-                        <Text style={{ fontWeight: '900', color: '#eee' }}>{props.workerNickname}</Text>
+                        <Text style={{ fontWeight: GS.font_weight.bold, color: '#eee' }}>{props.workerNickname}</Text>
                     </View>
                     <View style={styles.infoContainer}>
                         <View style={styles.title}>
@@ -26,13 +28,13 @@ export default function WorkerBlock({ navigation, route, select = () => { }, ...
                                         workerData: props,
                                     })
                                 }
-                                size={48}>
+                            >
                                 <View
                                     style={styles.openButton}
                                     onTouchEnd={e => e.stopPropagation()}>
                                     <Image
                                         style={{ width: '100%', height: '100%', opacity: 0.7 }}
-                                        source={require('../../public/next_black.png')}
+                                        source={require('../../public/forward_black.png')}
                                     />
                                 </View>
                             </IconButton>
@@ -59,22 +61,14 @@ export default function WorkerBlock({ navigation, route, select = () => { }, ...
                             </Text>
                         </Text>
                     </View>
-                </View>
+                </ContentView>
             )}
         </GlobalContext.Consumer >
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        backgroundColor: '#ffffff',
-        borderRadius: GS.borderRadius,
-        marginBottom: GS.margin,
-        marginHorizontal: GS.margin,
-        elevation: GS.elevation,
-        ...GS.shadow,
-    },
+    ...BS,
     profileImage: {
         width: 100,
         borderTopLeftRadius: GS.borderRadius,
@@ -85,40 +79,6 @@ const styles = StyleSheet.create({
     },
     infoContainer: {
         flex: 1,
-    },
-    selected: {
-        backgroundColor: '#a0d9ff',
-    },
-    title: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: GS.padding * 2,
-        borderBottomColor: GS.borderColor,
-        borderBottomWidth: 2,
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8
-    },
-    titleText: {
-        fontSize: 24,
-        fontWeight: '900',
-        color: GS.text_color,
-        fontFamily: GS.fontFamily,
-    },
-    openButton: {
-        width: 40,
-        height: 40,
-        borderRadius: 999,
-    },
-    body: {
-        paddingVertical: 4,
-        paddingHorizontal: GS.padding * 2,
-    },
-    info: {
-        width: '100%',
-        fontSize: 20,
-        fontFamily: GS.fontFamily,
-        color: GS.text_color,
-        lineHeight: Platform.OS === "ios" ? 28 : null
+        paddingHorizontal: GS.padding_horizontal
     }
 });

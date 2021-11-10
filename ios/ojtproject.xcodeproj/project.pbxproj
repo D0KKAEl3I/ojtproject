@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ojtprojectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ojtprojectTests.m */; };
+		10A31854273B608B00E01521 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 10A31853273B608B00E01521 /* Fonts */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -32,6 +33,7 @@
 		00E356F21AD99517003FC87E /* ojtprojectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ojtprojectTests.m; sourceTree = "<group>"; };
 		07A7BE538F6C0EDAB3F8F974 /* Pods-ojtproject-ojtprojectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ojtproject-ojtprojectTests.release.xcconfig"; path = "Target Support Files/Pods-ojtproject-ojtprojectTests/Pods-ojtproject-ojtprojectTests.release.xcconfig"; sourceTree = "<group>"; };
 		086C2A159003BA9F2420F8AF /* Pods-ojtproject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ojtproject.release.xcconfig"; path = "Target Support Files/Pods-ojtproject/Pods-ojtproject.release.xcconfig"; sourceTree = "<group>"; };
+		10A31853273B608B00E01521 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* ojtproject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ojtproject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ojtproject/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ojtproject/AppDelegate.m; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				10A31853273B608B00E01521 /* Fonts */,
 				13B07FAE1A68108700A75B9A /* ojtproject */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* ojtprojectTests */,
@@ -145,7 +148,6 @@
 				697CC5AE9124FA62AF332013 /* Pods-ojtproject-ojtprojectTests.debug.xcconfig */,
 				07A7BE538F6C0EDAB3F8F974 /* Pods-ojtproject-ojtprojectTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -243,6 +245,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10A31854273B608B00E01521 /* Fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);

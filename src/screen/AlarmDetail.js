@@ -1,13 +1,15 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, Pressable, Linking } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View, Pressable, Linking, ScrollView } from 'react-native';
 import config from '../../com.config.json';
 import GlobalContext from '../GlobalContext';
 import GS from '../GlobalStyles';
+import ContentView from '../component/ContentView';
+import TitleText from '../component/TitleText';
 
 export default function AlarmDetail({ navigation, route, ...props }) {
 	const [onLoading, setOnLoading] = useState(false);
-	const [workDetailInfo, setWorkDetailInfo] = useState({});
+	const [alarmDetailInfo, setAlarmDetailInfo] = useState({});
 
 	const context = useContext(GlobalContext);
 
@@ -24,13 +26,14 @@ export default function AlarmDetail({ navigation, route, ...props }) {
 					},
 				});
 				response = await response.json();
-				setWorkDetailInfo({ ...response, ...route.params.workData });
+				setAlarmDetailInfo({ ...route.params.workData, ...response });
 			} catch (e) {
 				console.log(e);
 			} finally {
 				setOnLoading(false);
 			}
 		})();
+		console.log(alarmDetailInfo);
 	}, []);
 
 	return (
@@ -39,79 +42,89 @@ export default function AlarmDetail({ navigation, route, ...props }) {
 				<ActivityIndicator size="large" style={{ flex: 1 }} />
 			) : (
 				<View style={styles.content}>
-					<View style={styles.title}>
-						<Text style={styles.titleText}>{workDetailInfo.messageMemo}</Text>
-					</View>
-					<Text style={styles.body}>
-						<Text style={styles.info}>
-							작업지점: {'지점명'}
-							{'\n'}
-						</Text>
-						<Text style={styles.info}>
-							알림사항: {workDetailInfo.messageMemo}
-							{'\n'}
-						</Text>
-						<Text style={styles.info}>
-							알림사유: {workDetailInfo.messageReason}
-							{'\n'}
-						</Text>
-						<Text style={styles.info}>
-							작업주소: {workDetailInfo.workLocation}
-							{'\n'}
-						</Text>
-						<Text style={styles.info}>
-							{workDetailInfo.workState === '작업완료'
-								? `작업완료일: ${workDetailInfo.workCompleteDate ?? '미정'}\n`
-								: `작업예정일: ${workDetailInfo.workDueDate ?? '미정'}\n`}
-						</Text>
-						<Text style={styles.info}>
-							{workDetailInfo.workState === '작업완료'
-								? `완료작업자: ${workDetailInfo.userName ?? '미정'}\n`
-								: `예정작업자: ${workDetailInfo.userName ?? '미정'}\n`}
-						</Text>
-						<Text style={styles.info}>
-							작업자 전화번호:{' '}
-							{
-								<Text
-									style={{
-										fontSize: 24,
-										color: workDetailInfo.userPhoneNumber ? '#0000aa' : '#000',
-										textDecorationColor: '#0000aa',
-										textDecorationLine: workDetailInfo.userPhoneNumber
-											? 'underline'
-											: 'none',
-									}}
-								/* onPress={ workDetailInfo.userPhoneNumber && () => Linking.openURL(`tel:${workDetailInfo.userPhoneNumber}`)}*/
-								>
-									{workDetailInfo.userPhoneNumber ?? '정보 없음'}
+					<TitleText>
+						{`${alarmDetailInfo.workState} 알림`}
+					</TitleText>
+					<ScrollView>
+						<ContentView  >
+							<View style={styles.info}>
+								<Text style={styles.infoName}>작업 지점</Text>
+								<Text style={styles.infoText}>
+									{/* {alarmDetailInfo.} */}
+									없음
 								</Text>
-							}
-						</Text>
-					</Text>
-					<View
-						style={{
-							flexDirection: 'row',
-							justifyContent: 'space-around',
-							width: 300,
-						}}>
-						<Pressable style={styles.button}>
-							<Text
-								style={{ color: '#ffffff', fontWeight: '900', fontSize: 20 }}>
-								{workDetailInfo.messageMemo === '작업거절' ||
-									workDetailInfo.messageMemo === '수락취소'
-									? '작업자 재배정'
-									: '작업내용 확인'}
-							</Text>
-						</Pressable>
-						<Pressable onPress={navigation.goBack} style={styles.button}>
-							<Text
-								style={{ color: '#ffffff', fontWeight: '900', fontSize: 20 }}>
-								돌아가기
-							</Text>
-						</Pressable>
-					</View>
+							</View>
+							<View style={styles.info}>
+								<Text style={styles.infoName}>알림 사항</Text>
+								<Text style={styles.infoText}>
+									{alarmDetailInfo.messageMemo}
+								</Text>
+							</View>
+							<View style={styles.info}>
+								<Text style={styles.infoName}>알림 사유</Text>
+								<Text style={styles.infoText}>
+									{alarmDetailInfo.messageReason}
+								</Text>
+							</View>
+							<View style={styles.info}>
+								<Text style={styles.infoName}>작업 주소</Text>
+								<Text style={styles.infoText}>
+									{alarmDetailInfo.workLocation || '없음'}
+								</Text>
+							</View>
+							<View style={styles.info}>
+								<Text style={styles.infoName}>
+									{alarmDetailInfo.messageMemo === '작업완료' ?
+										"작업완료일" : "작업예정일"}
+								</Text>
+								<Text style={styles.infoText}>
+									{alarmDetailInfo.messageMemo === '작업완료' ?
+										alarmDetailInfo.workCompleteDate || '없음'
+										:
+										alarmDetailInfo.workDueDate || '없음'}
+								</Text>
+							</View>
+							<View style={styles.info}>
+								<Text style={styles.infoName}>작업자 연락처
+								</Text>
+								<Text style={styles.infoText}>
+									{
+										<Text
+											style={{
+												fontSize: 24,
+												color: '#0000aa',
+												textDecorationColor: '#0000aa',
+												textDecorationLine: 'underline',
+											}}
+										>
+											{alarmDetailInfo.userPhoneNumber || '없음'}
+										</Text>
+									}
+								</Text>
+							</View>
+						</ContentView>
+
+					</ScrollView>
 				</View>
 			)}
+			<View style={{ flexDirection: 'row' }}>
+				<Pressable onPress={navigation.goBack} style={[styles.button, { borderBottomRightRadius: 0, borderRightWidth: 1, borderColor: GS.background_color }]}>
+					<Text style={{ color: '#ffffff', fontWeight: GS.font_weight.bold, fontSize: 20 }}>
+						{alarmDetailInfo.messageMemo === '작업거절' ||
+							alarmDetailInfo.messageMemo === '수락취소'
+							? '작업자 재배정'
+							: '작업내용 확인'}
+					</Text>
+				</Pressable>
+				<Pressable style={[styles.button, { borderBottomLeftRadius: 0, borderLeftWidth: 1, borderColor: GS.background_color }]}>
+					<Text style={{ color: '#ffffff', fontWeight: GS.font_weight.bold, fontSize: 20 }}>
+						{alarmDetailInfo.messageMemo === '작업거절' ||
+							alarmDetailInfo.messageMemo === '수락취소'
+							? '작업자 재배정'
+							: '작업내용 확인'}
+					</Text>
+				</Pressable>
+			</View >
 		</View>
 	);
 }
@@ -119,53 +132,46 @@ export default function AlarmDetail({ navigation, route, ...props }) {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		padding: GS.padding,
 		justifyContent: 'center',
-		alignItems: 'center',
 	},
 	content: {
-		width: '100%',
+		flex: 1,
 		maxWidth: 512,
-		backgroundColor: '#ffffff',
-		...GS.shadow,
-		borderRadius: GS.borderRadius,
-		alignItems: 'center',
 	},
 	title: {
-		flexDirection: 'row',
-		width: '100%',
-		alignItems: 'center',
-		paddingVertical: 8,
-		borderBottomWidth: 2,
-		borderBottomColor: GS.borderColor,
-		borderTopLeftRadius: 12,
-		borderTopRightRadius: 12,
-	},
-	titleText: {
-		width: '100%',
-		textAlign: 'center',
-		fontSize: 28,
-		fontFamily: GS.fontFamily,
-		fontWeight: '900',
+		margin: GS.margin,
+		paddingTop: GS.padding,
+		paddingHorizontal: GS.padding_horizontal,
+		fontSize: 24,
+		fontFamily: GS.font_family,
+		fontWeight: GS.font_weight.bold,
 		color: GS.text_color,
-	},
-	body: {
-		width: '100%',
-		paddingVertical: 4,
-		paddingHorizontal: 12,
 	},
 	info: {
-		width: '100%',
-		fontSize: 24,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center'
+	},
+	infoName: {
 		color: GS.text_color,
-		lineHeight: Platform.OS === "ios" ? 28 : null
+		fontFamily: GS.font_family,
+		fontSize: 20,
+		fontWeight: GS.font_weight.regular,
+	},
+	infoText: {
+		color: GS.text_color,
+		fontFamily: GS.font_family,
+		fontSize: 24,
+		fontWeight: GS.font_weight.regular,
+		paddingVertical: GS.padding,
 	},
 	button: {
-		backgroundColor: '#4099ff',
-		borderRadius: GS.borderRadius,
-		paddingVertical: 16,
-		paddingHorizontal: 16,
-		marginVertical: 12,
+		flex: 1,
+		height: 48,
+		backgroundColor: GS.active_color,
+		borderBottomLeftRadius: GS.borderRadius,
+		borderBottomRightRadius: GS.borderRadius,
+		paddingVertical: GS.padding,
 		alignItems: 'center',
 		justifyContent: 'center',
 	},

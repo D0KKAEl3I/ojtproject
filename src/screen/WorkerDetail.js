@@ -65,7 +65,7 @@ export default function WorkerDetail({ navigation, route, ...props }) {
 						</View>
 					</View>
 					<Pressable onPress={navigation.goBack} style={styles.button}>
-						<Text style={{ color: '#ffffff', fontFamily: GS.fontFamily, fontWeight: '900', fontSize: 20 }}>
+						<Text style={{ color: '#ffffff', fontFamily: GS.font_family, fontWeight: GS.font_weight.bold, fontSize: 20 }}>
 							돌아가기
 						</Text>
 					</Pressable>
@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
 	},
 	titleText: {
 		fontSize: 28,
-		fontFamily: GS.fontFamily,
-		fontWeight: '900',
+		fontFamily: GS.font_family,
+		fontWeight: GS.font_weight.bold,
 		color: GS.text_color,
 	},
 	body: {
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
 		marginTop: GS.margin / 2
 	},
 	info: {
-		paddingVertical: GS.padding / 2,
+		paddingVertical: GS.padding,
 		fontSize: 24,
 		color: GS.text_color,
 		lineHeight: Platform.OS === "ios" ? 28 : null

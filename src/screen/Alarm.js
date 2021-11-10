@@ -107,8 +107,7 @@ export default function Alarm({ navigation, route, ...props }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        backgroundColor: '#f9f9fa',
+        backgroundColor: GS.background_color,
     },
     list: {
         maxWidth: 512,

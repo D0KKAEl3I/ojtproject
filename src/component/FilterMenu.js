@@ -5,6 +5,7 @@ import CalendarPicker from 'react-native-calendar-picker';
 import GlobalContext from '../GlobalContext';
 import GS from '../GlobalStyles';
 import { TextInput } from 'react-native-gesture-handler';
+import ContentView from './ContentView';
 let filterMenuHeight = 408 // 메뉴 전체 높이 360 + 확인버튼 높이 48
 const animDuration = 200 // 애니메이션 지속 시간
 let windowSize = Dimensions.get("window");
@@ -96,7 +97,7 @@ export default function FilterMenu(props) {
 				style={[styles.menu, { transform: [{ translateY: slideAnim }] }]}>
 				{/* 메뉴 제목 및 초기화 버튼 */}
 				<View style={styles.title}>
-					<Text style={{ fontSize: 22, fontWeight: '900', color: GS.text_color }}>작업 검색 필터</Text>
+					<Text style={{ fontSize: 22, fontWeight: GS.font_weight.bold, color: GS.text_color }}>작업 검색 필터</Text>
 					<Button title="초기화"
 						onPress={() => {
 							context.setFilter({
@@ -160,25 +161,25 @@ export default function FilterMenu(props) {
 
 function Input({ title, placeholder = "", defaultValue, onChangeText }) {
 	return (
-		<View style={styles.option} >
+		<ContentView style={styles.option} >
 			<Text style={styles.label}>{title}</Text>
 			<TextInput style={styles.input}
 				defaultValue={defaultValue}
 				placeholder={placeholder || title}
 				placeholderTextColor={GS.borderColor}
 				onChangeText={onChangeText} />
-		</View>
+		</ContentView>
 	);
 }
 function DateInput({ title, date, onPressButton }) {
 	return (
-		<View style={styles.option} >
+		<ContentView style={styles.option} >
 			<Text style={styles.label}>{title}</Text>
 			<View style={styles.dateContainer}>
 				<Text style={[styles.date, { color: date ? GS.text_color : GS.borderColor }]}>{date || "날짜를 선택해주세요"}</Text>
 				<Button title="선택" onPress={onPressButton} />
 			</View>
-		</View>
+		</ContentView>
 	);
 }
 function Calendar({ date, onSubmit, onCancle }) {
@@ -206,7 +207,7 @@ function Calendar({ date, onSubmit, onCancle }) {
 const styles = StyleSheet.create({
 	container: {
 		position: 'absolute',
-		top: 47,
+		top: 40,
 		bottom: 0,
 		left: 0,
 		right: 0,
@@ -219,7 +220,7 @@ const styles = StyleSheet.create({
 		top: 0,
 		left: 0,
 		right: 0,
-		backgroundColor: '#ffffff',
+		backgroundColor: GS.background_color,
 		transform: [{ translateY: -filterMenuHeight }],
 		zIndex: 2,
 	},
@@ -227,18 +228,21 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		paddingVertical: 8,
-		paddingHorizontal: 16
+		marginVertical: GS.margin,
+		marginHorizontal: GS.margin,
+		paddingHorizontal: GS.padding
 	},
 	option: {
+
 		flexDirection: 'column',
 		justifyContent: 'flex-start',
 		padding: GS.padding
 	},
 	label: {
-		marginHorizontal: 8,
-		paddingBottom: 4,
+		marginBottom: 4,
+		fontFamily: GS.font_family,
 		fontSize: 20,
+		fontWeight: GS.font_weight.regular,
 		color: GS.text_color,
 		borderBottomColor: '#a0a0a0',
 		borderBottomWidth: 2,
@@ -246,20 +250,15 @@ const styles = StyleSheet.create({
 	input: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		paddingVertical: 4,
-		paddingHorizontal: GS.padding,
-		marginVertical: 4,
-		marginHorizontal: 8,
+		fontFamily: GS.font_family,
 		fontSize: 18,
-		borderWidth: 2,
-		borderColor: '#000a',
-		borderRadius: GS.borderRadius
+		fontWeight: GS.font_weight.regular,
+
 	},
 	dateContainer: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		marginHorizontal: 8
 	},
 	date: {
 		fontSize: 18
@@ -280,7 +279,7 @@ const styles = StyleSheet.create({
 		color: '#ffffff',
 		textAlign: 'center',
 		fontSize: 16,
-		fontWeight: '900',
+		fontWeight: GS.font_weight.bold,
 	},
 	calendar: {
 		justifyContent: 'center',

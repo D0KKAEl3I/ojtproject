@@ -39,7 +39,7 @@ export default function SearchInput({ onSubmit, onClose, defaultValue, label, ..
 					style={styles.inputText}
 					placeholder="원하는 키워드를 입력해주세요"
 				/>
-				<IconButton size={40} onPress={() => onSubmit(searchInput)}>
+				<IconButton onPress={() => onSubmit(searchInput)}>
 					<Image
 						style={{ width: 40, height: 40 }}
 						source={require('../../public/search_black.png')}
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		fontSize: 18,
 		color: GS.text_color,
-		fontWeight: '900',
+		fontWeight: GS.font_weight.bold,
 	},
 	input: {
 		marginHorizontal: 8,

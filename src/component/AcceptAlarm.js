@@ -78,12 +78,12 @@ export default function AcceptAlarm({ data, goBack, ...props }) {
 					width: 300,
 				}}>
 				<Pressable style={styles.button}>
-					<Text style={{ color: '#ffffff', fontWeight: '900', fontSize: 20 }}>
+					<Text style={{ color: '#ffffff', fontWeight: GS.font_weight.bold, fontSize: 20 }}>
 						알림 수락
 					</Text>
 				</Pressable>
 				<Pressable onPress={goBack} style={styles.button}>
-					<Text style={{ color: '#ffffff', fontWeight: '900', fontSize: 20 }}>
+					<Text style={{ color: '#ffffff', fontWeight: GS.font_weight.bold, fontSize: 20 }}>
 						닫기
 					</Text>
 				</Pressable>
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		textAlign: 'center',
 		fontSize: 28,
-		fontWeight: '900',
+		fontWeight: GS.font_weight.bold,
 		color: '#404040',
 	},
 	body: {

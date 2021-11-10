@@ -1,9 +1,8 @@
 import 'react-native-gesture-handler';
-import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import IconButton from './IconButton';
-import GlobalContext from '../GlobalContext';
-import GS from '../GlobalStyles';
+import React, { useEffect, useState } from 'react';
+import { Text } from 'react-native';
+import { BS } from '../GlobalStyles';
+import Block from './Block';
 
 export default function AlarmBlock({ navigation, route, select, ...props }) {
 	const [workStateColor, setWorkStateColor] = useState('#404040');
@@ -27,104 +26,30 @@ export default function AlarmBlock({ navigation, route, select, ...props }) {
 		}
 	}, []);
 
-	const context = useContext(GlobalContext);
-
 	return (
-		<GlobalContext.Consumer>
-			{state => (
-				<View
-					style={[styles.container, props.selected && styles.selected]}
-					onTouchEnd={e => (!props.selected ? select(props) : select(null))}>
-					<View style={styles.title}>
-						<Text style={styles.titleText}>
-							알림{props.messageSn} / {props.messageDate}
-						</Text>
-						<IconButton
-							onPress={() =>
-								navigation.navigate('AlarmDetail', {
-									userData: state.userData,
-									workData: props,
-								})
-							}
-							size={48}>
-							<View
-								style={styles.openButton}
-								onTouchEnd={e => e.stopPropagation()}>
-								<Image
-									style={{ width: '100%', height: '100%', opacity: 0.7 }}
-									source={require('../../public/next_black.png')}
-								/>
-							</View>
-						</IconButton>
-					</View>
-					<Text style={styles.body}>
-						<Text style={[styles.info, { color: workStateColor }]}>
-							작업상태: {props.workState}
-							{'\n'}
-						</Text>
-						<Text style={styles.info}>
-							작업주소: {props.workLocation ?? '정보 없음'}
-							{'\n'}
-						</Text>
-						<Text style={styles.info}>
-							작업자명: {props.userName ?? '정보 없음'}
-							{'\n'}
-						</Text>
-						<Text style={styles.info}>
-							작업예정일: {props.workDueDate ?? '미정'}
-							{'\n'}
-						</Text>
-						<Text style={styles.info}>
-							작업완료일: {props.workCompleteDate ?? '미정'}
-						</Text>
-					</Text>
-				</View>
-			)}
-		</GlobalContext.Consumer>
+		<Block
+			navigation={navigation}
+			route={route}
+			title={`알림 / ${props.messageDate}`}
+			onTouchEnd={() => !props.selected ? select(props) : select(null)}
+			toDetail={{ screenName: "AlarmDetail", params: { workData: props } }}
+			selected={props.selected}>
+			<Text style={[styles.info, { color: workStateColor }]}>
+				작업상태: {props.workState}
+			</Text>
+			<Text style={styles.info}>
+				작업주소: {props.workLocation ?? '정보 없음'}
+			</Text>
+			<Text style={styles.info}>
+				작업자명: {props.userName ?? '정보 없음'}
+			</Text>
+			<Text style={styles.info}>
+				{props.workState === '작업완료'
+					? `작업완료일: ${props.workCompleteDate ?? '미정'}`
+					: `작업예정일: ${props.workDueDate ?? '미정'}`}
+			</Text>
+		</Block>
 	);
 }
 
-const styles = StyleSheet.create({
-	container: {
-		backgroundColor: '#ffffff',
-		borderRadius: GS.borderRadius,
-		marginBottom: GS.margin,
-		marginHorizontal: GS.margin,
-		elevation: GS.elevation,
-		...GS.shadow,
-	},
-	selected: {
-		backgroundColor: '#a0d9ff',
-	},
-	title: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		paddingHorizontal: GS.padding * 2,
-		borderBottomColor: GS.borderColor,
-		borderBottomWidth: 2,
-		borderTopLeftRadius: 8,
-		borderTopRightRadius: 8
-	},
-	titleText: {
-		fontSize: 24,
-		fontWeight: '900',
-		color: GS.text_color,
-		fontFamily: GS.fontFamily,
-	},
-	openButton: {
-		width: 40,
-		height: 40,
-		borderRadius: 999,
-	},
-	body: {
-		paddingVertical: 4,
-		paddingHorizontal: GS.padding * 2,
-	},
-	info: {
-		width: '100%',
-		fontSize: 20,
-		color: GS.text_color,
-		lineHeight: Platform.OS === "ios" ? 28 : null
-	},
-});
+const styles = BS;

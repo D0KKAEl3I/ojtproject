@@ -37,13 +37,11 @@ const styles = StyleSheet.create({
 	container: {
 		width: '100%',
 		height: 60,
-		backgroundColor: '#ffffff',
+		backgroundColor: GS.background_color,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		paddingVertical: GS.padding,
 		paddingHorizontal: GS.padding + 4,
-		elevation: GS.elevation,
-		...GS.shadow
 	},
 	disable: {
 		backgroundColor: GS.disabled_color,
@@ -53,7 +51,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		maxWidth: 150,
-		// height: '100%',
 		backgroundColor: '#4099ff',
 		borderRadius: GS.borderRadius,
 		marginHorizontal: GS.padding / 2,
@@ -65,7 +62,8 @@ const styles = StyleSheet.create({
 		color: '#ffffff',
 		textAlign: 'center',
 		fontSize: 16,
-		fontWeight: '900',
+		fontFamily: GS.font_family,
+		fontWeight: GS.font_weight.bold,
 	},
 	disabledText: {
 		color: GS.text_disabled_color,

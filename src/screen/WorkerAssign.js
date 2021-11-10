@@ -8,6 +8,7 @@ import WorkerBlock from '../component/WorkerBlock';
 import GS from '../GlobalStyles';
 import BottomTabMenu from '../component/BottomTabMenu';
 import SearchInput from '../component/SearchInput'
+import TitleText from '../component/TitleText';
 let windowSize = Dimensions.get('window')
 
 export default function WorkerAssign({ navigation, route, ...props }) {
@@ -42,8 +43,10 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                                 route={route}
                             />
                         </View>
-                        <View style={{ flex: 1 }}>
-                            <Text style={styles.title}>배정할 작업자 선택</Text>
+                        <View >
+                            <TitleText style={{ marginTop: 0 }}>
+                                배정할 작업자 선택
+                            </TitleText>
                             <FlatList
                                 style={styles.list}
                                 data={state.workerList}
@@ -119,20 +122,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     title: {
-        paddingVertical: 4,
+        marginBottom: GS.margin,
         color: GS.text_color,
         fontSize: 22,
-        fontWeight: '900',
-        fontFamily: GS.fontFamily,
+        fontWeight: GS.font_weight.bold,
+        fontFamily: GS.font_family,
         textAlign: 'center',
-        backgroundColor: '#fff',
-        elevation: GS.elevation,
-        ...GS.shadow,
         zIndex: 9
     },
     list: {
         maxWidth: 512,
-        paddingTop: GS.padding
     },
     backgroundFilter: {
         position: 'absolute',

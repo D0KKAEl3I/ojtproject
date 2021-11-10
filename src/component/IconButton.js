@@ -6,12 +6,12 @@ export default function HeaderButton({
 	size,
 	onPress,
 	children,
-	style,
+	style = {},
 	...props
 }) {
 	return (
 		<Pressable
-			style={[styles.container, { width: size, height: size }, style ?? {}]}
+			style={[styles.container, style]}
 			onPress={onPress}>
 			{children}
 		</Pressable>

@@ -71,7 +71,7 @@ export default function WorkHome({ navigation, route, ...props }) {
 								/>
 							) : (
 								<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-									<Text style={{ fontFamily: GS.fontFamily }}>조회된 작업이 없네요 :(</Text>
+									<Text style={{ fontFamily: GS.font_family }}>조회된 작업이 없네요 :(</Text>
 								</View>
 							)
 						})()}
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: 'center',
-		backgroundColor: '#f9f9fa',
+		backgroundColor: GS.background_color,
 	},
 	list: {
 		maxWidth: 512,

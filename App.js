@@ -27,6 +27,7 @@ import GlobalContext from './src/GlobalContext';
 import WorkRequestScreen from './src/screen/WorkRequest';
 import ChangeWorkerScreen from './src/screen/ChangeWorker';
 import CancleWorkRequestScreen from './src/screen/CancleWorkRequest';
+import GS from './src/GlobalStyles';
 
 const Stack = createNativeStackNavigator();
 
@@ -137,10 +138,10 @@ export default function App() {
 			<StatusBar
 				translucent={true}
 				barStyle="dark-content"
-				backgroundColor="#fff"
+				backgroundColor={GS.background_color}
 			/>
 			<ActivityIndicator size="large" />
-			<Text style={{ fontWeight: '900', fontSize: 18 }}>로딩 중입니다...</Text>
+			<Text style={{ fontWeight: GS.font_weight.bold, fontSize: 18 }}>로딩 중입니다...</Text>
 		</SafeAreaView>
 	) : (
 		<GlobalContext.Provider
@@ -151,7 +152,7 @@ export default function App() {
 				<StatusBar
 					translucent
 					barStyle="dark-content"
-					backgroundColor="#fff"
+					backgroundColor={GS.background_color}
 				/>
 				<View style={{ flex: 1 }}>
 					{onMenu && <SideMenu setOnMenu={setOnMenu} />}
@@ -195,7 +196,7 @@ export default function App() {
 								component={WorkerAssignScreen}
 								options={{
 									title: '작업자 배정',
-									animation: 'slide_from_bottom',
+									animation: 'slide_from_right',
 								}}
 							/>
 							<Stack.Screen
@@ -203,7 +204,7 @@ export default function App() {
 								component={WorkerAssignByLocScreen}
 								options={{
 									title: '거리로 작업자 배정',
-									animation: 'slide_from_bottom',
+									animation: 'slide_from_right',
 								}}
 							/>
 							<Stack.Screen
@@ -219,7 +220,7 @@ export default function App() {
 								component={WorkRequestScreen}
 								options={{
 									title: '작업 요청',
-									animation: 'slide_from_bottom'
+									animation: 'slide_from_right'
 								}}
 							/>
 							<Stack.Screen
@@ -227,7 +228,7 @@ export default function App() {
 								component={CancleWorkRequestScreen}
 								options={{
 									title: '작업 취소',
-									animation: 'slide_from_bottom'
+									animation: 'slide_from_right'
 								}}
 							/>
 							<Stack.Screen
@@ -243,7 +244,7 @@ export default function App() {
 								component={AlarmScreen}
 								options={{
 									title: '작업 알림',
-									animation: 'slide_from_bottom',
+									animation: 'slide_from_right',
 								}}
 							/>
 							<Stack.Screen
@@ -266,6 +267,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		width: '100%',
 		height: '100%',
-		backgroundColor: '#fff'
+		backgroundColor: GS.background_color
 	},
 });

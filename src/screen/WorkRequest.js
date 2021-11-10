@@ -98,13 +98,13 @@ export default function WorkRequest({ navigation, route, ...props }) {
 						</Pressable>
 						:
 						<Pressable onPress={requestWork} style={[styles.button, { borderRightWidth: 1, borderColor: '#fff', borderBottomLeftRadius: GS.borderRadius }]}>
-							<Text style={{ color: '#ffffff', fontFamily: GS.fontFamily, fontWeight: '900', fontSize: 20 }}>
+							<Text style={{ color: '#ffffff', fontFamily: GS.font_family, fontWeight: GS.font_weight.bold, fontSize: 20 }}>
 								작업 요청하기
 							</Text>
 						</Pressable>
 					}
 					<Pressable onPress={navigation.goBack} style={[styles.button, { borderLeftWidth: 1, borderColor: '#fff', borderBottomRightRadius: GS.borderRadius }]}>
-						<Text style={{ color: '#ffffff', fontFamily: GS.fontFamily, fontWeight: '900', fontSize: 20 }}>
+						<Text style={{ color: '#ffffff', fontFamily: GS.font_family, fontWeight: GS.font_weight.bold, fontSize: 20 }}>
 							돌아가기
 						</Text>
 					</Pressable>
@@ -140,8 +140,8 @@ const styles = StyleSheet.create({
 	},
 	titleText: {
 		fontSize: 28,
-		fontFamily: GS.fontFamily,
-		fontWeight: '900',
+		fontFamily: GS.font_family,
+		fontWeight: GS.font_weight.bold,
 		color: GS.text_color,
 	},
 	body: {

@@ -1,22 +1,26 @@
-import { Platform } from "react-native"
+import { Platform, StyleSheet } from "react-native"
 
 const GS = {
     active_color: '#4099ff',
-    ghost: {
-        borderRadius: 8,
-        backgroundColor: '#ffffff',
-        borderWidth: 2,
-        borderColor: '#4099ff',
-    },
-    fontFamily: Platform.OS === "ios" ? "ArialMT" : "sansserif",
     disabled_color: '#e0e0e0',
+    background_color: '#f0f0f0',
+    pressed_color: '#dadada',
     text_color: '#505050',
     text_disabled_color: '#b0b0b0',
-    red: '#ff0000',
+    distructive_color: '#ff0000',
+    font_family: 'Noto Sans KR',
+    font_weight: {
+        light: '300',
+        regular: '500',
+        bold: '700',
+        bolder: '800',
+        boldest: '900'
+    },
     padding: 8,
+    padding_horizontal: 16,
     margin: 8,
     borderWidth: 2,
-    borderColor: '#a0a0a0',
+    borderColor: '#d0d0d0',
     borderRadius: 8,
     elevation: 4,
     shadow: {
@@ -26,4 +30,41 @@ const GS = {
         shadowOpacity: 0.2
     }
 }
+
+const BlockStyle = StyleSheet.create({
+    selected: {
+        backgroundColor: '#a0d9ff',
+    },
+    title: {
+        height: 40,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottomColor: GS.borderColor,
+        borderBottomWidth: 2,
+    },
+    titleText: {
+        fontSize: 24,
+        fontWeight: GS.font_weight.bold,
+        color: GS.text_color,
+        fontFamily: GS.font_family,
+        textAlignVertical: 'center'
+    },
+    openButton: {
+        width: 28,
+        height: 28,
+    },
+    body: {
+        paddingVertical: 4,
+    },
+    info: {
+        fontSize: 20,
+        fontFamily: GS.font_family,
+        fontWeight: GS.font_weight.regular,
+        color: GS.text_color,
+        lineHeight: Platform.OS === "ios" ? 28 : null
+    }
+})
+
 export default GS
+export const BS = BlockStyle
