@@ -43,7 +43,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                                 route={route}
                             />
                         </View>
-                        <View >
+                        <View style={{ flex: 1 }}>
                             <TitleText style={{ marginTop: 0 }}>
                                 배정할 작업자 선택
                             </TitleText>

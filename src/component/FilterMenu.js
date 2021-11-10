@@ -244,8 +244,6 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontWeight: GS.font_weight.regular,
 		color: GS.text_color,
-		borderBottomColor: '#a0a0a0',
-		borderBottomWidth: 2,
 	},
 	input: {
 		flexDirection: 'row',
@@ -253,7 +251,6 @@ const styles = StyleSheet.create({
 		fontFamily: GS.font_family,
 		fontSize: 18,
 		fontWeight: GS.font_weight.regular,
-
 	},
 	dateContainer: {
 		flexDirection: 'row',
