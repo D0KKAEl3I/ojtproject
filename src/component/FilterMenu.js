@@ -251,6 +251,7 @@ const styles = StyleSheet.create({
 		fontFamily: GS.font_family,
 		fontSize: 18,
 		fontWeight: GS.font_weight.regular,
+		padding: 0
 	},
 	dateContainer: {
 		flexDirection: 'row',
