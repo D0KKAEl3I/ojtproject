@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useCallback, useContext, useEffect, useRef } from 'react';
-import { View, Animated, StyleSheet, Text, BackHandler, TouchableNativeFeedback, TouchableHighlight } from 'react-native';
+import { View, Animated, StyleSheet, Text, BackHandler, TouchableNativeFeedback, TouchableHighlight, Platform } from 'react-native';
 import GlobalContext from '../GlobalContext';
 import GS from '../GlobalStyles';
 import ContentView from './ContentView';
@@ -95,13 +95,21 @@ export default function SideMenu(props) {
 }
 
 function Tab({ value }) {
-  return (
+  return Platform.OS === "ios" ? (
     <TouchableHighlight
       style={styles.tab}
       underlayColor={GS.pressed_color}
       onPress={() => { }}>
       <Text style={styles.tabText}>{value}</Text>
     </TouchableHighlight>
+  ) : (
+    <TouchableNativeFeedback
+      onPress={() => { }}
+      background={TouchableNativeFeedback.Ripple(GS.pressed_color)}>
+      <View style={styles.tab}>
+        <Text style={styles.tabText}>{value}</Text>
+      </View>
+    </TouchableNativeFeedback>
   );
 }
 
@@ -125,7 +133,6 @@ const styles = StyleSheet.create({
     transform: [{ translateX: -sideMenuWidth }],
     zIndex: 2,
   },
-
   tab: {
     flexDirection: 'row',
     alignItems: 'center',

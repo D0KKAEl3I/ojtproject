@@ -36,7 +36,7 @@ const BlockStyle = StyleSheet.create({
         backgroundColor: '#a0d9ff',
     },
     title: {
-        height: 40,
+        height: 44,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
