@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View, Pressable, Linking } from 'react-native';
-import config from '../../com.config.json';
+
 import GlobalContext from '../GlobalContext';
 import GS from '../GlobalStyles';
 
@@ -15,7 +15,7 @@ export default function AcceptAlarm({ data, goBack, ...props }) {
 			setOnLoading(true);
 			let response;
 			try {
-				response = await fetch(config.APISERVER.URL + '/api/v1/messageDetail', {
+				response = await fetch(context.config.APISERVER.URL + '/api/v1/messageDetail', {
 					method: 'GET',
 					params: {
 						userSn: context.userData.userSn,

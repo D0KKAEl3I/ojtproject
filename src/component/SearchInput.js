@@ -11,7 +11,7 @@ export default function SearchInput({ onSubmit, onClose, defaultValue, label, ..
 	const [searchInput, setSearchInput] = useState(''); // 검색블록 속 검색내용
 
 	useEffect(() => {
-		context.setStatus('Search');
+		context.setContext({ status: 'Search' });
 	}, []);
 
 	useEffect(() => {
@@ -41,7 +41,7 @@ export default function SearchInput({ onSubmit, onClose, defaultValue, label, ..
 				/>
 				<IconButton onPress={() => onSubmit(searchInput)}>
 					<Image
-						style={{ width: 40, height: 40 }}
+						style={{ width: 36, height: 36 }}
 						source={require('../../public/search_black.png')}
 					/>
 				</IconButton>
@@ -52,33 +52,39 @@ export default function SearchInput({ onSubmit, onClose, defaultValue, label, ..
 
 const styles = StyleSheet.create({
 	container: {
+		maxWidth: 512,
 		borderRadius: GS.borderRadius,
-		marginHorizontal: 32,
+		marginHorizontal: GS.margin * 4,
 		backgroundColor: '#ffffff',
 		justifyContent: 'flex-start',
 		alignItems: 'center',
+		paddingHorizontal: GS.padding
 	},
 	label: {
 		flexDirection: 'row',
 		alignItems: 'center',
 		padding: 4,
-		marginHorizontal: 8,
-		borderBottomColor: '#a0a0a0',
+		borderBottomColor: GS.borderColor,
 		borderBottomWidth: 2,
+		paddingHorizontal: GS.padding,
 	},
 	labelText: {
 		flex: 1,
 		fontSize: 18,
+		fontFamily: GS.font_family,
 		color: GS.text_color,
 		fontWeight: GS.font_weight.bold,
 	},
 	input: {
-		marginHorizontal: 8,
+		paddingHorizontal: GS.padding,
 		flexDirection: 'row',
 		alignItems: 'center',
 	},
 	inputText: {
 		flex: 1,
-		fontSize: 20,
+		fontSize: 18,
+		fontFamily: GS.font_family,
+		fontWeight: GS.font_weight.regular,
+		paddingVertical: GS.padding
 	},
 });

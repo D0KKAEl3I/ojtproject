@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
-const GlobalContext = createContext({
-    userData: {},
+const contextData = {
+    userData: { userSn: null, userType: null },
     workList: [],
     workerList: [],
     alarmList: [],
@@ -11,6 +11,13 @@ const GlobalContext = createContext({
         workCompleteDate: null
     },
     status: 'WorkHome',
-});
+    config: {
+        APISERVER: {
+            URL: "https://virtserver.swaggerhub.com/Hauly-014/DojeMockup/0.0.3"
+        }
+    }
+}
+
+const GlobalContext = createContext(contextData);
 
 export default GlobalContext;

@@ -69,13 +69,13 @@ export default function FilterMenu(props) {
 	const closeFilterMenu = useCallback(() => {
 		slideOut();
 		fadeOut();
-		context.setStatus('WorkHome');
+		context.setContext({ status: 'WorkHome' });
 		setTimeout(() => {
 			props.setOnFilter(false);
 		}, animDuration);
 	})
 	useEffect(() => {
-		context.setStatus('Filter');
+		context.setContext({ status: 'Filter' });
 		openFilterMenu();
 	}, []);
 
@@ -100,10 +100,12 @@ export default function FilterMenu(props) {
 					<Text style={{ fontSize: 22, fontWeight: GS.font_weight.bold, color: GS.text_color }}>작업 검색 필터</Text>
 					<Button title="초기화"
 						onPress={() => {
-							context.setFilter({
-								workState: null,
-								workDueDate: null,
-								workCompleteDate: null
+							context.setContext({
+								filter: {
+									workState: null,
+									workDueDate: null,
+									workCompleteDate: null
+								}
 							});
 							setFilter({
 								workState: null,
@@ -139,7 +141,7 @@ export default function FilterMenu(props) {
 					/>
 				</View>
 				<Pressable style={styles.submitButton} onPress={() => {
-					context.setFilter(filter);
+					context.setContext({ filter });
 					closeFilterMenu();
 				}}>
 					<Text style={styles.submitButtonText}>확인</Text>
@@ -233,7 +235,6 @@ const styles = StyleSheet.create({
 		paddingHorizontal: GS.padding
 	},
 	option: {
-
 		flexDirection: 'column',
 		justifyContent: 'flex-start',
 		padding: GS.padding

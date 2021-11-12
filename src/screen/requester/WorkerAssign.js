@@ -1,14 +1,14 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
 import { Dimensions, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
-import WorkBlock from '../component/WorkBlock';
+import WorkBlock from '../../component/WorkBlock';
 import { FlatList } from 'react-native-gesture-handler';
-import GlobalContext from '../GlobalContext';
-import WorkerBlock from '../component/WorkerBlock';
-import GS from '../GlobalStyles';
-import BottomTabMenu from '../component/BottomTabMenu';
-import SearchInput from '../component/SearchInput'
-import TitleText from '../component/TitleText';
+import GlobalContext from '../../GlobalContext';
+import WorkerBlock from '../../component/WorkerBlock';
+import GS from '../../GlobalStyles';
+import BottomTabMenu from '../../component/BottomTabMenu';
+import SearchInput from '../../component/SearchInput'
+import TitleText from '../../component/TitleText';
 let windowSize = Dimensions.get('window')
 
 export default function WorkerAssign({ navigation, route, ...props }) {
@@ -27,7 +27,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                 windowSize = Dimensions.get('window');
                 setOnLandScape(width > height);
             })
-            context.setStatus(route.name);
+            context.setContext({ status: route.name });
         })
     }, [])
 
@@ -76,12 +76,12 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                                 onClose={() => {
                                     setOnSearch(false);
                                     setSearchData('');
-                                    context.setStatus(route.name);
+                                    context.setContext({ status: route.name });
                                 }}
                                 onSubmit={data => {
                                     setOnSearch(false);
                                     setSearchData(data)
-                                    context.setStatus(route.name);
+                                    context.setContext({ status: route.name });
                                 }}
                             />
                         </KeyboardAvoidingView>
@@ -91,7 +91,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                             {
                                 value: '작업자 검색하기',
                                 onPress: () => {
-                                    context.setStatus('Search');
+                                    context.setContext({ status: 'Search' });
                                     setOnSearch(true);
                                 },
                                 disable: false,
@@ -99,8 +99,8 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                             },
                             {
                                 value: isWorkAlreadyRequested ? "작업 취소" : "작업 배정",
-                                onPress: () => navigation.navigate(isWorkAlreadyRequested ? "CancleWorkRequest" : "WorkRequest", { workData: route.params.workData, workerData: selectedWorkerData, }),
-                                disable: !selectedWorkerData
+                                onPress: () => navigation.navigate(isWorkAlreadyRequested ? "CancleWorkRequest" : "WorkRequest", { workData: route.params.workData, workerData: !isWorkAlreadyRequested && selectedWorkerData, }),
+                                disable: !selectedWorkerData && !isWorkAlreadyRequested
                             },
                             {
                                 value: '작업자 변경',
@@ -110,8 +110,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                         ]}
                     />
                 </View>
-            )
-            }
+            )}
         </GlobalContext.Consumer >
     );
 }

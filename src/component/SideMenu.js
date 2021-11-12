@@ -47,14 +47,14 @@ export default function SideMenu(props) {
   });
 
   const openSideMenu = useCallback(() => {
-    context.setStatus('Menu');
+    context.setContext({ status: 'Menu' });
     fadeIn();
     slideIn();
   })
   const closeSideMenu = useCallback(() => {
     fadeOut();
     slideOut();
-    context.setStatus('WorkHome');
+    context.setContext({ status: 'WorkHome' });
     setTimeout(() => {
       props.setOnMenu(false);
     }, animDuration);

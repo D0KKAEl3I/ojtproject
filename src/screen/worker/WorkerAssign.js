@@ -1,37 +1,41 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
 import { Dimensions, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
-import WorkBlock from '../component/WorkBlock';
+import WorkBlock from '../../component/WorkBlock';
 import { FlatList } from 'react-native-gesture-handler';
-import GlobalContext from '../GlobalContext';
-import WorkerBlock from '../component/WorkerBlock';
-import GS from '../GlobalStyles';
-import BottomTabMenu from '../component/BottomTabMenu';
-import SearchInput from '../component/SearchInput'
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import GlobalContext from '../../GlobalContext';
+import WorkerBlock from '../../component/WorkerBlock';
+import GS from '../../GlobalStyles';
+import BottomTabMenu from '../../component/BottomTabMenu';
+import SearchInput from '../../component/SearchInput'
+import TitleText from '../../component/TitleText';
 let windowSize = Dimensions.get('window')
 
 export default function WorkerAssign({ navigation, route, ...props }) {
     const context = useContext(GlobalContext)
+    const [isWorkAlreadyRequested, setIsWorkAlreadyRequested] = useState()
     const [onLandScape, setOnLandScape] = useState(false); // 화면이 눕혀져있는가?
     const [onSearch, setOnSearch] = useState(false);
     const [searchData, setSearchData] = useState('');
     const [selectedWorkerData, setSelectedWorkerData] = useState(null);
 
     useEffect(() => {
-        windowSize.width > windowSize.height && setOnLandScape(true)
-        Dimensions.addEventListener('change', ({ window: { width, height } }) => {
-            windowSize = Dimensions.get('window');
-            setOnLandScape(width > height);
+        setIsWorkAlreadyRequested(route.params.workData.workState === "배정완료")
+        return navigation.addListener('focus', () => {
+            windowSize.width > windowSize.height && setOnLandScape(true)
+            Dimensions.addEventListener('change', ({ window: { width, height } }) => {
+                windowSize = Dimensions.get('window');
+                setOnLandScape(width > height);
+            })
+            context.setContext({ status: route.name });
         })
-        context.setStatus(route.name);
     }, [])
 
     return (
         <GlobalContext.Consumer>
             {state => (
                 <View style={styles.container}>
-                    <View style={[{ flex: 1 }]}>
+                    <View style={[{ flex: 1 }, onLandScape && { flexDirection: 'row', justifyContent: 'center' }]}>
                         <View style={styles.list}>
                             <WorkBlock
                                 {...route.params.workData}
@@ -39,11 +43,10 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                                 route={route}
                             />
                         </View>
-                        <View style={styles.map}>
-                            <MapView style={{ flex: 1 }} provider={PROVIDER_GOOGLE} />
-                        </View>
                         <View style={{ flex: 1 }}>
-                            <Text style={styles.title}>배정할 작업자 선택</Text>
+                            <TitleText style={{ marginTop: 0 }}>
+                                배정할 작업자 선택
+                            </TitleText>
                             <FlatList
                                 style={styles.list}
                                 data={state.workerList}
@@ -73,12 +76,12 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                                 onClose={() => {
                                     setOnSearch(false);
                                     setSearchData('');
-                                    context.setStatus(route.name);
+                                    context.setContext({ status: route.name });
                                 }}
                                 onSubmit={data => {
                                     setOnSearch(false);
                                     setSearchData(data)
-                                    context.setStatus(route.name);
+                                    context.setContext({ status: route.name });
                                 }}
                             />
                         </KeyboardAvoidingView>
@@ -88,30 +91,26 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                             {
                                 value: '작업자 검색하기',
                                 onPress: () => {
-                                    context.setStatus('Search');
+                                    context.setContext({ status: 'Search' });
                                     setOnSearch(true);
                                 },
                                 disable: false,
+                                fontStyle: { fontSize: 15 }
                             },
                             {
-                                value: '작업자 요청',
-                                onPress: () => {
-                                    navigation.navigate('WorkRequest', { workData: route.params.workData, workerData: selectedWorkerData })
-                                },
-                                disable: !selectedWorkerData && true,
-                                // fontStyle: { lineHeight: 18, fontSize: 14 },
+                                value: isWorkAlreadyRequested ? "작업 취소" : "작업 배정",
+                                onPress: () => navigation.navigate(isWorkAlreadyRequested ? "CancleWorkRequest" : "WorkRequest", { workData: route.params.workData, workerData: !isWorkAlreadyRequested && selectedWorkerData, }),
+                                disable: !selectedWorkerData && !isWorkAlreadyRequested
                             },
                             {
                                 value: '작업자 변경',
-                                onPress: () => { },
-                                disable: !selectedWorkerData && true,
-                                // fontStyle: { lineHeight: 18, fontSize: 14 },
+                                onPress: () => navigation.navigate('ChangeWorker', { workData: route.params.workData, workerData: selectedWorkerData }),
+                                disable: !selectedWorkerData || route.params.workData.workState !== "배정완료",
                             },
                         ]}
                     />
                 </View>
-            )
-            }
+            )}
         </GlobalContext.Consumer >
     );
 }
@@ -121,26 +120,17 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
     },
-    map: {
-        height: 100,
-        marginHorizontal: GS.margin,
-        marginBottom: GS.margin
-    },
     title: {
-        paddingVertical: 4,
+        marginBottom: GS.margin,
         color: GS.text_color,
         fontSize: 22,
         fontWeight: GS.font_weight.bold,
         fontFamily: GS.font_family,
         textAlign: 'center',
-        backgroundColor: '#fff',
-        elevation: GS.elevation,
-        ...GS.shadow,
         zIndex: 9
     },
     list: {
         maxWidth: 512,
-        paddingTop: GS.padding
     },
     backgroundFilter: {
         position: 'absolute',

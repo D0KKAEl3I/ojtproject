@@ -1,24 +1,22 @@
 import 'react-native-gesture-handler';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { StyleSheet, View, KeyboardAvoidingView, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import WorkBlock from '../component/WorkBlock';
-import BottomTabMenu from '../component/BottomTabMenu';
-import SearchInput from '../component/SearchInput';
-import GlobalContext from '../GlobalContext';
-import GS from '../GlobalStyles';
-
+import WorkBlock from '../../component/WorkBlock';
+import BottomTabMenu from '../../component/BottomTabMenu';
+import SearchInput from '../../component/SearchInput';
+import GlobalContext from '../../GlobalContext';
+import GS from '../../GlobalStyles';
 
 export default function WorkHome({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext);
-
 	const [onSearch, setOnSearch] = useState(false);
 	const [searchData, setSearchData] = useState('');
 	const [selectedWorkData, setSelectedWorkData] = useState(null);
 
 	useEffect(() => {
 		return navigation.addListener('focus', () => {
-			context.setStatus(route.name);
+			context.setContext({ status: route.name });
 		});
 	}, []);
 
@@ -67,7 +65,7 @@ export default function WorkHome({ navigation, route, ...props }) {
 										)
 									}}
 									keyExtractor={item => item.workSn}
-
+								// onEndReached={ }
 								/>
 							) : (
 								<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -86,12 +84,12 @@ export default function WorkHome({ navigation, route, ...props }) {
 								onClose={() => {
 									setOnSearch(false);
 									setSearchData('');
-									context.setStatus(route.name);
+									context.setContext({ status: route.name });
 								}}
 								onSubmit={data => {
 									setOnSearch(false);
 									setSearchData(data)
-									context.setStatus(route.name);
+									context.setContext({ status: route.name });
 								}}
 							/>
 						</KeyboardAvoidingView>
@@ -101,7 +99,7 @@ export default function WorkHome({ navigation, route, ...props }) {
 							{
 								value: '작업 검색하기',
 								onPress: () => {
-									context.setStatus('Search');
+									context.setContext({ status: 'Search' });
 									setOnSearch(true);
 								},
 								disable: false,
@@ -112,7 +110,7 @@ export default function WorkHome({ navigation, route, ...props }) {
 									navigation.navigate('WorkerAssign', { workData: selectedWorkData })
 								},
 								disable: !selectedWorkData && true,
-								fontStyle: { lineHeight: 18, fontSize: 14 },
+								fontStyle: { fontSize: 14 },
 							},
 							{
 								value: '거리로\n작업 배정하기',
@@ -120,7 +118,7 @@ export default function WorkHome({ navigation, route, ...props }) {
 									navigation.navigate('WorkerAssignByLocation', { workData: selectedWorkData })
 								},
 								disable: !selectedWorkData && true,
-								fontStyle: { lineHeight: 18, fontSize: 14 },
+								fontStyle: { fontSize: 14 },
 							},
 						]}
 					/>
