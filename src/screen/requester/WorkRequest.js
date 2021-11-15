@@ -31,7 +31,7 @@ export default function WorkRequest({ navigation, route, ...props }) {
 	}
 
 	const requestWork = async () => {
-		setOnRequest(true)
+		context.setOnLoading(true)
 		let workResponse, messageResponse;
 		try {
 			workResponse = await fetch(context.config.APISERVER.URL + '/api/v1/workRequest', {
@@ -69,7 +69,7 @@ export default function WorkRequest({ navigation, route, ...props }) {
 					style: "cancel"
 				}
 			])
-			setOnRequest(false)
+			context.setOnLoading(false)
 		} else {
 			console.log(messageResponse.status);
 			Alert.alert('작업 요청 실패', '작업이 요청되지 않았습니다.', [
@@ -78,7 +78,7 @@ export default function WorkRequest({ navigation, route, ...props }) {
 					style: 'default'
 				}
 			])
-			setOnRequest(false)
+			context.setOnLoading(false)
 		}
 	}
 
@@ -120,24 +120,16 @@ export default function WorkRequest({ navigation, route, ...props }) {
 				</ContentView>
 			</ScrollView>
 			<View style={styles.bottomTab}>
-				{onRequest ?
-					<Pressable onPress={() => { }} style={styles.button}>
-						<ActivityIndicator color={'#ffffff'} size="large" />
-					</Pressable>
-					:
-					<>
-						<Pressable onPress={submit} style={[styles.button, styles.leftSide]}>
-							<Text style={{ color: '#ffffff', fontFamily: GS.font_family, fontWeight: GS.font_weight.bold, fontSize: 20 }}>
-								작업 요청하기
-							</Text>
-						</Pressable>
-						<Pressable onPress={navigation.goBack} style={[styles.button, styles.rightSide]}>
-							<Text style={{ color: '#ffffff', fontFamily: GS.font_family, fontWeight: GS.font_weight.bold, fontSize: 20 }}>
-								돌아가기
-							</Text>
-						</Pressable>
-					</>
-				}
+				<Pressable onPress={submit} style={[styles.button, styles.leftSide]}>
+					<Text style={{ color: '#ffffff', fontFamily: GS.font_family, fontWeight: GS.font_weight.bold, fontSize: 20 }}>
+						작업 요청하기
+					</Text>
+				</Pressable>
+				<Pressable onPress={navigation.goBack} style={[styles.button, styles.rightSide]}>
+					<Text style={{ color: '#ffffff', fontFamily: GS.font_family, fontWeight: GS.font_weight.bold, fontSize: 20 }}>
+						돌아가기
+					</Text>
+				</Pressable>
 			</View>
 		</View >
 	);

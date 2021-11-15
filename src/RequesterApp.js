@@ -33,10 +33,25 @@ export default function RequesterApp() {
     const [{ userData, workList, workerList, alarmList, filter, status, config, ...context }, updateContext] = useState(useContext(GlobalContext));
     const [onMenu, setOnMenu] = useState(false);
     const [onFilter, setOnFilter] = useState(false);
-    const [onLoading, setOnLoading] = useState(false); // 로딩중인지 여부, true면 로딩 화면을 띄움
+    const [isAppLoading, setIsAppLoading] = useState(false); // 시작 시 앱이 로딩중인지 여부, true면 로딩 화면을 띄움
+    const [onLoading, setOnLoading] = useState(false);
+    const loadingDelayTimeout = useRef()
     const workListPageNum = useRef(1);
 
     const setContext = useCallback(data => updateContext(context => ({ ...context, ...data })))
+
+    useEffect(() => {
+        if (onLoading) {
+            loadingDelayTimeout.current = setTimeout(() => {
+                onLoading && Alert.alert("경고", "서버와의 연결이 원활하지 않습니다. 인터넷 연결을 확인해주세요. 지속적으로 이런 문제가 발생한다면 고객센터로 연락해 주십시오. 010-7777-7777", [
+                    { text: "확인", style: 'default' }
+                ])
+                setOnLoading(false)
+            }, 3000)
+        } else {
+            clearTimeout(loadingDelayTimeout.current)
+        }
+    }, [onLoading])
 
     useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', () => {
@@ -60,11 +75,11 @@ export default function RequesterApp() {
         (async () => {
             workListPageNum.current = 1;
             setContext({ workList: [] });
-            setOnLoading(true);
+            setIsAppLoading(true);
             await loadMoreWorkList();
             await loadWorkerList();
             await loadAlarmList();
-            setOnLoading(false);
+            setIsAppLoading(false);
         })();
     }, []); // 앱 렌더링시 리스트 로딩
 
@@ -123,7 +138,7 @@ export default function RequesterApp() {
         }
         setContext({ workList: [...workList, ...resWorkList] });
     };
-    return onLoading ? (
+    return isAppLoading ? (
         <SafeAreaView
             style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <StatusBar
@@ -143,11 +158,18 @@ export default function RequesterApp() {
                 workerList,
                 loadAlarmList,
                 loadMoreWorkList,
+                loadWorkerList,
                 status,
                 filter,
                 config,
-                setContext
+                setContext,
+                setOnLoading
             }}>
+            {onLoading && (
+                <View style={styles.loading}>
+                    <ActivityIndicator size="large" style={{ width: 80, height: 80 }} />
+                </View>
+            )}
             <SafeAreaView style={styles.container}>
                 <StatusBar
                     translucent
@@ -269,4 +291,15 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: GS.background_color
     },
+    loading: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#000000a0',
+        zIndex: 9999
+    }
 });

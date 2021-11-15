@@ -31,7 +31,7 @@ export default function CancleWorkRequest({ navigation, route, ...props }) {
 	}
 
 	const requestCancleWork = async () => {
-		setOnRequest(true)
+		context.setOnLoading(true)
 		let response;
 		try {
 			response = await fetch(context.config.APISERVER.URL + '/api/v1/workRequestCancle', {
@@ -50,7 +50,7 @@ export default function CancleWorkRequest({ navigation, route, ...props }) {
 						style: "default"
 					}
 				])
-				setOnRequest(false)
+				context.setOnLoading(false)
 			} else {
 				Alert.alert('작업 배정 취소 실패', '작업 배정이 취소되지 않았습니다.', [
 					{
@@ -58,7 +58,7 @@ export default function CancleWorkRequest({ navigation, route, ...props }) {
 						style: "default"
 					}
 				])
-				setOnRequest(false)
+				context.setOnLoading(false)
 
 			}
 		} catch (e) {

@@ -31,7 +31,7 @@ export default function ChangeWorker({ navigation, route, ...props }) {
 	}
 
 	const changeWorkerRequest = async () => {
-		setOnRequest(true)
+		context.setOnLoading(true)
 		let response
 		try {
 			response = await fetch(context.config.APISERVER.URL + '/api/v1/workerChange', {
@@ -50,7 +50,7 @@ export default function ChangeWorker({ navigation, route, ...props }) {
 						style: "default"
 					}
 				])
-				setOnRequest(false)
+				context.setOnLoading(false)
 			} else {
 				Alert.alert('작업자 변경 실패', '작업자가 변경되지 않았습니다.', [
 					{
@@ -58,7 +58,7 @@ export default function ChangeWorker({ navigation, route, ...props }) {
 						style: "default"
 					}
 				])
-				setOnRequest(false)
+				context.setOnLoading(false)
 			}
 		} catch (e) {
 			console.error(e);

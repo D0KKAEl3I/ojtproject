@@ -17,5 +17,5 @@ export default function App() {
 	// 			<Button title="의뢰자" onPress={() => setContext(context => ({ ...context, userData: { userSn: 1, userType: "의뢰자" } }))} />
 	// 			<Button title="작업자" onPress={() => setContext(context => ({ ...context, userData: { userSn: 1, userType: "작업자" } }))} />
 	// 		</View>
-	return <WorkerApp />
+	return <RequesterApp />
 }
