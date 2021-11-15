@@ -2,13 +2,13 @@ import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import BottomTabMenu from '../component/BottomTabMenu';
-import AlarmBlock from '../component/AlarmBlock';
-import SearchInput from '../component/SearchInput';
-import AcceptAlarm from '../component/AcceptAlarm.js';
+import BottomTabMenu from '../../component/BottomTabMenu';
+import AlarmBlock from '../../component/AlarmBlock';
+import SearchInput from '../../component/SearchInput';
+import AcceptAlarm from '../../component/AcceptAlarm.js';
 
-import GlobalContext from '../GlobalContext';
-import GS from '../GlobalStyles';
+import GlobalContext from '../../GlobalContext';
+import GS from '../../GlobalStyles';
 
 
 export default function Alarm({ navigation, route, ...props }) {
@@ -21,7 +21,7 @@ export default function Alarm({ navigation, route, ...props }) {
     const [selectedAlarm, setSelectedAlarm] = useState(null); // 선택된 알람 블럭의 알람 정보
 
     useEffect(() => {
-        context.setStatus(route.name);
+        context.setContext({ status: route.name });
         async () => {
             setOnLoading(true);
             await context.loadAlarmList();
@@ -66,12 +66,12 @@ export default function Alarm({ navigation, route, ...props }) {
                                 onClose={() => {
                                     setOnSearch(false);
                                     setSearchData('');
-                                    context.setStatus(route.name)
+                                    context.setContext({ status: route.name })
                                 }}
                                 onSubmit={data => {
                                     setOnSearch(false);
                                     setSearchData(data)
-                                    context.setStatus(route.name)
+                                    context.setContext({ status: route.name })
                                 }}
                             />
                         </KeyboardAvoidingView>

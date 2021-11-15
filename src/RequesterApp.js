@@ -7,10 +7,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getHeaderTitle } from '@react-navigation/elements';
 
 // 스크린 컴포넌트
-import WorkHomeScreen from './screen/worker/WorkHome';
-import WorkReqDetailScreen from './screen/worker/WorkReqDetail';
-import AlarmScreen from './screen/worker/Alarm';
-import AlarmDetailScreen from './screen/worker/AlarmDetail';
+import WorkHomeScreen from './screen/requester/WorkHome';
+import WorkDetailScreen from './screen/requester/WorkDetail';
+import WorkerAssignScreen from './screen/requester/WorkerAssign';
+import WorkerAssignByLocScreen from './screen/requester/WorkerAssignByLocation';
+import WorkRequestScreen from './screen/requester/WorkRequest';
+import ChangeWorkerScreen from './screen/requester/ChangeWorker';
+import CancleWorkRequestScreen from './screen/requester/CancleWorkRequest';
+import WorkerDetailScreen from './screen/requester/WorkerDetail';
+import AlarmScreen from './screen/requester/Alarm';
+import AlarmDetailScreen from './screen/requester/AlarmDetail';
 
 // 컴포넌트
 import Header from './component/Header';
@@ -20,34 +26,17 @@ import FilterMenu from './component/FilterMenu';
 // 데이터
 import GlobalContext from './GlobalContext';
 import GS from './GlobalStyles';
-import AcceptWorkRequestScreen from './screen/worker/AcceptWorkRequest';
-import CancleAcceptedWorkRequestScreen from './screen/worker/CancleAcceptedWorkRequest';
 
 const Stack = createNativeStackNavigator();
 
 export default function RequesterApp() {
-    const [{ userData, workReqList, alarmList, filter, status, config, ...context }, updateContext] = useState(useContext(GlobalContext));
+    const [{ userData, workList, workerList, alarmList, filter, status, config, ...context }, updateContext] = useState(useContext(GlobalContext));
     const [onMenu, setOnMenu] = useState(false);
     const [onFilter, setOnFilter] = useState(false);
-    const [isAppLoading, setIsAppLoading] = useState(false); // 시작 시 앱이 로딩중인지 여부, true면 로딩 화면을 띄움
-    const [onLoading, setOnLoading] = useState(false);
-    const loadingDelayTimeout = useRef()
-    const workReqListPageNum = useRef(1);
+    const [onLoading, setOnLoading] = useState(false); // 로딩중인지 여부, true면 로딩 화면을 띄움
+    const workListPageNum = useRef(1);
 
     const setContext = useCallback(data => updateContext(context => ({ ...context, ...data })))
-
-    useEffect(() => {
-        if (onLoading) {
-            loadingDelayTimeout.current = setTimeout(() => {
-                onLoading && Alert.alert("경고", "서버와의 연결이 원활하지 않습니다. 인터넷 연결을 확인해주세요. 지속적으로 이런 문제가 발생한다면 고객센터로 연락해 주십시오. 010-7777-7777", [
-                    { text: "확인", style: 'default' }
-                ])
-                setOnLoading(false)
-            }, 3000)
-        } else {
-            clearTimeout(loadingDelayTimeout.current)
-        }
-    }, [onLoading])
 
     useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', () => {
@@ -69,19 +58,37 @@ export default function RequesterApp() {
 
     useEffect(() => {
         (async () => {
-            workReqListPageNum.current = 1;
-            setContext({ workReqList: [] });
-            setIsAppLoading(true);
-            await loadMoreWorkReqList();
+            workListPageNum.current = 1;
+            setContext({ workList: [] });
+            setOnLoading(true);
+            await loadMoreWorkList();
+            await loadWorkerList();
             await loadAlarmList();
-            setIsAppLoading(false);
+            setOnLoading(false);
         })();
     }, []); // 앱 렌더링시 리스트 로딩
+
+    const getWorkerList = useCallback(async function () {
+        // 작업자 목록 조회
+        try {
+            let response = await fetch(config.APISERVER.URL + '/api/v1/workerList');
+            response = await response.json();
+            return response;
+        } catch (e) {
+            console.log(e);
+            return e;
+        }
+    })
+
+    const loadWorkerList = async function () {
+        let workerList = await getWorkerList();
+        setContext({ workerList });
+    };
 
     const getAlarmList = useCallback(async function () {
         // 알람 목록 조회
         try {
-            let response = await fetch(config.APISERVER.URL + '/api/v1/workerMessageList');
+            let response = await fetch(config.APISERVER.URL + '/api/v1/messageList');
             response = await response.json();
             return response;
         } catch (e) {
@@ -93,10 +100,10 @@ export default function RequesterApp() {
         let alarmList = await getAlarmList();
         setContext({ alarmList });
     };
-    const getWorkReqList = useCallback(async function (pageNum, params) {
+    const getWorkList = useCallback(async function (pageNum, params) {
         // 작업 목록 조회
         try {
-            let response = await fetch(config.APISERVER.URL + '/api/v1/workReqList', {
+            let response = await fetch(config.APISERVER.URL + '/api/v1/workList', {
                 method: 'GET',
                 params: { ...params, pageNum },
             });
@@ -107,16 +114,16 @@ export default function RequesterApp() {
             return e;
         }
     });
-    const loadMoreWorkReqList = async function () {
-        let resWorkReqList = await getWorkReqList(workReqListPageNum.current);
-        if (workReqList.length % 10 === 0) {
-            workReqListPageNum.current++;
+    const loadMoreWorkList = async function () {
+        let resWorkList = await getWorkList(workListPageNum.current);
+        if (workList.length % 10 === 0) {
+            workListPageNum.current++;
         } else {
-            resWorkReqList = resWorkReqList.slice(workReqList.length % 10);
+            resWorkList = resWorkList.slice(workList.length % 10);
         }
-        setContext({ workReqList: [...workReqList, ...resWorkReqList] });
+        setContext({ workList: [...workList, ...resWorkList] });
     };
-    return isAppLoading ? (
+    return onLoading ? (
         <SafeAreaView
             style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <StatusBar
@@ -131,21 +138,16 @@ export default function RequesterApp() {
         <GlobalContext.Provider
             value={{
                 userData,
-                workReqList,
+                workList,
                 alarmList,
+                workerList,
                 loadAlarmList,
-                loadMoreWorkReqList,
+                loadMoreWorkList,
                 status,
                 filter,
                 config,
-                setContext,
-                setOnLoading
+                setContext
             }}>
-            {onLoading && (
-                <View style={styles.loading}>
-                    <ActivityIndicator size="large" style={{ width: 80, height: 80 }} />
-                </View>
-            )}
             <SafeAreaView style={styles.container}>
                 <StatusBar
                     translucent
@@ -182,27 +184,59 @@ export default function RequesterApp() {
                                 }}
                             />
                             <Stack.Screen
-                                name="WorkReqDetail"
-                                component={WorkReqDetailScreen}
+                                name="WorkDetail"
+                                component={WorkDetailScreen}
                                 options={{
                                     title: '작업 상세정보',
                                     animation: 'slide_from_right',
                                 }}
                             />
                             <Stack.Screen
-                                name="AcceptWorkRequest"
-                                component={AcceptWorkRequestScreen}
+                                name="WorkerAssign"
+                                component={WorkerAssignScreen}
                                 options={{
-                                    title: '작업 수락',
+                                    title: '작업자 배정',
                                     animation: 'slide_from_right',
                                 }}
                             />
                             <Stack.Screen
-                                name="CancleAcceptedWorkRequest"
-                                component={CancleAcceptedWorkRequestScreen}
+                                name="WorkerAssignByLocation"
+                                component={WorkerAssignByLocScreen}
                                 options={{
-                                    title: '작업 거절',
+                                    title: '거리로 작업자 배정',
                                     animation: 'slide_from_right',
+                                }}
+                            />
+                            <Stack.Screen
+                                name="WorkerDetail"
+                                component={WorkerDetailScreen}
+                                options={{
+                                    title: '작업자 상세정보',
+                                    animation: 'slide_from_right'
+                                }}
+                            />
+                            <Stack.Screen
+                                name="WorkRequest"
+                                component={WorkRequestScreen}
+                                options={{
+                                    title: '작업 요청',
+                                    animation: 'slide_from_right'
+                                }}
+                            />
+                            <Stack.Screen
+                                name="CancleWorkRequest"
+                                component={CancleWorkRequestScreen}
+                                options={{
+                                    title: '작업 취소',
+                                    animation: 'slide_from_right'
+                                }}
+                            />
+                            <Stack.Screen
+                                name="ChangeWorker"
+                                component={ChangeWorkerScreen}
+                                options={{
+                                    title: '작업자 변경',
+                                    animation: 'slide_from_bottom'
                                 }}
                             />
                             <Stack.Screen
@@ -235,15 +269,4 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: GS.background_color
     },
-    loading: {
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#000000a0',
-        zIndex: 9999
-    }
 });

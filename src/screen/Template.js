@@ -2,10 +2,10 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function Second() {
+export default function Template() {
 	return (
 		<View style={styles.container}>
-			<Text>Second Screen</Text>
+			<Text>Template Screen</Text>
 		</View>
 	);
 }

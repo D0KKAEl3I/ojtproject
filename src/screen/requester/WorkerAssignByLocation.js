@@ -1,14 +1,17 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
-import { Dimensions, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
-import WorkBlock from '../component/WorkBlock';
+import { Dimensions, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
+import WorkBlock from '../../component/requester/WorkBlock';
 import { FlatList } from 'react-native-gesture-handler';
-import GlobalContext from '../GlobalContext';
-import WorkerBlock from '../component/WorkerBlock';
-import GS from '../GlobalStyles';
-import BottomTabMenu from '../component/BottomTabMenu';
-import SearchInput from '../component/SearchInput'
-import TitleText from '../component/TitleText';
+import WorkerBlock from '../../component/requester/WorkerBlock';
+import BottomTabMenu from '../../component/BottomTabMenu';
+import SearchInput from '../../component/SearchInput'
+import TitleText from '../../component/TitleText'
+import GlobalContext from '../../GlobalContext';
+import GS from '../../GlobalStyles';
+import ContentView from '../../component/ContentView';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+
 let windowSize = Dimensions.get('window')
 
 export default function WorkerAssign({ navigation, route, ...props }) {
@@ -27,7 +30,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                 windowSize = Dimensions.get('window');
                 setOnLandScape(width > height);
             })
-            context.setStatus(route.name);
+            context.setContext({ status: route.name });
         })
     }, [])
 
@@ -35,7 +38,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
         <GlobalContext.Consumer>
             {state => (
                 <View style={styles.container}>
-                    <View style={[{ flex: 1 }, onLandScape && { flexDirection: 'row', justifyContent: 'center' }]}>
+                    <View style={[{ flex: 1 }]}>
                         <View style={styles.list}>
                             <WorkBlock
                                 {...route.params.workData}
@@ -43,6 +46,14 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                                 route={route}
                             />
                         </View>
+                        <ContentView label="위치 정보" style={{ paddingHorizontal: GS.padding }}>
+                            <View style={styles.map}>
+                                <MapView
+                                    provider={PROVIDER_GOOGLE}
+                                    style={{ flex: 1 }}
+                                />
+                            </View>
+                        </ContentView>
                         <View style={{ flex: 1 }}>
                             <TitleText style={{ marginTop: 0 }}>
                                 배정할 작업자 선택
@@ -52,9 +63,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                                 data={state.workerList}
                                 renderItem={({ item }) => (
                                     <WorkerBlock
-                                        selected={
-                                            selectedWorkerData && item.workerSn === selectedWorkerData.workerSn
-                                        }
+                                        selected={selectedWorkerData && item.workerSn === selectedWorkerData.workerSn}
                                         {...item}
                                         navigation={navigation}
                                         route={route}
@@ -76,12 +85,12 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                                 onClose={() => {
                                     setOnSearch(false);
                                     setSearchData('');
-                                    context.setStatus(route.name);
+                                    context.setContext({ status: route.name });
                                 }}
                                 onSubmit={data => {
                                     setOnSearch(false);
                                     setSearchData(data)
-                                    context.setStatus(route.name);
+                                    context.setContext({ status: route.name });
                                 }}
                             />
                         </KeyboardAvoidingView>
@@ -91,7 +100,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                             {
                                 value: '작업자 검색하기',
                                 onPress: () => {
-                                    context.setStatus('Search');
+                                    context.setContext({ status: 'Search' });
                                     setOnSearch(true);
                                 },
                                 disable: false,
@@ -110,8 +119,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                         ]}
                     />
                 </View>
-            )
-            }
+            )}
         </GlobalContext.Consumer >
     );
 }
@@ -120,6 +128,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
+    },
+    map: {
+        height: 100,
+        marginBottom: GS.margin
     },
     title: {
         marginBottom: GS.margin,
