@@ -1,92 +1,91 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, Pressable, Alert, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Alert, ScrollView } from 'react-native';
 
 import GS from '../../GlobalStyles';
 import GlobalContext from '../../GlobalContext';
 import ContentView from '../../component/ContentView';
 import TitleText from '../../component/TitleText';
 
-export default function WorkRequest({ navigation, route, ...props }) {
+export default function CancleAcceptedWorkRequest({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext)
-	const [onRequest, setOnRequest] = useState(false);
-	const [{ workData, workerData }, setWorkRequestData] = useState({ workData: {}, workerData: {} });
+	const [workReqData, setWorkReqData] = useState({});
 
 	useEffect(() => {
-		setWorkRequestData({ ...route.params });
+		setWorkReqData(route.params.workReqData);
 	}, []);
 
 	const submit = () => {
-		Alert.alert("작업 요청", "작업 요청을 전송하시겠습니까?", [
+		Alert.alert("작업 수락 취소", "작업 수락 취소를 요청하시겠습니까?", [
 			{
 				text: '취소',
 				onPress: () => null,
 				style: 'cancel'
 			}, {
-				text: '전송',
-				onPress: requestWork,
+				text: '요청',
+				onPress: AcceptWorkRequest,
 				style: 'default'
 			}
 		])
 	}
 
-	const requestWork = async () => {
-		setOnRequest(true)
+	const AcceptWorkRequest = async () => {
+		context.setOnLoading(true)
 		let workResponse, messageResponse;
 		try {
-			workResponse = await fetch(context.config.APISERVER.URL + '/api/v1/workRequest', {
+			workResponse = await fetch(context.config.APISERVER.URL + '/api/v1/workAssign', {
 				method: "POST",
 				body: {
-					requesterSn: context.userData.userSn,
-					workSn: workData.workSn,
-					workerSn: workerData.workerSn
+					userSn: context.userData.userSn,
+					workSn: workReqData.workSn
 				}
 			})
 		} catch (e) {
 			console.error(e);
-			return e;
 		}
 		if (workResponse.ok) {
 			try {
-				messageResponse = await fetch(context.config.APISERVER.URL + '/api/v1/workerAssignMessage', {
+				messageResponse = await fetch(context.config.APISERVER.URL + '/api/v1/workAssignMessage', {
 					method: "POST",
 					body: {
 						requesterSn: context.userData.userSn,
-						workSn: workData.workSn,
-						workerSn: workerData.workerSn
+						workSn: workReqData.workSn
 					}
 				})
 			} catch (e) {
 				console.error(e)
-				return e;
 			}
 		}
 		if (workResponse.ok && messageResponse.ok) {
-			Alert.alert('작업 요청 완료', '작업 요청이 성공적으로 전송되었습니다.', [
+			Alert.alert('작업 수락 취소됨', '수락한 작업이 성공적으로 취소되었습니다.', [
 				{
 					text: "확인 및 뒤로가기",
 					onPress: navigation.goBack,
-					style: "cancel"
+					style: "default"
 				}
 			])
-			setOnRequest(false)
+			context.setOnLoading(false)
 		} else {
-			console.log(messageResponse.status);
-			Alert.alert('작업 요청 실패', '작업 요청이 전송되지 않았습니다.')
-			setOnRequest(false)
+			Alert.alert('작업 수락 취소 실패', '수락한 작업이 취소되지 않았습니다.', [
+				{
+					text: "확인",
+					style: "default"
+				}
+			])
+			context.setOnLoading(false)
 		}
 	}
 
 	return (
 		<View style={styles.content}>
 			<TitleText>
-				{workerData.workerName} 작업자님의 정보
+				{workReqData.workName} 작업 정보
 			</TitleText>
 			<ScrollView>
 				<ContentView>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>작업 지점</Text>
-						<Text style={styles.infoText}>{workData.workName}</Text>
+						<Text style={styles.infoText}>{workReqData.workName}</Text>
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>요청 사항</Text>
@@ -98,41 +97,29 @@ export default function WorkRequest({ navigation, route, ...props }) {
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>작업 주소</Text>
-						<Text style={styles.infoText}>{workData.workLocation}</Text>
+						<Text style={styles.infoText}>{workReqData.workLocation}</Text>
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>작업 예정일</Text>
-						<Text style={styles.infoText}>{workData.workDueDate}</Text>
-					</View>
-					<View style={styles.info}>
-						<Text style={styles.infoName}>예정 작업자</Text>
-						<Text style={styles.infoText}>{workerData.workerName}</Text>
+						<Text style={styles.infoText}>{workReqData.workDueDate}</Text>
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>작업자 연락처</Text>
-						<Text style={styles.infoText}>{workData.userPhoneNumber || '없음'}</Text>
+						<Text style={styles.infoText}>{workReqData.userPhoneNumber || '없음'}</Text>
 					</View>
 				</ContentView>
 			</ScrollView>
 			<View style={styles.bottomTab}>
-				{onRequest ?
-					<Pressable onPress={() => { }} style={styles.button}>
-						<ActivityIndicator color={'#ffffff'} size="large" />
-					</Pressable>
-					:
-					<>
-						<Pressable onPress={submit} style={[styles.button, styles.leftSide]}>
-							<Text style={{ color: '#ffffff', fontFamily: GS.font_family, fontWeight: GS.font_weight.bold, fontSize: 20 }}>
-								작업 요청하기
-							</Text>
-						</Pressable>
-						<Pressable onPress={navigation.goBack} style={[styles.button, styles.rightSide]}>
-							<Text style={{ color: '#ffffff', fontFamily: GS.font_family, fontWeight: GS.font_weight.bold, fontSize: 20 }}>
-								돌아가기
-							</Text>
-						</Pressable>
-					</>
-				}
+				<Pressable onPress={submit} style={[styles.button, styles.leftSide]}>
+					<Text style={{ color: '#ffffff', fontFamily: GS.font_family, fontWeight: GS.font_weight.bold, fontSize: 20 }}>
+						작업 수락
+					</Text>
+				</Pressable>
+				<Pressable onPress={navigation.goBack} style={[styles.button, styles.rightSide]}>
+					<Text style={{ color: '#ffffff', fontFamily: GS.font_family, fontWeight: GS.font_weight.bold, fontSize: 20 }}>
+						돌아가기
+					</Text>
+				</Pressable>
 			</View>
 		</View >
 	);

@@ -1,7 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View, Pressable, ScrollView } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 import GS from '../../GlobalStyles';
 import TitleText from '../../component/TitleText';
@@ -69,9 +68,6 @@ export default function WorkerDetail({ navigation, route, ...props }) {
 					</View>
 				</ContentView>
 				<ContentView label="위치 정보" style={{ height: 400, paddingVertical: GS.padding, paddingHorizontal: GS.padding }}>
-					<MapView style={{ width: '100%', height: '100%', borderRadius: GS.borderRadius }}
-						provider={PROVIDER_GOOGLE}
-					/>
 				</ContentView>
 			</ScrollView>
 			<View style={styles.bottomTab}>

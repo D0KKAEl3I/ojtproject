@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { StyleSheet, View, KeyboardAvoidingView, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import WorkBlock from '../../component/WorkBlock';
+import WorkBlock from '../../component/requester/WorkBlock';
 import BottomTabMenu from '../../component/BottomTabMenu';
 import SearchInput from '../../component/SearchInput';
 import GlobalContext from '../../GlobalContext';
@@ -27,6 +27,7 @@ export default function WorkHome({ navigation, route, ...props }) {
 					<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
 						{(() => {
 							const filter = state.filter
+							console.log(state.workList);
 							let data = !filter.workState && !filter.workDueDate && !filter.workCompleteDate ? // 필터할 항목이 없는가?
 								state.workList // 그렇다면 worklist 그대로 넣기
 								:

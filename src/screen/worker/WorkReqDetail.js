@@ -6,10 +6,10 @@ import ContentView from '../../component/ContentView';
 import GlobalContext from '../../GlobalContext';
 import TitleText from '../../component/TitleText';
 
-export default function WorkDetail({ navigation, route, ...props }) {
+export default function WorkReqDetail({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext)
 	const [onLoading, setOnLoading] = useState(false);
-	const [workDetailInfo, setWorkDetailInfo] = useState({});
+	const [workReqDetailInfo, setWorkReqDetailInfo] = useState({});
 	const [workStateColor, setWorkStateColor] = useState('#404040');
 
 	useEffect(() => {
@@ -18,15 +18,14 @@ export default function WorkDetail({ navigation, route, ...props }) {
 			let response;
 			try {
 				response = await fetch(context.config.APISERVER.URL + '/api/v1/workReqDetail', {
-					method: 'POST',
-					body: {
+					method: 'GET',
+					params: {
 						requesterSn: context.userData.userSn,
 						workerSn: 1,
 					},
 				});
 				response = await response.json();
-				console.log(route.params.workData);
-				setWorkDetailInfo({ ...route.params.workData, ...response });
+				setWorkReqDetailInfo({ ...route.params.workData, ...response });
 			} catch (e) {
 				console.log(e);
 			} finally {
@@ -63,48 +62,66 @@ export default function WorkDetail({ navigation, route, ...props }) {
 	) : (
 		<View style={styles.content}>
 			<TitleText>
-				{`${workDetailInfo.workName} 상세정보`}
+				{`${workReqDetailInfo.userCompany} 작업 상세`}
 			</TitleText>
 			<ScrollView>
-				<ContentView >
+				<ContentView label="의뢰 정보">
 					<View style={styles.info}>
 						<Text style={styles.infoName}>작업 상태</Text>
 						<Text style={[styles.infoText, { color: workStateColor }]}>
-							{workDetailInfo.workState}
+							{workReqDetailInfo.workState}
 						</Text>
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>작업 지점</Text>
 						<Text style={styles.infoText}>
-							{workDetailInfo.workName}
+							{workReqDetailInfo.workName}
 						</Text>
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>작업 주소</Text>
 						<Text style={styles.infoText}>
-							{workDetailInfo.workLocation}
-						</Text>
-					</View>
-					<View style={styles.info}>
-						<Text style={styles.infoName}>작업자 성명</Text>
-						<Text style={styles.infoText}>
-							{workDetailInfo.userName || '없음'}
+							{workReqDetailInfo.workLocation}
 						</Text>
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>
-							{workDetailInfo.workState === '작업완료' ?
+							{workReqDetailInfo.workState === '작업완료' ?
 								"작업완료일" : "작업예정일"}
 						</Text>
 						<Text style={styles.infoText}>
-							{workDetailInfo.workState === '작업완료' ?
-								workDetailInfo.workCompleteDate || '없음'
+							{workReqDetailInfo.workState === '작업완료' ?
+								workReqDetailInfo.workCompleteDate || '없음'
 								:
-								workDetailInfo.workDueDate || '없음'}
+								workReqDetailInfo.workDueDate || '없음'}
 						</Text>
 					</View>
 					<View style={styles.info}>
-						<Text style={styles.infoName}>작업자 연락처
+						<Text style={styles.infoName}>작업지까지의 거리</Text>
+						<Text style={styles.infoText}>
+							{workReqDetailInfo.workDistance}
+						</Text>
+					</View>
+				</ContentView>
+				<ContentView label="위치 정보" style={{ paddingHorizontal: GS.padding }}>
+					<View style={styles.map}>
+					</View>
+				</ContentView>
+				<ContentView label="의뢰자 정보">
+					<View style={styles.info}>
+						<Text style={styles.infoName}>의뢰자 성명</Text>
+						<Text style={styles.infoText}>
+							{workReqDetailInfo.userName}
+						</Text>
+					</View>
+					<View style={styles.info}>
+						<Text style={styles.infoName}>의뢰 업체명</Text>
+						<Text style={styles.infoText}>
+							{workReqDetailInfo.userCompany}
+						</Text>
+					</View>
+					<View style={styles.info}>
+						<Text style={styles.infoName}>의뢰자 연락처
 						</Text>
 						<Text style={styles.infoText}>
 							{<Text
@@ -116,7 +133,7 @@ export default function WorkDetail({ navigation, route, ...props }) {
 								}}
 							// onPress={() => Linking.openURL(`tel:${workDetailInfo.userPhoneNumber}`)}
 							>
-								{workDetailInfo.userPhoneNumber || '없음'}
+								{workReqDetailInfo.userPhoneNumber || '없음'}
 							</Text>}
 						</Text>
 					</View>
@@ -156,6 +173,10 @@ const styles = StyleSheet.create({
 		fontFamily: GS.font_family,
 		fontSize: 24,
 		fontWeight: GS.font_weight.regular,
+	},
+	map: {
+		height: 100,
+		marginVertical: GS.margin,
 	},
 	bottomTab: {
 		height: 48,

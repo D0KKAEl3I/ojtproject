@@ -1,10 +1,10 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import IconButton from './IconButton';
-import GlobalContext from '../GlobalContext';
-import GS, { BS } from '../GlobalStyles';
-import ContentView from './ContentView';
+import IconButton from '../IconButton';
+import GlobalContext from '../../GlobalContext';
+import GS, { BS } from '../../GlobalStyles';
+import ContentView from '../ContentView';
 
 export default function WorkerBlock({ navigation, route, select = () => { }, ...props }) {
     return (
@@ -34,7 +34,7 @@ export default function WorkerBlock({ navigation, route, select = () => { }, ...
                                     onTouchEnd={e => e.stopPropagation()}>
                                     <Image
                                         style={{ width: '100%', height: '100%', opacity: 0.7 }}
-                                        source={require('../../public/forward_black.png')}
+                                        source={require('../../../public/forward_black.png')}
                                     />
                                 </View>
                             </IconButton>

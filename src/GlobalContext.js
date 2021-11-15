@@ -3,6 +3,7 @@ import { createContext } from 'react';
 const contextData = {
     userData: { userSn: null, userType: null },
     workList: [],
+    workReqList: [],
     workerList: [],
     alarmList: [],
     filter: {
@@ -13,7 +14,7 @@ const contextData = {
     status: 'WorkHome',
     config: {
         APISERVER: {
-            URL: "https://virtserver.swaggerhub.com/Hauly-014/DojeMockup/0.0.3"
+            URL: "https://virtserver.swaggerhub.com/Hauly-014/DojeMockup/0.0.4"
         }
     }
 }

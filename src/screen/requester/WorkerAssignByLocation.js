@@ -1,15 +1,15 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
 import { Dimensions, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
-import WorkBlock from '../../component/WorkBlock';
+import WorkBlock from '../../component/requester/WorkBlock';
 import { FlatList } from 'react-native-gesture-handler';
-import WorkerBlock from '../../component/WorkerBlock';
+import WorkerBlock from '../../component/requester/WorkerBlock';
 import BottomTabMenu from '../../component/BottomTabMenu';
 import SearchInput from '../../component/SearchInput'
 import TitleText from '../../component/TitleText'
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import GlobalContext from '../../GlobalContext';
 import GS from '../../GlobalStyles';
+import ContentView from '../../component/ContentView';
 let windowSize = Dimensions.get('window')
 
 export default function WorkerAssign({ navigation, route, ...props }) {
@@ -44,9 +44,10 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                                 route={route}
                             />
                         </View>
-                        <View style={styles.map}>
-                            <MapView style={{ flex: 1 }} provider={PROVIDER_GOOGLE} />
-                        </View>
+                        <ContentView label="위치 정보" style={{ paddingHorizontal: GS.padding }}>
+                            <View style={styles.map}>
+                            </View>
+                        </ContentView>
                         <View style={{ flex: 1 }}>
                             <TitleText style={{ marginTop: 0 }}>
                                 배정할 작업자 선택
@@ -124,8 +125,7 @@ const styles = StyleSheet.create({
     },
     map: {
         height: 100,
-        marginBottom: GS.margin,
-        marginHorizontal: GS.margin
+        marginBottom: GS.margin
     },
     title: {
         marginBottom: GS.margin,

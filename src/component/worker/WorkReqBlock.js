@@ -1,10 +1,10 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import { Text } from 'react-native';
-import Block from './Block';
-import { BS } from '../GlobalStyles';
+import Block from '../Block';
+import { BS } from '../../GlobalStyles';
 
-export default function WorkBlock({ navigation, route, select = () => { }, ...props }) {
+export default function WorkReqBlock({ navigation, route, select = () => { }, ...props }) {
     const [workStateColor, setWorkStateColor] = useState('#404040');
 
     useEffect(() => {
@@ -45,21 +45,21 @@ export default function WorkBlock({ navigation, route, select = () => { }, ...pr
                     select(null);
                 }
             }}
-            toDetail={{ screenName: 'WorkDetail', params: { workData: props } }}
+            toDetail={{ screenName: 'WorkReqDetail', params: { workData: props } }}
             selected={props.selected}>
             <Text style={[styles.info, { color: workStateColor }]}>
-                작업상태: {props.workState}
+                작업상태: {props.workState || "없음"}
             </Text>
             <Text style={styles.info}>
-                작업주소: {props.workLocation}
+                작업주소: {props.workLocation || "없음"}
             </Text>
             <Text style={styles.info}>
-                작업자명: {props.userName}
+                작업자명: {props.userName || "없음"}
             </Text>
             <Text style={styles.info}>
                 {props.workState === '작업완료'
-                    ? `작업완료일: ${props.workCompleteDate ?? '미정'}`
-                    : `작업예정일: ${props.workDueDate ?? '미정'}`}
+                    ? `작업완료일: ${props.workCompleteDate || '없음'}`
+                    : `작업예정일: ${props.workDueDate || '없음'}`}
             </Text>
         </Block>
     );

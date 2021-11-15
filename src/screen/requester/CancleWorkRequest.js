@@ -17,13 +17,13 @@ export default function CancleWorkRequest({ navigation, route, ...props }) {
 	}, []);
 
 	const submit = () => {
-		Alert.alert("작업 취소", "작업 취소 요청을 전송하시겠습니까?", [
+		Alert.alert("작업 배정 취소", "작업 배정 취소를 요청하시겠습니까?", [
 			{
 				text: '취소',
 				onPress: () => null,
 				style: 'cancel'
 			}, {
-				text: '전송',
+				text: '요청',
 				onPress: requestCancleWork,
 				style: 'default'
 			}
@@ -43,7 +43,7 @@ export default function CancleWorkRequest({ navigation, route, ...props }) {
 				}
 			})
 			if (response.ok) {
-				Alert.alert('작업 배정 취소 완료', '작업 배정 취소 요청이 성공적으로 전송되었습니다.', [
+				Alert.alert('작업 배정 취소 완료', '작업 배정이 취소되었습니다.', [
 					{
 						text: "확인 및 뒤로가기",
 						onPress: navigation.goBack,
@@ -52,7 +52,12 @@ export default function CancleWorkRequest({ navigation, route, ...props }) {
 				])
 				setOnRequest(false)
 			} else {
-				Alert.alert('작업 배정 취소 실패', '작업 배정 취소 요청이 전송되지 않았습니다.')
+				Alert.alert('작업 배정 취소 실패', '작업 배정이 취소되지 않았습니다.', [
+					{
+						text: "확인",
+						style: "default"
+					}
+				])
 				setOnRequest(false)
 
 			}

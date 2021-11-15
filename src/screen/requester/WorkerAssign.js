@@ -1,10 +1,10 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
 import { Dimensions, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
-import WorkBlock from '../../component/WorkBlock';
+import WorkBlock from '../../component/requester/WorkBlock';
 import { FlatList } from 'react-native-gesture-handler';
 import GlobalContext from '../../GlobalContext';
-import WorkerBlock from '../../component/WorkerBlock';
+import WorkerBlock from '../../component/requester/WorkerBlock';
 import GS from '../../GlobalStyles';
 import BottomTabMenu from '../../component/BottomTabMenu';
 import SearchInput from '../../component/SearchInput'

@@ -17,13 +17,13 @@ export default function ChangeWorker({ navigation, route, ...props }) {
 	}, []);
 
 	const submit = () => {
-		Alert.alert("작업자 변경", "작업자 변경 요청을 전송하시겠습니까?", [
+		Alert.alert("작업자 변경", "작업자 변경을 요청하시겠습니까?", [
 			{
 				text: '취소',
 				onPress: () => null,
 				style: 'cancel'
 			}, {
-				text: '전송',
+				text: '요청',
 				onPress: changeWorkerRequest,
 				style: 'default'
 			}
@@ -43,7 +43,7 @@ export default function ChangeWorker({ navigation, route, ...props }) {
 				}
 			})
 			if (response.ok) {
-				Alert.alert('작업자 변경 완료', '작업자 변경 요청이 성공적으로 전송되었습니다.', [
+				Alert.alert('작업자 변경 완료', '작업자가 변경되었습니다.', [
 					{
 						text: "확인 및 뒤로가기",
 						onPress: navigation.goBack,
@@ -52,8 +52,12 @@ export default function ChangeWorker({ navigation, route, ...props }) {
 				])
 				setOnRequest(false)
 			} else {
-				console.log(messageResponse.status);
-				Alert.alert('작업자 변경 실패', '작업자 변경 요청이 전송되지 않았습니다.')
+				Alert.alert('작업자 변경 실패', '작업자가 변경되지 않았습니다.', [
+					{
+						text: "확인",
+						style: "default"
+					}
+				])
 				setOnRequest(false)
 			}
 		} catch (e) {
