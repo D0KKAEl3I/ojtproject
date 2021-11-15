@@ -5,7 +5,7 @@ import GS from '../../GlobalStyles';
 import ContentView from '../../component/ContentView';
 import GlobalContext from '../../GlobalContext';
 import TitleText from '../../component/TitleText';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, PROVIDER_DEFAULT } from 'react-native-maps';
 
 export default function WorkReqDetail({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext)
@@ -107,9 +107,18 @@ export default function WorkReqDetail({ navigation, route, ...props }) {
 				<ContentView label="위치 정보" style={{ paddingHorizontal: GS.padding }}>
 					<View style={styles.map}>
 						<MapView
-							provider={PROVIDER_GOOGLE}
+							provider={PROVIDER_DEFAULT}
 							style={{ flex: 1 }}
-						/>
+							initialRegion={{
+								latitude: 37.481073, longitude: 127.123328, latitudeDelta: 0.007,
+								longitudeDelta: 0.00,
+							}}
+						>
+							<Marker coordinate={{ latitude: 37.481073, longitude: 127.123328 }} />
+						</MapView>
+						<View style={styles.mapText}>
+							<Text style={{ color: '#fff' }}>앱에서 확인하기</Text>
+						</View>
 					</View>
 				</ContentView>
 				<ContentView label="의뢰자 정보">
@@ -180,8 +189,19 @@ const styles = StyleSheet.create({
 		fontWeight: GS.font_weight.regular,
 	},
 	map: {
-		height: 100,
+		height: 200,
 		marginVertical: GS.margin,
+		borderRadius: GS.borderRadius,
+		overflow: 'hidden',
+	},
+	mapText: {
+		position: 'absolute',
+		bottom: 0,
+		right: 0,
+		backgroundColor: '#000000a0',
+		borderTopLeftRadius: GS.borderRadius,
+		borderBottomRightRadius: GS.borderRadius,
+		padding: GS.padding
 	},
 	bottomTab: {
 		height: 48,

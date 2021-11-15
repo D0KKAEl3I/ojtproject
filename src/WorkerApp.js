@@ -141,11 +141,6 @@ export default function RequesterApp() {
                 setContext,
                 setOnLoading
             }}>
-            {onLoading && (
-                <View style={styles.loading}>
-                    <ActivityIndicator size="large" style={{ width: 80, height: 80 }} />
-                </View>
-            )}
             <SafeAreaView style={styles.container}>
                 <StatusBar
                     translucent
@@ -225,6 +220,9 @@ export default function RequesterApp() {
                     </NavigationContainer>
                 </View>
             </SafeAreaView>
+            {onLoading && <View style={styles.loading}>
+                <ActivityIndicator size="large" style={{ width: 80, height: 80 }} />
+            </View>}
         </GlobalContext.Provider >
     );
 }
@@ -237,6 +235,8 @@ const styles = StyleSheet.create({
     },
     loading: {
         position: 'absolute',
+        flex: 1,
+
         top: 0,
         bottom: 0,
         left: 0,
