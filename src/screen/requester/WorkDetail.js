@@ -17,7 +17,7 @@ export default function WorkDetail({ navigation, route, ...props }) {
 			setOnLoading(true);
 			let response;
 			try {
-				response = await fetch(context.config.APISERVER.URL + '/api/v1/workReqDetail', {
+				response = await fetch(context.config.APISERVER.URL + '/api/v1/workDetail', {
 					method: 'POST',
 					body: {
 						requesterSn: context.userData.userSn,

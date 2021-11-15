@@ -34,7 +34,7 @@ export default function CancleWorkRequest({ navigation, route, ...props }) {
 		context.setOnLoading(true)
 		let response;
 		try {
-			response = await fetch(context.config.APISERVER.URL + '/api/v1/workRequestCancle', {
+			response = await fetch(context.config.APISERVER.URL + '/api/v1/workCancle', {
 				method: "POST",
 				body: {
 					requesterSn: context.userData.userSn,
