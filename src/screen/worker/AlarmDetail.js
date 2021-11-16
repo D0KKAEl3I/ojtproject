@@ -33,13 +33,13 @@ export default function AlarmDetail({ navigation, route, ...props }) {
 				setOnLoading(false);
 			}
 		})();
-		console.log(alarmDetailInfo);
 	}, []);
 
 	return onLoading ? (
 		<ActivityIndicator size="large" style={{ flex: 1 }} />
 	) : (
 		<View style={styles.content}>
+			{console.log(alarmDetailInfo)}
 			<TitleText>
 				{`${alarmDetailInfo.workState} 알림`}
 			</TitleText>
@@ -47,34 +47,22 @@ export default function AlarmDetail({ navigation, route, ...props }) {
 				<ContentView  >
 					<View style={styles.info}>
 						<Text style={styles.infoName}>작업 지점</Text>
-						<Text style={styles.infoText}>
-							{/* {alarmDetailInfo.} */}
-							없음
-						</Text>
+						<Text style={styles.infoText}>{alarmDetailInfo.workName || "없음"}</Text>
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>알림 사항</Text>
-						<Text style={styles.infoText}>
-							{alarmDetailInfo.messageMemo}
-						</Text>
+						<Text style={styles.infoText}>{alarmDetailInfo.messageMemo || "없음"}</Text>
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>알림 사유</Text>
-						<Text style={styles.infoText}>
-							{alarmDetailInfo.messageReason}
-						</Text>
+						<Text style={styles.infoText}>{alarmDetailInfo.messageReason || "없음"}</Text>
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>작업 주소</Text>
-						<Text style={styles.infoText}>
-							{alarmDetailInfo.workLocation || '없음'}
-						</Text>
+						<Text style={styles.infoText}>{alarmDetailInfo.workLocation || '없음'}</Text>
 					</View>
 					<View style={styles.info}>
-						<Text style={styles.infoName}>
-							{alarmDetailInfo.messageMemo === '작업완료' ?
-								"작업완료일" : "작업예정일"}
-						</Text>
+						<Text style={styles.infoName}>{alarmDetailInfo.messageMemo === '작업완료' ? "작업완료일" : "작업예정일"}</Text>
 						<Text style={styles.infoText}>
 							{alarmDetailInfo.messageMemo === '작업완료' ?
 								alarmDetailInfo.workCompleteDate || '없음'
@@ -83,25 +71,10 @@ export default function AlarmDetail({ navigation, route, ...props }) {
 						</Text>
 					</View>
 					<View style={styles.info}>
-						<Text style={styles.infoName}>작업자 연락처
-						</Text>
-						<Text style={styles.infoText}>
-							{
-								<Text
-									style={{
-										fontSize: 24,
-										color: '#0000aa',
-										textDecorationColor: '#0000aa',
-										textDecorationLine: 'underline',
-									}}
-								>
-									{alarmDetailInfo.userPhoneNumber || '없음'}
-								</Text>
-							}
-						</Text>
+						<Text style={styles.infoName}>작업자 연락처</Text>
+						<Text style={{ ...styles.infoText, ...GS.linked_text }}>{alarmDetailInfo.userPhoneNumber || '없음'}</Text>
 					</View>
 				</ContentView>
-
 			</ScrollView>
 			<View style={styles.bottomTab}>
 				<Pressable onPress={() => { }} style={[styles.button, styles.leftSide]}>
@@ -162,8 +135,8 @@ const styles = StyleSheet.create({
 	button: {
 		flex: 1,
 		backgroundColor: GS.active_color,
-		borderBottomLeftRadius: GS.borderRadius,
-		borderBottomRightRadius: GS.borderRadius,
+		borderBottomLeftRadius: GS.border_radius,
+		borderBottomRightRadius: GS.border_radius,
 		paddingVertical: GS.padding,
 		alignItems: 'center',
 		justifyContent: 'center',

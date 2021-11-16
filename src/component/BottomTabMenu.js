@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		maxWidth: 150,
 		backgroundColor: '#4099ff',
-		borderRadius: GS.borderRadius,
+		borderRadius: GS.border_radius,
 		marginHorizontal: GS.padding / 2,
 		elevation: 1,
 		...GS.shadow,

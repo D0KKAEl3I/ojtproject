@@ -5,7 +5,8 @@ import GS from '../../GlobalStyles';
 import ContentView from '../../component/ContentView';
 import GlobalContext from '../../GlobalContext';
 import TitleText from '../../component/TitleText';
-import MapView, { PROVIDER_GOOGLE, Marker, PROVIDER_DEFAULT } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import GoogleMap from '../../component/GoogleMap';
 
 export default function WorkReqDetail({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext)
@@ -106,16 +107,10 @@ export default function WorkReqDetail({ navigation, route, ...props }) {
 				</ContentView>
 				<ContentView label="위치 정보" style={{ paddingHorizontal: GS.padding }}>
 					<View style={styles.map}>
-						<MapView
-							provider={PROVIDER_DEFAULT}
-							style={{ flex: 1 }}
-							initialRegion={{
-								latitude: 37.481073, longitude: 127.123328, latitudeDelta: 0.007,
-								longitudeDelta: 0.00,
-							}}
-						>
-							<Marker coordinate={{ latitude: 37.481073, longitude: 127.123328 }} />
-						</MapView>
+						<GoogleMap
+							coordinate={{ latitude: 37.481073, longitude: 127.123328 }}
+							markers={[{ latitude: 37.481073, longitude: 127.123328 }]}
+						/>
 						<View style={styles.mapText}>
 							<Text style={{ color: '#fff' }}>앱에서 확인하기</Text>
 						</View>
@@ -191,7 +186,7 @@ const styles = StyleSheet.create({
 	map: {
 		height: 200,
 		marginVertical: GS.margin,
-		borderRadius: GS.borderRadius,
+		borderRadius: GS.border_radius,
 		overflow: 'hidden',
 	},
 	mapText: {
@@ -199,8 +194,8 @@ const styles = StyleSheet.create({
 		bottom: 0,
 		right: 0,
 		backgroundColor: '#000000a0',
-		borderTopLeftRadius: GS.borderRadius,
-		borderBottomRightRadius: GS.borderRadius,
+		borderTopLeftRadius: GS.border_radius,
+		borderBottomRightRadius: GS.border_radius,
 		padding: GS.padding
 	},
 	bottomTab: {
@@ -210,8 +205,8 @@ const styles = StyleSheet.create({
 	button: {
 		flex: 1,
 		backgroundColor: GS.active_color,
-		borderBottomLeftRadius: GS.borderRadius,
-		borderBottomRightRadius: GS.borderRadius,
+		borderBottomLeftRadius: GS.border_radius,
+		borderBottomRightRadius: GS.border_radius,
 		paddingVertical: GS.padding,
 		alignItems: 'center',
 		justifyContent: 'center',

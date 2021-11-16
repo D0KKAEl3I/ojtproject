@@ -117,8 +117,8 @@ const styles = StyleSheet.create({
 	button: {
 		flex: 1,
 		backgroundColor: GS.active_color,
-		borderBottomLeftRadius: GS.borderRadius,
-		borderBottomRightRadius: GS.borderRadius,
+		borderBottomLeftRadius: GS.border_radius,
+		borderBottomRightRadius: GS.border_radius,
 		paddingVertical: GS.padding,
 		alignItems: 'center',
 		justifyContent: 'center',

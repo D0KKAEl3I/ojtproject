@@ -19,15 +19,20 @@ const GS = {
     padding: 8,
     padding_horizontal: 16,
     margin: 8,
-    borderWidth: 2,
-    borderColor: '#d0d0d0',
-    borderRadius: 8,
+    border_width: 2,
+    border_color: '#d0d0d0',
+    border_radius: 8,
     elevation: 4,
     shadow: {
         shadowColor: '#505090',
         shadowRadius: 6,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2
+    },
+    linked_text: {
+        color: '#0000aa',
+        textDecorationColor: '#0000aa',
+        textDecorationLine: 'underline',
     }
 }
 
@@ -40,7 +45,7 @@ const BlockStyle = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderBottomColor: GS.borderColor,
+        borderBottomColor: GS.border_color,
         borderBottomWidth: 2,
     },
     titleText: {

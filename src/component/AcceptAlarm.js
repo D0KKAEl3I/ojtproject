@@ -94,7 +94,7 @@ export default function AcceptAlarm({ data, goBack, ...props }) {
 
 const styles = StyleSheet.create({
 	container: {
-		borderRadius: GS.borderRadius,
+		borderRadius: GS.border_radius,
 		marginHorizontal: 32,
 		backgroundColor: '#ffffff',
 		justifyContent: 'flex-start',
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
 	button: {
 		minWidth: 128,
 		backgroundColor: '#4099ff',
-		borderRadius: GS.borderRadius,
+		borderRadius: GS.border_radius,
 		padding: 16,
 		marginVertical: 12,
 		alignItems: 'center',
