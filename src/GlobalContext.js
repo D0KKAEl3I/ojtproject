@@ -14,7 +14,8 @@ const contextData = {
     status: 'WorkHome',
     config: {
         APISERVER: {
-            URL: "https://virtserver.swaggerhub.com/Hauly-014/DojeMockup/0.0.4"
+            // URL: "https://virtserver.swaggerhub.com/Hauly-014/DojeMockup/0.0.4"
+            URL: "http://192.168.0.2:49160"
         }
     }
 }
