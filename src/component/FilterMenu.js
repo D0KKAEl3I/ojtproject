@@ -168,7 +168,7 @@ function Input({ title, placeholder = "", defaultValue, onChangeText }) {
 			<TextInput style={styles.input}
 				defaultValue={defaultValue}
 				placeholder={placeholder || title}
-				placeholderTextColor={GS.borderColor}
+				placeholderTextColor={GS.border_color}
 				onChangeText={onChangeText} />
 		</ContentView>
 	);
@@ -178,7 +178,7 @@ function DateInput({ title, date, onPressButton }) {
 		<ContentView style={styles.option} >
 			<Text style={styles.label}>{title}</Text>
 			<View style={styles.dateContainer}>
-				<Text style={[styles.date, { color: date ? GS.text_color : GS.borderColor }]}>{date || "날짜를 선택해주세요"}</Text>
+				<Text style={[styles.date, { color: date ? GS.text_color : GS.border_color }]}>{date || "날짜를 선택해주세요"}</Text>
 				<Button title="선택" onPress={onPressButton} />
 			</View>
 		</ContentView>
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#ffffff',
 		borderWidth: 2,
 		borderColor: '#a0a0a0',
-		borderRadius: GS.borderRadius,
+		borderRadius: GS.border_radius,
 	},
 	calendarBackground: {
 		position: 'absolute',

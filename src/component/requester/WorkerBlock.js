@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
     ...BS,
     profileImage: {
         width: 100,
-        borderTopLeftRadius: GS.borderRadius,
-        borderBottomLeftRadius: GS.borderRadius,
+        borderTopLeftRadius: GS.border_radius,
+        borderBottomLeftRadius: GS.border_radius,
         backgroundColor: 'gray',
         justifyContent: 'center',
         alignItems: 'center'

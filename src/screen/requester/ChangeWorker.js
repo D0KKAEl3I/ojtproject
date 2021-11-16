@@ -142,5 +142,4 @@ const styles = StyleSheet.create({
 		fontSize: 24,
 		fontWeight: GS.font_weight.regular,
 	},
-
 });

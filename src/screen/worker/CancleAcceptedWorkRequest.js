@@ -142,17 +142,4 @@ const styles = StyleSheet.create({
 		fontSize: 24,
 		fontWeight: GS.font_weight.regular,
 	},
-
-
-	// 버튼 위치 방향에 따라
-	leftSide: {
-		borderRightWidth: 1,
-		borderColor: GS.background_color,
-		borderBottomRightRadius: 0
-	},
-	rightSide: {
-		borderLeftWidth: 1,
-		borderColor: GS.background_color,
-		borderBottomLeftRadius: 0
-	}
 });

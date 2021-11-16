@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     map: {
         height: 100,
         marginBottom: GS.margin,
-        borderRadius: GS.borderRadius,
+        borderRadius: GS.border_radius,
         overflow: 'hidden'
     },
     title: {

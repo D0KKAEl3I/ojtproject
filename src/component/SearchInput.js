@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, BackHandler } from 'react-native';
+import { View, Text, StyleSheet, Image, BackHandler, Platform } from 'react-native';
 import IconButton from './IconButton';
 import { TextInput } from 'react-native-gesture-handler';
 import GlobalContext from '../GlobalContext';
@@ -53,7 +53,7 @@ export default function SearchInput({ onSubmit, onClose, defaultValue, label, ..
 const styles = StyleSheet.create({
 	container: {
 		maxWidth: 512,
-		borderRadius: GS.borderRadius,
+		borderRadius: GS.border_radius,
 		marginHorizontal: GS.margin * 4,
 		backgroundColor: '#ffffff',
 		justifyContent: 'flex-start',
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		padding: 4,
-		borderBottomColor: GS.borderColor,
+		borderBottomColor: GS.border_color,
 		borderBottomWidth: 2,
 	},
 	labelText: {
@@ -75,9 +75,10 @@ const styles = StyleSheet.create({
 		fontWeight: GS.font_weight.bold,
 	},
 	input: {
+		paddingLeft: Platform.OS === 'ios' && 4,
 		flexDirection: 'row',
 		alignItems: 'center',
-		paddingVertical: 0
+		paddingVertical: Platform.OS === 'ios' && 4
 	},
 	inputText: {
 		flex: 1,
