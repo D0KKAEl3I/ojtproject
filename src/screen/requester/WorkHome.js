@@ -3,7 +3,7 @@ import React, { useCallback, useContext, useEffect, useRef, useState } from 'rea
 import { StyleSheet, View, KeyboardAvoidingView, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import WorkBlock from '../../component/requester/WorkBlock';
-import BottomTabMenu from '../../component/BottomTabMenu';
+import BottomMenu from '../../component/BottomMenu';
 import SearchInput from '../../component/SearchInput';
 import GlobalContext from '../../GlobalContext';
 import GS from '../../GlobalStyles';
@@ -95,7 +95,7 @@ export default function WorkHome({ navigation, route, ...props }) {
 							/>
 						</KeyboardAvoidingView>
 					)}
-					<BottomTabMenu
+					<BottomMenu
 						data={[
 							{
 								value: '작업 검색하기',

@@ -6,6 +6,7 @@ import GS from '../../GlobalStyles';
 import GlobalContext from '../../GlobalContext';
 import ContentView from '../../component/ContentView';
 import TitleText from '../../component/TitleText';
+import BottomButton from '../../component/BottomButton';
 
 export default function WorkRequest({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext)
@@ -119,18 +120,12 @@ export default function WorkRequest({ navigation, route, ...props }) {
 					</View>
 				</ContentView>
 			</ScrollView>
-			<View style={styles.bottomTab}>
-				<Pressable onPress={submit} style={[styles.button, styles.leftSide]}>
-					<Text style={{ color: '#ffffff', fontFamily: GS.font_family, fontWeight: GS.font_weight.bold, fontSize: 20 }}>
-						작업 요청하기
-					</Text>
-				</Pressable>
-				<Pressable onPress={navigation.goBack} style={[styles.button, styles.rightSide]}>
-					<Text style={{ color: '#ffffff', fontFamily: GS.font_family, fontWeight: GS.font_weight.bold, fontSize: 20 }}>
-						돌아가기
-					</Text>
-				</Pressable>
-			</View>
+			<BottomButton
+				data={[
+					{ value: "작업 요청", onPress: submit },
+					{ value: "돌아가기", onPress: navigation.goBack }
+				]}
+			/>
 		</View >
 	);
 }
@@ -158,19 +153,8 @@ const styles = StyleSheet.create({
 		fontSize: 24,
 		fontWeight: GS.font_weight.regular,
 	},
-	bottomTab: {
-		height: 48,
-		flexDirection: 'row'
-	},
-	button: {
-		flex: 1,
-		backgroundColor: GS.active_color,
-		borderBottomLeftRadius: GS.borderRadius,
-		borderBottomRightRadius: GS.borderRadius,
-		paddingVertical: GS.padding,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
+
+
 	// 버튼 위치 방향에 따라
 	leftSide: {
 		borderRightWidth: 1,

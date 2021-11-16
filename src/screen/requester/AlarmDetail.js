@@ -6,6 +6,7 @@ import GlobalContext from '../../GlobalContext';
 import GS from '../../GlobalStyles';
 import ContentView from '../../component/ContentView';
 import TitleText from '../../component/TitleText';
+import BottomButton from '../../component/BottomButton';
 
 export default function AlarmDetail({ navigation, route, ...props }) {
 	const [onLoading, setOnLoading] = useState(false);
@@ -103,21 +104,15 @@ export default function AlarmDetail({ navigation, route, ...props }) {
 				</ContentView>
 
 			</ScrollView>
-			<View style={styles.bottomTab}>
-				<Pressable onPress={() => { }} style={[styles.button, styles.leftSide]}>
-					<Text style={{ color: '#ffffff', fontWeight: GS.font_weight.bold, fontSize: 20 }}>
-						{alarmDetailInfo.messageMemo === '작업거절' ||
-							alarmDetailInfo.messageMemo === '수락취소'
-							? '작업자 재배정'
-							: '작업내용 확인'}
-					</Text>
-				</Pressable>
-				<Pressable onPress={navigation.goBack} style={[styles.button, styles.rightSide]}>
-					<Text style={{ color: '#ffffff', fontWeight: GS.font_weight.bold, fontSize: 20 }}>
-						돌아가기
-					</Text>
-				</Pressable>
-			</View >
+			<BottomButton
+				data={[
+					{
+						value: alarmDetailInfo.messageMemo === '작업거절' || alarmDetailInfo.messageMemo === '수락취소'
+							? '작업자 재배정' : '작업내용 확인'
+					},
+					{ value: '돌아가기', onPress: navigation.goBack }
+				]}
+			/>
 		</View>
 	)
 
@@ -155,28 +150,4 @@ const styles = StyleSheet.create({
 		fontSize: 24,
 		fontWeight: GS.font_weight.regular,
 	},
-	bottomTab: {
-		height: 48,
-		flexDirection: 'row'
-	},
-	button: {
-		flex: 1,
-		backgroundColor: GS.active_color,
-		borderBottomLeftRadius: GS.borderRadius,
-		borderBottomRightRadius: GS.borderRadius,
-		paddingVertical: GS.padding,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	// 버튼 위치 방향에 따라
-	leftSide: {
-		borderRightWidth: 1,
-		borderColor: GS.background_color,
-		borderBottomRightRadius: 0
-	},
-	rightSide: {
-		borderLeftWidth: 1,
-		borderColor: GS.background_color,
-		borderBottomLeftRadius: 0
-	}
 });

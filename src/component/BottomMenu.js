@@ -1,16 +1,25 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import GS from '../GlobalStyles';
 
-export default function BottomTabMenu({ data }) {
+export default function BottomMenu({ data }) {
+	const [onDoAnything, setOnDoAnything] = useState(false)
+
 	return (
 		<View style={styles.container}>
 			{data.map((item, i) => (
 				<Tab
 					key={i}
 					disable={item.disable}
-					onPress={item.onPress}
+					onPress={() => {
+						setOnDoAnything(true)
+						if (!onDoAnything)
+							item.onPress()
+						setTimeout(() => {
+							setOnDoAnything(false)
+						}, 1500)
+					}}
 					value={item.value}
 					fontStyle={item.fontStyle}
 				/>

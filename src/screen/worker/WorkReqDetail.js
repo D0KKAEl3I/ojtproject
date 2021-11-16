@@ -6,6 +6,7 @@ import ContentView from '../../component/ContentView';
 import GlobalContext from '../../GlobalContext';
 import TitleText from '../../component/TitleText';
 import MapView, { PROVIDER_GOOGLE, Marker, PROVIDER_DEFAULT } from 'react-native-maps';
+import BottomButton from '../../component/BottomButton';
 
 export default function WorkReqDetail({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext)
@@ -153,19 +154,12 @@ export default function WorkReqDetail({ navigation, route, ...props }) {
 					</View>
 				</ContentView>
 			</ScrollView>
-			<View style={styles.bottomTab}>
-				<Pressable onPress={navigation.goBack} style={styles.button}>
-					<Text style={{ color: '#ffffff', fontWeight: GS.font_weight.bold, fontSize: 20 }}>
-						돌아가기
-					</Text>
-				</Pressable>
-			</View>
+			<BottomButton data={[{ value: '돌아가기', onPress: navigation.goBack }]} />
 		</View>
 	)
 }
 
 const styles = StyleSheet.create({
-
 	content: {
 		flex: 1,
 		maxWidth: 512,
@@ -202,18 +196,5 @@ const styles = StyleSheet.create({
 		borderTopLeftRadius: GS.borderRadius,
 		borderBottomRightRadius: GS.borderRadius,
 		padding: GS.padding
-	},
-	bottomTab: {
-		height: 48,
-		flexDirection: 'row'
-	},
-	button: {
-		flex: 1,
-		backgroundColor: GS.active_color,
-		borderBottomLeftRadius: GS.borderRadius,
-		borderBottomRightRadius: GS.borderRadius,
-		paddingVertical: GS.padding,
-		alignItems: 'center',
-		justifyContent: 'center',
 	},
 });

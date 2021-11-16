@@ -75,13 +75,7 @@ export default function WorkerDetail({ navigation, route, ...props }) {
 					/>
 				</ContentView>
 			</ScrollView>
-			<View style={styles.bottomTab}>
-				<Pressable onPress={navigation.goBack} style={styles.button}>
-					<Text style={{ color: '#ffffff', fontFamily: GS.font_family, fontWeight: GS.font_weight.bold, fontSize: 20 }}>
-						돌아가기
-					</Text>
-				</Pressable>
-			</View>
+			<BottomButton data={[{ value: '돌아가기', onPress: navigation.goBack }]} />
 		</View>
 	)
 }
@@ -110,18 +104,4 @@ const styles = StyleSheet.create({
 		fontSize: 24,
 		fontWeight: GS.font_weight.regular,
 	},
-	bottomTab: {
-		height: 48,
-		flexDirection: 'row'
-	},
-	button: {
-		flex: 1,
-		backgroundColor: GS.active_color,
-		borderBottomLeftRadius: GS.borderRadius,
-		borderBottomRightRadius: GS.borderRadius,
-		paddingVertical: GS.padding,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-
 });

@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import BottomTabMenu from '../../component/BottomTabMenu';
+import BottomMenu from '../../component/BottomMenu';
 import AlarmBlock from '../../component/AlarmBlock';
 import SearchInput from '../../component/SearchInput';
 import AcceptAlarm from '../../component/AcceptAlarm.js';
@@ -84,7 +84,7 @@ export default function Alarm({ navigation, route, ...props }) {
                             />
                         </View>
                     )}
-                    <BottomTabMenu
+                    <BottomMenu
                         data={[
                             {
                                 value: '작업 검색하기',

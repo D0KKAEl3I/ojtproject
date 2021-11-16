@@ -4,7 +4,7 @@ import { Dimensions, KeyboardAvoidingView, StyleSheet, View } from 'react-native
 import WorkBlock from '../../component/requester/WorkBlock';
 import { FlatList } from 'react-native-gesture-handler';
 import WorkerBlock from '../../component/requester/WorkerBlock';
-import BottomTabMenu from '../../component/BottomTabMenu';
+import BottomMenu from '../../component/BottomMenu';
 import SearchInput from '../../component/SearchInput'
 import TitleText from '../../component/TitleText'
 import GlobalContext from '../../GlobalContext';
@@ -95,7 +95,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                             />
                         </KeyboardAvoidingView>
                     )}
-                    <BottomTabMenu
+                    <BottomMenu
                         data={[
                             {
                                 value: '작업자 검색하기',

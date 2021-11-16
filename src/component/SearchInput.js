@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
 		padding: 4,
 		borderBottomColor: GS.borderColor,
 		borderBottomWidth: 2,
-		paddingHorizontal: GS.padding,
 	},
 	labelText: {
 		flex: 1,
@@ -76,15 +75,14 @@ const styles = StyleSheet.create({
 		fontWeight: GS.font_weight.bold,
 	},
 	input: {
-		paddingHorizontal: GS.padding,
 		flexDirection: 'row',
 		alignItems: 'center',
+		paddingVertical: 0
 	},
 	inputText: {
 		flex: 1,
 		fontSize: 18,
 		fontFamily: GS.font_family,
 		fontWeight: GS.font_weight.regular,
-		paddingVertical: GS.padding
 	},
 });
