@@ -67,7 +67,7 @@ const BlockStyle = StyleSheet.create({
         fontFamily: GS.font_family,
         fontWeight: GS.font_weight.regular,
         color: GS.text_color,
-        lineHeight: Platform.OS === "ios" ? 28 : null
+        lineHeight: Platform.select({ ios: 28, android: null })
     }
 })
 

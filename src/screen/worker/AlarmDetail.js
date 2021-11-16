@@ -6,6 +6,7 @@ import GlobalContext from '../../GlobalContext';
 import GS from '../../GlobalStyles';
 import ContentView from '../../component/ContentView';
 import TitleText from '../../component/TitleText';
+import BottomButton from '../../component/BottomButton';
 
 export default function AlarmDetail({ navigation, route, ...props }) {
 	const [onLoading, setOnLoading] = useState(false);

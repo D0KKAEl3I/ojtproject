@@ -6,6 +6,8 @@ import ContentView from '../../component/ContentView';
 import GlobalContext from '../../GlobalContext';
 import TitleText from '../../component/TitleText';
 import GoogleMap from '../../component/GoogleMap';
+import BottomButton from '../../component/BottomButton';
+import MapView, { Marker } from 'react-native-maps';
 
 export default function WorkReqDetail({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext)
@@ -107,12 +109,9 @@ export default function WorkReqDetail({ navigation, route, ...props }) {
 				<ContentView label="위치 정보" style={{ paddingHorizontal: GS.padding }}>
 					<View style={styles.map}>
 						<GoogleMap
-							coordinate={{ latitude: 37.481073, longitude: 127.123328 }}
+							initialRegion={{ latitude: 37.481073, longitude: 127.123328 }}
 							markers={[{ latitude: 37.481073, longitude: 127.123328 }]}
 						/>
-						<View style={styles.mapText}>
-							<Text style={{ color: '#fff' }}>앱에서 확인하기</Text>
-						</View>
 					</View>
 				</ContentView>
 				<ContentView label="의뢰자 정보">
@@ -180,14 +179,5 @@ const styles = StyleSheet.create({
 		marginVertical: GS.margin,
 		borderRadius: GS.border_radius,
 		overflow: 'hidden',
-	},
-	mapText: {
-		position: 'absolute',
-		bottom: 0,
-		right: 0,
-		backgroundColor: '#000000a0',
-		borderTopLeftRadius: GS.border_radius,
-		borderBottomRightRadius: GS.border_radius,
-		padding: GS.padding
 	},
 });

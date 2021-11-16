@@ -22,9 +22,9 @@ export default function BottomButton({ data = [{ value: "", onPress() { } }] }) 
                     </Text>
                 </Pressable>
                 :
-                data.map((item, index) => {
+                data.map((item, i) => {
                     return (
-                        <Pressable onPress={item.onPress} style={[styles.button, index === 0 && styles.leftSide, index === data.length - 1 && styles.rightSide]}>
+                        <Pressable key={i} onPress={item.onPress} style={[styles.button, i === 0 && styles.leftSide, i === data.length - 1 && styles.rightSide]}>
                             <Text style={{ color: '#ffffff', fontWeight: GS.font_weight.bold, fontSize: 20 }}>
                                 {item.value}
                             </Text>

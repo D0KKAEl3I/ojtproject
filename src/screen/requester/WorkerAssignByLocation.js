@@ -11,6 +11,7 @@ import GlobalContext from '../../GlobalContext';
 import GS from '../../GlobalStyles';
 import ContentView from '../../component/ContentView';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import GoogleMap from '../../component/GoogleMap';
 
 let windowSize = Dimensions.get('window')
 
@@ -48,10 +49,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                         </View>
                         <ContentView label="위치 정보" style={{ paddingHorizontal: GS.padding }}>
                             <View style={styles.map}>
-                                <MapView
-                                    provider={PROVIDER_GOOGLE}
-                                    style={{ flex: 1 }}
-                                />
+                                <GoogleMap />
                             </View>
                         </ContentView>
                         <View style={{ flex: 1 }}>

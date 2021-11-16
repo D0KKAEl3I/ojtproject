@@ -95,22 +95,25 @@ export default function SideMenu(props) {
 }
 
 function Tab({ value }) {
-  return Platform.OS === "ios" ? (
-    <TouchableHighlight
-      style={styles.tab}
-      underlayColor={GS.pressed_color}
-      onPress={() => { }}>
-      <Text style={styles.tabText}>{value}</Text>
-    </TouchableHighlight>
-  ) : (
-    <TouchableNativeFeedback
-      onPress={() => { }}
-      background={TouchableNativeFeedback.Ripple(GS.pressed_color)}>
-      <View style={styles.tab}>
+  return Platform.select({
+    ios: (
+      <TouchableHighlight
+        style={styles.tab}
+        underlayColor={GS.pressed_color}
+        onPress={() => { }}>
         <Text style={styles.tabText}>{value}</Text>
-      </View>
-    </TouchableNativeFeedback>
-  );
+      </TouchableHighlight>
+    ),
+    android: (
+      <TouchableNativeFeedback
+        onPress={() => { }}
+        background={TouchableNativeFeedback.Ripple(GS.pressed_color)}>
+        <View style={styles.tab}>
+          <Text style={styles.tabText}>{value}</Text>
+        </View>
+      </TouchableNativeFeedback>
+    )
+  });
 }
 
 const styles = StyleSheet.create({

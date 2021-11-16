@@ -6,6 +6,7 @@ import GS from '../../GlobalStyles';
 import GlobalContext from '../../GlobalContext';
 import ContentView from '../../component/ContentView';
 import TitleText from '../../component/TitleText';
+import BottomButton from '../../component/BottomButton';
 
 export default function CancleAcceptedWorkRequest({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext)

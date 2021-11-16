@@ -7,6 +7,7 @@ import TitleText from '../../component/TitleText';
 import ContentView from '../../component/ContentView';
 import GlobalContext from '../../GlobalContext';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import GoogleMap from '../../component/GoogleMap';
 
 export default function WorkerDetail({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext)
@@ -69,10 +70,7 @@ export default function WorkerDetail({ navigation, route, ...props }) {
 					</View>
 				</ContentView>
 				<ContentView label="위치 정보" style={{ height: 400, paddingVertical: GS.padding, paddingHorizontal: GS.padding }}>
-					<MapView
-						provider={PROVIDER_GOOGLE}
-						style={{ flex: 1 }}
-					/>
+					<GoogleMap />
 				</ContentView>
 			</ScrollView>
 			<BottomButton data={[{ value: '돌아가기', onPress: navigation.goBack }]} />
