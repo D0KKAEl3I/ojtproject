@@ -6,7 +6,8 @@ import GlobalContext from '../../GlobalContext';
 import GS, { BS } from '../../GlobalStyles';
 import ContentView from '../ContentView';
 
-export default function WorkerBlock({ navigation, route, select = () => { }, ...props }) {
+export default function userBlock({ navigation, route, select = () => { }, ...props }) {
+    // console.log(props);
     return (
         //블록이 특수하게 생겨서 Block 컴포넌트로 감싸지 않았음.
         <GlobalContext.Consumer>
@@ -16,11 +17,11 @@ export default function WorkerBlock({ navigation, route, select = () => { }, ...
                         !props.selected ? select(props) : select(null);
                     }}>
                     <View style={styles.profileImage}>
-                        <Text style={{ fontWeight: GS.font_weight.bold, color: '#eee' }}>{props.workerNickname}</Text>
+                        <Text style={{ fontWeight: GS.font_weight.bold, color: '#eee' }}>{props.userNickName}</Text>
                     </View>
                     <View style={styles.infoContainer}>
                         <View style={styles.title}>
-                            <Text style={styles.titleText}>{props.workerName} 작업자</Text>
+                            <Text style={styles.titleText}>{props.userName + props.userSn} 작업자</Text>
                             <IconButton
                                 onPress={() =>
                                     navigation.navigate('WorkerDetail', {
@@ -41,7 +42,7 @@ export default function WorkerBlock({ navigation, route, select = () => { }, ...
                         </View>
                         <Text style={styles.body}>
                             <Text style={styles.info}>
-                                닉네임: {props.workerNickname}
+                                닉네임: {props.userNickName}
                                 {'\n'}
                             </Text>
                             <Text style={styles.info}>
@@ -49,11 +50,11 @@ export default function WorkerBlock({ navigation, route, select = () => { }, ...
                                 {'\n'}
                             </Text>
                             <Text style={styles.info}>
-                                총 수행 작업 수: {props.workerQCW || 0}건
+                                총 수행 작업 수: {props.userQCW || 0}건
                                 {'\n'}
                             </Text>
                             <Text style={styles.info}>
-                                소재지 주소: {props.workLocation}
+                                소재지 주소: {props.userLocation}
                                 {'\n'}
                             </Text>
                             <Text style={styles.info}>

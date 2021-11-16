@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android --port=8050",
+    "android": "react-native run-android --port=8040",
     "ios": "react-native run-ios --simulator=\"iPhone 12\"",
     "start": "react-native start --port=8030",
     "test": "jest",

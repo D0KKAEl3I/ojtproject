@@ -16,20 +16,20 @@ export default function GoogleMap({ markers = [{ latitude: null, longitude: null
             {markers.map(({ latitude, longitude }, i) => (
                 <Marker coordinate={{ latitude, longitude }} key={i} />
             ))}
-            <View style={styles.text}>
+            {/* <View style={styles.text}>
                 <Text style={{ color: '#fff' }}
-                    onPress={() => {
-                        const scheme = Platform.select({ ios: 'map:0,0?q=', android: 'geo:0,0?q=' });
-                        const latLng = `${initialRegion.latitude},${initialRegion.longitude}`;
-                        const url = Platform.select({
-                            ios: `${scheme}@${latLng}`,
-                            android: `${scheme}${latLng}`
-                        });
+                // onPress={() => {
+                //     const scheme = Platform.select({ ios: 'map:0,0?q=', android: 'geo:0,0?q=' });
+                //     const latLng = `${initialRegion.latitude},${initialRegion.longitude}`;
+                //     const url = Platform.select({
+                //         ios: `${scheme}@${latLng}`,
+                //         android: `${scheme}${latLng}`
+                //     });
 
-                        Linking.openURL(url)
-                    }}
+                //     Linking.openURL(url)
+                // }}
                 >앱에서 확인하기</Text>
-            </View>
+            </View> */}
         </MapView>
     )
 }

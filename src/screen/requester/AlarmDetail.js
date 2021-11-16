@@ -19,11 +19,11 @@ export default function AlarmDetail({ navigation, route, ...props }) {
 			setOnLoading(true);
 			let response;
 			try {
-				response = await fetch(context.config.APISERVER.URL + '/api/v1/messageDetail', {
+				response = await fetch(context.config.APISERVER.URL + '/api/v1/notiDetail', {
 					method: 'GET',
 					params: {
 						userSn: context.userData.userSn,
-						messageSn: route.params.workData.workSn,
+						notiSn: route.params.workData.workSn,
 					},
 				});
 				response = await response.json();
@@ -34,35 +34,34 @@ export default function AlarmDetail({ navigation, route, ...props }) {
 				setOnLoading(false);
 			}
 		})();
-		console.log(alarmDetailInfo);
 	}, []);
 
+	console.log(alarmDetailInfo);
 	return onLoading ? (
 		<ActivityIndicator size="large" style={{ flex: 1 }} />
 	) : (
 		<View style={styles.content}>
 			<TitleText>
-				{`${alarmDetailInfo.workState} 알림`}
+				{`${alarmDetailInfo.notiType} 알림`}
 			</TitleText>
 			<ScrollView>
 				<ContentView  >
 					<View style={styles.info}>
 						<Text style={styles.infoName}>작업 지점</Text>
 						<Text style={styles.infoText}>
-							{/* {alarmDetailInfo.} */}
-							없음
+							{alarmDetailInfo.workName || "없음"}
 						</Text>
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>알림 사항</Text>
 						<Text style={styles.infoText}>
-							{alarmDetailInfo.messageMemo}
+							{alarmDetailInfo.notiMemo || "없음"}
 						</Text>
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>알림 사유</Text>
 						<Text style={styles.infoText}>
-							{alarmDetailInfo.messageReason}
+							{alarmDetailInfo.notiReason || "없음"}
 						</Text>
 					</View>
 					<View style={styles.info}>
@@ -73,11 +72,11 @@ export default function AlarmDetail({ navigation, route, ...props }) {
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>
-							{alarmDetailInfo.messageMemo === '작업완료' ?
+							{alarmDetailInfo.notiMemo === '작업완료' ?
 								"작업완료일" : "작업예정일"}
 						</Text>
 						<Text style={styles.infoText}>
-							{alarmDetailInfo.messageMemo === '작업완료' ?
+							{alarmDetailInfo.notiMemo === '작업완료' ?
 								alarmDetailInfo.workCompleteDate || '없음'
 								:
 								alarmDetailInfo.workDueDate || '없음'}
@@ -107,7 +106,7 @@ export default function AlarmDetail({ navigation, route, ...props }) {
 			<BottomButton
 				data={[
 					{
-						value: alarmDetailInfo.messageMemo === '작업거절' || alarmDetailInfo.messageMemo === '수락취소'
+						value: alarmDetailInfo.notiMemo === '작업거절' || alarmDetailInfo.notiMemo === '수락취소'
 							? '작업자 재배정' : '작업내용 확인'
 					},
 					{ value: '돌아가기', onPress: navigation.goBack }

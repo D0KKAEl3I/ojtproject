@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
-import { Dimensions, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, KeyboardAvoidingView, Platform, StyleSheet, Text, View } from 'react-native';
 import WorkBlock from '../../component/requester/WorkBlock';
 import { FlatList } from 'react-native-gesture-handler';
 import GlobalContext from '../../GlobalContext';
@@ -53,7 +53,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                                 renderItem={({ item }) => (
                                     <WorkerBlock
                                         selected={
-                                            selectedWorkerData && item.workerSn === selectedWorkerData.workerSn
+                                            selectedWorkerData && item.userSn === selectedWorkerData.userSn
                                         }
                                         {...item}
                                         navigation={navigation}
@@ -62,13 +62,13 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                                     />
                                 )}
 
-                                keyExtractor={item => item.workerSn}
+                                keyExtractor={item => item.userSn}
                             />
                         </View>
                     </View>
                     {onSearch && (
                         <KeyboardAvoidingView
-                            behavior="padding"
+                            behavior={Platform.select({ ios: "padding", android: "height" })}
                             style={styles.backgroundFilter}>
                             <SearchInput
                                 label="작업자 검색"
@@ -110,7 +110,8 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                         ]}
                     />
                 </View>
-            )}
+            )
+            }
         </GlobalContext.Consumer >
     );
 }

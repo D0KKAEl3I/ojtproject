@@ -86,7 +86,7 @@ export default function WorkRequest({ navigation, route, ...props }) {
 	return (
 		<View style={styles.content}>
 			<TitleText>
-				{workerData.workerName} 작업자님의 정보
+				{workData.workName} 요청 정보
 			</TitleText>
 			<ScrollView>
 				<ContentView>
@@ -112,7 +112,7 @@ export default function WorkRequest({ navigation, route, ...props }) {
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>예정 작업자</Text>
-						<Text style={styles.infoText}>{workerData.workerName}</Text>
+						<Text style={styles.infoText}>{workerData.userName}</Text>
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>작업자 연락처</Text>

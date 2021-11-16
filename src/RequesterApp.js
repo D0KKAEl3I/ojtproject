@@ -83,10 +83,11 @@ export default function RequesterApp() {
         })();
     }, []); // 앱 렌더링시 리스트 로딩
 
-    const getWorkerList = useCallback(async function () {
+    const getWorkerList = useCallback(async function (searchKeyword) {
         // 작업자 목록 조회
         try {
-            let response = await fetch(config.APISERVER.URL + '/api/v1/workerList');
+            let url = makeGetUrl(config.APISERVER.URL + '/api/v1/workerList', { searchKeyword })
+            let response = await fetch(url);
             response = await response.json();
             return response;
         } catch (e) {
@@ -95,15 +96,16 @@ export default function RequesterApp() {
         }
     })
 
-    const loadWorkerList = async function () {
-        let workerList = await getWorkerList();
+    const loadWorkerList = async function (searchKeyword) {
+        let workerList = await getWorkerList(searchKeyword);
         setContext({ workerList });
     };
 
-    const getAlarmList = useCallback(async function () {
+    const getAlarmList = useCallback(async function (params) {
         // 알람 목록 조회
         try {
-            let response = await fetch(config.APISERVER.URL + '/api/v1/messageList');
+            let url = makeGetUrl(config.APISERVER.URL + '/api/v1/messageList', params)
+            let response = await fetch(url);
             response = await response.json();
             return response;
         } catch (e) {
@@ -111,17 +113,15 @@ export default function RequesterApp() {
             return e;
         }
     });
-    const loadAlarmList = async function () {
-        let alarmList = await getAlarmList();
+    const loadAlarmList = async function (searchKeyword) {
+        let alarmList = await getAlarmList({ userSn: userData.userSn, searchKeyword });
         setContext({ alarmList });
     };
-    const getWorkList = useCallback(async function (pageNum, params) {
+    const getWorkList = useCallback(async function (params) {
         // 작업 목록 조회
         try {
-            let response = await fetch(config.APISERVER.URL + '/api/v1/workList', {
-                method: 'GET',
-                params: { ...params, pageNum },
-            });
+            let url = makeGetUrl(config.APISERVER.URL + '/api/v1/workList', params)
+            let response = await fetch(url);
             response = await response.json();
             return response;
         } catch (e) {
@@ -129,8 +129,29 @@ export default function RequesterApp() {
             return e;
         }
     });
-    const loadMoreWorkList = async function () {
-        let resWorkList = await getWorkList(workListPageNum.current);
+
+    const loadWorkList = async function (searchKeyword) {
+        workListPageNum.current = 1
+        let resWorkList = await getWorkList({
+            searchKeyword,
+            pageNum: workListPageNum.current,
+            requesterSn: userData.userSn,
+            workState: filter.workState,
+            searchStartDate: filter.workDueDate,
+            searchEndDate: filter.workCompleteDate
+        });
+        setContext({ workList: resWorkList })
+    }
+
+    const loadMoreWorkList = async function (searchKeyword) {
+        let resWorkList = await getWorkList({
+            searchKeyword,
+            pageNum: workListPageNum.current,
+            requesterSn: userData.userSn,
+            workState: filter.workState,
+            searchStartDate: filter.workDueDate,
+            searchEndDate: filter.workCompleteDate
+        });
         if (workList.length % 10 === 0) {
             workListPageNum.current++;
         } else {
@@ -138,6 +159,14 @@ export default function RequesterApp() {
         }
         setContext({ workList: [...workList, ...resWorkList] });
     };
+
+    const makeGetUrl = useCallback((url, params) => {
+        let reqParams = new URLSearchParams();
+        Object.entries(params).filter(([key, value]) => value && reqParams.append(key, value))
+        url += reqParams.toString() ? "/?" + reqParams.toString() : ""
+        return url
+    })
+
     return isAppLoading ? (
         <SafeAreaView
             style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -156,8 +185,9 @@ export default function RequesterApp() {
                 workList,
                 alarmList,
                 workerList,
-                loadAlarmList,
+                loadWorkList,
                 loadMoreWorkList,
+                loadAlarmList,
                 loadWorkerList,
                 status,
                 filter,

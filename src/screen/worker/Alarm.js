@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import BottomMenu from '../../component/BottomMenu';
 import AlarmBlock from '../../component/AlarmBlock';
@@ -58,7 +58,7 @@ export default function Alarm({ navigation, route, ...props }) {
                     </View>
                     {onSearch && (
                         <KeyboardAvoidingView
-                            behavior="padding"
+                            behavior={Platform.select({ ios: "padding", android: "height" })}
                             style={styles.backgroundFilter}>
                             <SearchInput
                                 label="작업 검색"
@@ -99,8 +99,9 @@ export default function Alarm({ navigation, route, ...props }) {
                         ]}
                     />
                 </View>
-            )}
-        </GlobalContext.Consumer>
+            )
+            }
+        </GlobalContext.Consumer >
     );
 }
 

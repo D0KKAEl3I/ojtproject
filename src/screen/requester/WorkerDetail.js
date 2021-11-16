@@ -8,6 +8,7 @@ import ContentView from '../../component/ContentView';
 import GlobalContext from '../../GlobalContext';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import GoogleMap from '../../component/GoogleMap';
+import BottomButton from '../../component/BottomButton';
 
 export default function WorkerDetail({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext)
@@ -23,11 +24,12 @@ export default function WorkerDetail({ navigation, route, ...props }) {
 					method: 'GET',
 					params: {
 						requesterSn: route.params.userData.userSn,
-						workerSn: route.params.workerSn,
-						workLocation: route.params.workerData.workLocation
+						workerSn: route.params.userSn,
+						// workLocation: route.params.workerData.workLocation
 					},
 				});
 				response = await response.json();
+				console.log(response);
 				setWorkerDetailInfo({ ...route.params.workerData, ...response });
 			} catch (e) {
 				console.log(e);
@@ -42,14 +44,14 @@ export default function WorkerDetail({ navigation, route, ...props }) {
 	) : (
 		<View style={styles.content}>
 			<TitleText>
-				{`${workerDetailInfo.workerName} 작업자`}
+				{`${workerDetailInfo.userName} 작업자`}
 			</TitleText>
 			<ScrollView>
 				<ContentView >
 					<View style={styles.body}>
 						<View style={styles.info}>
 							<Text style={styles.infoName}>닉네임</Text>
-							<Text style={styles.infoText}>{workerDetailInfo.workerNickname}</Text>
+							<Text style={styles.infoText}>{workerDetailInfo.userNickName}</Text>
 						</View>
 						<View style={styles.info}>
 							<Text style={styles.infoName}>작업가능여부</Text>
@@ -57,20 +59,25 @@ export default function WorkerDetail({ navigation, route, ...props }) {
 						</View>
 						<View style={styles.info}>
 							<Text style={styles.infoName}>총 수행 작업 수</Text>
-							<Text style={styles.infoText}>{workerDetailInfo.workerQCW}건</Text>
+							<Text style={styles.infoText}>{workerDetailInfo.userQCW}건</Text>
 						</View>
 						<View style={styles.info}>
 							<Text style={styles.infoName}>소재지 주소</Text>
-							<Text style={styles.infoText}>{workerDetailInfo.workLocation}</Text>
+							<Text style={styles.infoText}>{workerDetailInfo.userLocation}</Text>
 						</View>
-						<View style={styles.info}>
+						{/* <View style={styles.info}>
 							<Text style={styles.infoName}>작업 장소까지의 거리</Text>
 							<Text style={styles.infoText}>{workerDetailInfo.userDistance}</Text>
-						</View>
+						</View> */}
 					</View>
 				</ContentView>
-				<ContentView label="위치 정보" style={{ height: 400, paddingVertical: GS.padding, paddingHorizontal: GS.padding }}>
-					<GoogleMap />
+				<ContentView label="위치 정보" style={{ paddingHorizontal: GS.padding }}>
+					<View style={styles.map}>
+						<GoogleMap
+							initialRegion={{ latitude: 37.481073, longitude: 127.123328 }}
+							markers={[{ latitude: 37.481073, longitude: 127.123328 }]}
+						/>
+					</View>
 				</ContentView>
 			</ScrollView>
 			<BottomButton data={[{ value: '돌아가기', onPress: navigation.goBack }]} />
@@ -101,5 +108,11 @@ const styles = StyleSheet.create({
 		fontFamily: GS.font_family,
 		fontSize: 24,
 		fontWeight: GS.font_weight.regular,
+	},
+	map: {
+		height: 400,
+		marginVertical: GS.margin,
+		borderRadius: GS.border_radius,
+		overflow: 'hidden',
 	},
 });

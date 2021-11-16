@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
-import { Dimensions, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
+import { Dimensions, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import WorkBlock from '../../component/requester/WorkBlock';
 import { FlatList } from 'react-native-gesture-handler';
 import WorkerBlock from '../../component/requester/WorkerBlock';
@@ -75,7 +75,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                     </View>
                     {onSearch && (
                         <KeyboardAvoidingView
-                            behavior="padding"
+                            behavior={Platform.select({ ios: "padding", android: "height" })}
                             style={styles.backgroundFilter}>
                             <SearchInput
                                 label="작업자 검색"
@@ -117,7 +117,8 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                         ]}
                     />
                 </View>
-            )}
+            )
+            }
         </GlobalContext.Consumer >
     );
 }

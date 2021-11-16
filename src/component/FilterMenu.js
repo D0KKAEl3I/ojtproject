@@ -119,7 +119,7 @@ export default function FilterMenu(props) {
 						title="작업 상태"
 						defaultValue={filter.workState}
 						onChangeText={e => setFilter(filter => ({ ...filter, workState: e }))}
-						placeholder="미배정/작업완료/"
+						placeholder="미배정/작업완료/준비/진행중/작업완료"
 					/>
 					<DateInput
 						title="작업 시작일"

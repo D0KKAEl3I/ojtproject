@@ -26,7 +26,6 @@ export default function WorkDetail({ navigation, route, ...props }) {
 					},
 				});
 				response = await response.json();
-				console.log(route.params.workData);
 				setWorkDetailInfo({ ...route.params.workData, ...response });
 			} catch (e) {
 				console.log(e);

@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Button, KeyboardAvoidingView, Platform, StyleSheet, Text, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import BottomMenu from '../../component/BottomMenu';
 import AlarmBlock from '../../component/AlarmBlock';
@@ -36,7 +36,7 @@ export default function Alarm({ navigation, route, ...props }) {
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
                         {onLoading ? (
                             <ActivityIndicator size="large" style={{ flex: 1 }} />
-                        ) : (
+                        ) : state.alarmList.length > 0 ? (
                             <FlatList
                                 style={styles.list}
                                 data={state.alarmList}
@@ -44,7 +44,7 @@ export default function Alarm({ navigation, route, ...props }) {
                                     <AlarmBlock
                                         selected={
                                             selectedAlarm &&
-                                            item.messageSn === selectedAlarm.messageSn
+                                            item.notiSn === selectedAlarm.notiSn
                                         }
                                         {...item}
                                         navigation={navigation}
@@ -52,13 +52,18 @@ export default function Alarm({ navigation, route, ...props }) {
                                         select={alarm => setSelectedAlarm(alarm)}
                                     />
                                 )}
-                                keyExtractor={item => item.messageSn}
+                                keyExtractor={item => item.notiSn}
                             />
+                        ) : (
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', zIndex: -1 }}>
+                                <Text style={{ fontFamily: GS.font_family }}>알림이 더이상 없어요 :I</Text>
+                                <Button title="새로고침" onPress={() => context.loadAlarmList()} />
+                            </View>
                         )}
                     </View>
                     {onSearch && (
                         <KeyboardAvoidingView
-                            behavior="padding"
+                            behavior={Platform.select({ ios: "padding", android: "height" })}
                             style={styles.backgroundFilter}>
                             <SearchInput
                                 label="작업 검색"
@@ -99,8 +104,9 @@ export default function Alarm({ navigation, route, ...props }) {
                         ]}
                     />
                 </View>
-            )}
-        </GlobalContext.Consumer>
+            )
+            }
+        </GlobalContext.Consumer >
     );
 }
 

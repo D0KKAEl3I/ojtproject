@@ -1,8 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, BackHandler, Platform } from 'react-native';
+import { View, Text, StyleSheet, Image, BackHandler, Platform, TextInput } from 'react-native';
 import IconButton from './IconButton';
-import { TextInput } from 'react-native-gesture-handler';
 import GlobalContext from '../GlobalContext';
 import GS from '../GlobalStyles';
 
@@ -38,6 +37,8 @@ export default function SearchInput({ onSubmit, onClose, defaultValue, label, ..
 					defaultValue={defaultValue}
 					style={styles.inputText}
 					placeholder="원하는 키워드를 입력해주세요"
+					onChangeText={e => setSearchInput(e)}
+					onEndEditing={() => onSubmit(searchInput)}
 				/>
 				<IconButton onPress={() => onSubmit(searchInput)}>
 					<Image
@@ -75,10 +76,10 @@ const styles = StyleSheet.create({
 		fontWeight: GS.font_weight.bold,
 	},
 	input: {
-		paddingLeft: Platform.OS === 'ios' && 4,
+		paddingLeft: Platform.select({ ios: 4 }),
 		flexDirection: 'row',
 		alignItems: 'center',
-		paddingVertical: Platform.OS === 'ios' && 4
+		paddingVertical: Platform.select({ ios: 4 })
 	},
 	inputText: {
 		flex: 1,

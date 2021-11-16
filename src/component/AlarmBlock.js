@@ -7,7 +7,7 @@ import Block from './Block';
 export default function AlarmBlock({ navigation, route, select, ...props }) {
 	const [workStateColor, setWorkStateColor] = useState('#404040');
 	useEffect(() => {
-		switch (props.workState) {
+		switch (props.notiType) {
 			case '배정취소':
 				setWorkStateColor('#f00000');
 				break;
@@ -30,12 +30,12 @@ export default function AlarmBlock({ navigation, route, select, ...props }) {
 		<Block
 			navigation={navigation}
 			route={route}
-			title={`알림 / ${props.messageDate}`}
+			title={`알림 / ${props.notiDate}`}
 			onTouchEnd={() => !props.selected ? select(props) : select(null)}
 			toDetail={{ screenName: "AlarmDetail", params: { workData: props } }}
 			selected={props.selected}>
 			<Text style={[styles.info, { color: workStateColor }]}>
-				작업상태: {props.workState}
+				작업상태: {props.notiType}
 			</Text>
 			<Text style={styles.info}>
 				작업주소: {props.workLocation ?? '정보 없음'}

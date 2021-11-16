@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 const contextData = {
-    userData: { userSn: null, userType: null },
+    userData: { userSn: 2, userType: null },
     workList: [],
     workReqList: [],
     workerList: [],

@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, KeyboardAvoidingView, Text } from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView, Text, Button, Platform } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import WorkBlock from '../../component/requester/WorkBlock';
 import BottomMenu from '../../component/BottomMenu';
@@ -11,7 +11,7 @@ import GS from '../../GlobalStyles';
 export default function WorkHome({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext);
 	const [onSearch, setOnSearch] = useState(false);
-	const [searchData, setSearchData] = useState('');
+	const [searchKeyword, setSearchKeyword] = useState('');
 	const [selectedWorkData, setSelectedWorkData] = useState(null);
 
 	useEffect(() => {
@@ -20,6 +20,11 @@ export default function WorkHome({ navigation, route, ...props }) {
 		});
 	}, []);
 
+	useEffect(() => {
+		context.loadWorkList(searchKeyword)
+	}, [searchKeyword])
+
+
 	return (
 		<GlobalContext.Consumer>
 			{state => (
@@ -27,7 +32,6 @@ export default function WorkHome({ navigation, route, ...props }) {
 					<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
 						{(() => {
 							const filter = state.filter
-							console.log(state.workList);
 							let data = !filter.workState && !filter.workDueDate && !filter.workCompleteDate ? // 필터할 항목이 없는가?
 								state.workList // 그렇다면 worklist 그대로 넣기
 								:
@@ -69,28 +73,28 @@ export default function WorkHome({ navigation, route, ...props }) {
 								// onEndReached={ }
 								/>
 							) : (
-								<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+								<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', zIndex: -1 }}>
 									<Text style={{ fontFamily: GS.font_family }}>조회된 작업이 없네요 :(</Text>
+									<Button title="새로고침" onPress={() => context.loadWorkList(searchKeyword)} />
 								</View>
 							)
 						})()}
 					</View>
 					{onSearch && (
 						<KeyboardAvoidingView
-							behavior="padding"
+							behavior={Platform.select({ ios: "padding", android: "height" })}
 							style={styles.backgroundFilter}>
 							<SearchInput
 								label="작업 검색"
-								defaultValue={searchData}
+								defaultValue={searchKeyword}
 								onClose={() => {
-									setOnSearch(false);
-									setSearchData('');
 									context.setContext({ status: route.name });
+									setOnSearch(false);
 								}}
 								onSubmit={data => {
-									setOnSearch(false);
-									setSearchData(data)
+									setSearchKeyword(data)
 									context.setContext({ status: route.name });
+									setOnSearch(false);
 								}}
 							/>
 						</KeyboardAvoidingView>
@@ -124,8 +128,9 @@ export default function WorkHome({ navigation, route, ...props }) {
 						]}
 					/>
 				</View>
-			)}
-		</GlobalContext.Consumer>
+			)
+			}
+		</GlobalContext.Consumer >
 	);
 }
 
