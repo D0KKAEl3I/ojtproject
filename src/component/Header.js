@@ -1,9 +1,10 @@
 import 'react-native-gesture-handler';
-import React, { useContext, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, Animated } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import IconButton from './IconButton';
 import GlobalContext from '../GlobalContext';
 import GS from '../GlobalStyles';
+import Icon from './Icon';
 
 export default function Header({ title, navigation, route, options, ...props }) {
 	const context = useContext(GlobalContext);
@@ -22,13 +23,13 @@ export default function Header({ title, navigation, route, options, ...props }) 
 				}>
 				{props.back ? (
 					<>
-						<Image style={{ width: 32, height: 32 }}
-							source={require('../../public/back_black.png')} />
+						<Icon style={{ width: 32, height: 32, opacity: 0.8 }}
+							name="back" />
 						<Text style={styles.back}>뒤로</Text>
 					</>
 				) : (
-					<Image style={{ width: 36, height: 36 }}
-						source={require('../../public/menu_black.png')} />
+					<Icon style={{ width: 36, height: 36, opacity: 0.8 }}
+						name="menu" />
 				)}
 			</IconButton>
 			<Text style={styles.title}>{title}</Text>
@@ -38,9 +39,9 @@ export default function Header({ title, navigation, route, options, ...props }) 
 						onPress={() =>
 							context.status === 'WorkHome' && navigation.navigate('Alarm')
 						}>
-						<Image
-							style={{ width: 36, height: 36 }}
-							source={require('../../public/notifi_black.png')}
+						<Icon
+							style={{ width: 36, height: 36, opacity: 0.8 }}
+							name={props.alarmCount > 0 ? "notice_on" : "notice_off"}
 						/>
 						{props.alarmCount > 0 && (
 							<View style={styles.alarmCount}>
@@ -55,14 +56,15 @@ export default function Header({ title, navigation, route, options, ...props }) 
 						onPress={() =>
 							context.status === 'WorkHome' && props.setOnFilter(true)
 						}>
-						<Image
-							style={{ width: 36, height: 36 }}
-							source={require('../../public/filter_black.png')}
+						<Icon
+							style={{ width: 36, height: 36, opacity: 0.8 }}
+							name="filter"
 						/>
 					</IconButton>
 				</View>
-			)}
-		</View>
+			)
+			}
+		</View >
 	);
 }
 

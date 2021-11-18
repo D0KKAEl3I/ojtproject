@@ -1,8 +1,9 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import Block from '../Block';
-import { BS } from '../../GlobalStyles';
+import GS, { BS } from '../../GlobalStyles';
+import Icon from '../Icon';
 
 export default function WorkBlock({ navigation, route, select = () => { }, ...props }) {
     const [workStateColor, setWorkStateColor] = useState('#404040');
@@ -36,6 +37,7 @@ export default function WorkBlock({ navigation, route, select = () => { }, ...pr
             route={route}
             style={props.style}
             title={props.workName}
+            workState={{ value: props.workState, color: workStateColor }}
             onTouchEnd={() => {
                 if (props.workState === '미배정') {
                     !props.selected ? select(props) : select(null);
@@ -47,20 +49,26 @@ export default function WorkBlock({ navigation, route, select = () => { }, ...pr
             }}
             toDetail={{ screenName: 'WorkDetail', params: { workData: props } }}
             selected={props.selected}>
-            <Text style={[styles.info, { color: workStateColor }]}>
-                작업상태: {props.workState || "없음"}
-            </Text>
-            <Text style={styles.info}>
-                작업주소: {props.workLocation || "없음"}
-            </Text>
-            <Text style={styles.info}>
-                작업자명: {props.userName || "없음"}
-            </Text>
-            <Text style={styles.info}>
-                {props.workState === '작업완료'
-                    ? `작업완료일: ${props.workCompleteDate || '없음'}`
-                    : `작업예정일: ${props.workDueDate || '없음'}`}
-            </Text>
+            <View style={styles.info}>
+                <Icon style={styles.infoIcon} name="location" color="black" />
+                <Text style={styles.infoText}>
+                    주소: {props.workLocation || "없음"}
+                </Text>
+            </View>
+            <View style={styles.info}>
+                <Icon style={styles.infoIcon} name="nametag" />
+                <Text style={styles.infoText}>
+                    작업자명: {props.userName || "없음"}
+                </Text>
+            </View>
+            <View style={styles.info}>
+                <Icon style={styles.infoIcon} name="watch" />
+                <Text style={styles.infoText}>
+                    {props.workState === '작업완료'
+                        ? `작업완료일: ${props.workCompleteDate || '없음'}`
+                        : `작업예정일: ${props.workDueDate || '없음'}`}
+                </Text>
+            </View>
         </Block>
     );
 }

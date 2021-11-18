@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
 	label: {
 		marginBottom: 4,
 		fontFamily: GS.font_family,
-		fontSize: 20,
+		fontSize: 18,
 		fontWeight: GS.font_weight.regular,
 		color: GS.text_color,
 	},

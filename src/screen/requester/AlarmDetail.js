@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, Pressable, Linking, ScrollView } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View, Pressable, Linking, ScrollView, Alert } from 'react-native';
 
 import GlobalContext from '../../GlobalContext';
 import GS from '../../GlobalStyles';
@@ -9,34 +9,38 @@ import TitleText from '../../component/TitleText';
 import BottomButton from '../../component/BottomButton';
 
 export default function AlarmDetail({ navigation, route, ...props }) {
+	const context = useContext(GlobalContext);
 	const [onLoading, setOnLoading] = useState(false);
 	const [alarmDetailInfo, setAlarmDetailInfo] = useState({});
-
-	const context = useContext(GlobalContext);
 
 	useEffect(() => {
 		(async () => {
 			setOnLoading(true);
 			let response;
 			try {
-				response = await fetch(context.config.APISERVER.URL + '/api/v1/notiDetail', {
-					method: 'GET',
-					params: {
-						userSn: context.userData.userSn,
-						notiSn: route.params.workData.workSn,
-					},
-				});
+				let url = context.makeGetUrl(context.config.APISERVER.URL + '/api/v1/messageDetail', {
+					userSn: context.userData.userSn,
+					messageSn: route.params.workData.notiSn,
+				})
+				console.log(url);
+				console.log("rp", route.params.workData.notiSn);
+				response = await fetch(url);
 				response = await response.json();
 				setAlarmDetailInfo({ ...route.params.workData, ...response });
 			} catch (e) {
 				console.log(e);
+				Alert.alert("경고", "서버로부터 데이터를 받아오는데 실패했습니다.", [
+					{
+						text: "확인 및 뒤로가기",
+						onPress: navigation.goBack
+					}
+				])
 			} finally {
 				setOnLoading(false);
 			}
 		})();
 	}, []);
 
-	console.log(alarmDetailInfo);
 	return onLoading ? (
 		<ActivityIndicator size="large" style={{ flex: 1 }} />
 	) : (

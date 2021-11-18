@@ -92,7 +92,7 @@ export default function RequesterApp() {
             return response;
         } catch (e) {
             console.log(e);
-            return e;
+            Alert.alert("서버와 연결에 실패하였습니다. 네트워크 연결을 확인해주세요.")
         }
     })
 
@@ -110,7 +110,7 @@ export default function RequesterApp() {
             return response;
         } catch (e) {
             console.log(e);
-            return e;
+            Alert.alert("서버와 연결에 실패하였습니다. 네트워크 연결을 확인해주세요.")
         }
     });
     const loadAlarmList = async function (searchKeyword) {
@@ -126,7 +126,7 @@ export default function RequesterApp() {
             return response;
         } catch (e) {
             console.log(e);
-            return e;
+            Alert.alert("서버와 연결에 실패하였습니다. 네트워크 연결을 확인해주세요.")
         }
     });
 
@@ -169,9 +169,8 @@ export default function RequesterApp() {
 
     return isAppLoading ? (
         <SafeAreaView
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: GS.background_color }}>
             <StatusBar
-                translucent={true}
                 barStyle="dark-content"
                 backgroundColor={GS.background_color}
             />
@@ -193,16 +192,11 @@ export default function RequesterApp() {
                 filter,
                 config,
                 setContext,
-                setOnLoading
+                setOnLoading,
+                makeGetUrl
             }}>
-            {onLoading && (
-                <View style={styles.loading}>
-                    <ActivityIndicator size="large" style={{ width: 80, height: 80 }} />
-                </View>
-            )}
             <SafeAreaView style={styles.container}>
                 <StatusBar
-                    translucent
                     barStyle="dark-content"
                     backgroundColor={GS.background_color}
                 />
@@ -232,7 +226,7 @@ export default function RequesterApp() {
                                 name="WorkHome"
                                 component={WorkHomeScreen}
                                 options={{
-                                    title: '작업 홈',
+                                    title: '의뢰자 홈',
                                 }}
                             />
                             <Stack.Screen
@@ -311,6 +305,11 @@ export default function RequesterApp() {
                     </NavigationContainer>
                 </View>
             </SafeAreaView>
+            {onLoading && (
+                <View style={styles.loading}>
+                    <ActivityIndicator size="large" style={{ width: 80, height: 80 }} />
+                </View>
+            )}
         </GlobalContext.Provider >
     );
 }

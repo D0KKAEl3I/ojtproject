@@ -40,27 +40,23 @@ export default function userBlock({ navigation, route, select = () => { }, ...pr
                                 </View>
                             </IconButton>
                         </View>
-                        <Text style={styles.body}>
+                        <View style={styles.body}>
                             <Text style={styles.info}>
                                 닉네임: {props.userNickName}
-                                {'\n'}
                             </Text>
                             <Text style={styles.info}>
                                 작업가능여부: {props.workAvailability}
-                                {'\n'}
                             </Text>
                             <Text style={styles.info}>
                                 총 수행 작업 수: {props.userQCW || 0}건
-                                {'\n'}
                             </Text>
                             <Text style={styles.info}>
                                 소재지 주소: {props.userLocation}
-                                {'\n'}
                             </Text>
                             <Text style={styles.info}>
                                 작업 장소까지의 거리: {props.userDistance || '미정'}
                             </Text>
-                        </Text>
+                        </View>
                     </View>
                 </ContentView>
             )}

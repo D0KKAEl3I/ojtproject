@@ -1,18 +1,21 @@
 import 'react-native-gesture-handler';
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, KeyboardAvoidingView, Text, Button, Platform } from 'react-native';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { StyleSheet, View, KeyboardAvoidingView, Text, Button, Platform, Touchable } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import WorkBlock from '../../component/requester/WorkBlock';
 import BottomMenu from '../../component/BottomMenu';
 import SearchInput from '../../component/SearchInput';
 import GlobalContext from '../../GlobalContext';
 import GS from '../../GlobalStyles';
+import TitleText from '../../component/TitleText';
+import Icon from '../../component/Icon';
 
 export default function WorkHome({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext);
 	const [onSearch, setOnSearch] = useState(false);
 	const [searchKeyword, setSearchKeyword] = useState('');
 	const [selectedWorkData, setSelectedWorkData] = useState(null);
+	const [refresh, setRefresh] = useState(false)
 
 	useEffect(() => {
 		return navigation.addListener('focus', () => {
@@ -29,6 +32,10 @@ export default function WorkHome({ navigation, route, ...props }) {
 		<GlobalContext.Consumer>
 			{state => (
 				<View style={styles.container}>
+					<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingRight: GS.padding_horizontal }}>
+						<TitleText>작업 목록</TitleText>
+						{/* <Button title="새로고침" onPress={() => context.loadWorkList()} /> */}
+					</View>
 					<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
 						{(() => {
 							const filter = state.filter
@@ -70,8 +77,16 @@ export default function WorkHome({ navigation, route, ...props }) {
 										)
 									}}
 									keyExtractor={item => item.workSn}
-								// onEndReached={ }
-								/>
+									// onEndReached={ }
+									refreshing={refresh}
+									onRefresh={() => {
+										console.log('ref');
+										setRefresh(true)
+									}}
+									progressViewOffset={100}
+								>
+
+								</FlatList>
 							) : (
 								<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', zIndex: -1 }}>
 									<Text style={{ fontFamily: GS.font_family }}>조회된 작업이 없네요 :(</Text>

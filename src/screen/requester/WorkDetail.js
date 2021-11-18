@@ -6,6 +6,7 @@ import ContentView from '../../component/ContentView';
 import GlobalContext from '../../GlobalContext';
 import TitleText from '../../component/TitleText';
 import BottomButton from '../../component/BottomButton';
+import Icon from '../../component/Icon';
 
 export default function WorkDetail({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext)
@@ -66,64 +67,69 @@ export default function WorkDetail({ navigation, route, ...props }) {
 				{`${workDetailInfo.workName} 상세정보`}
 			</TitleText>
 			<ScrollView>
-				<ContentView >
+				<ContentView>
 					<View style={styles.info}>
-						<Text style={styles.infoName}>작업 상태</Text>
-						<Text style={[styles.infoText, { color: workStateColor }]}>
-							{workDetailInfo.workState}
-						</Text>
+						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+							<Icon />
+							<Text style={styles.infoName}>상태</Text>
+						</View>
+						<Text style={[styles.infoText, { color: workStateColor }]}>{workDetailInfo.workState}</Text>
 					</View>
 					<View style={styles.info}>
-						<Text style={styles.infoName}>작업 지점</Text>
+						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+							<Icon style={styles.infoIcon} name="location_city" />
+							<Text style={styles.infoName}>지점</Text>
+						</View>
+						<Text style={styles.infoText}>{workDetailInfo.workName}</Text>
+					</View>
+					<View style={styles.info}>
+						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+							<Icon style={styles.infoIcon} name="location" />
+							<Text style={styles.infoName}>주소</Text>
+						</View>
+						<Text style={styles.infoText}>{workDetailInfo.workLocation}</Text>
+					</View>
+					<View style={styles.info}>
+						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+							<Icon style={styles.infoIcon} name="watch" />
+							<Text style={styles.infoName}>{workDetailInfo.workState === '작업완료' ? "완료일" : "예정일"}</Text>
+						</View>
 						<Text style={styles.infoText}>
-							{workDetailInfo.workName}
+							{workDetailInfo.workState === '작업완료'
+								? workDetailInfo.workCompleteDate || '없음'
+								: workDetailInfo.workDueDate || '없음'}
 						</Text>
 					</View>
+				</ContentView>
+				<ContentView label="작업자 정보">
 					<View style={styles.info}>
-						<Text style={styles.infoName}>작업 주소</Text>
-						<Text style={styles.infoText}>
-							{workDetailInfo.workLocation}
-						</Text>
-					</View>
-					<View style={styles.info}>
-						<Text style={styles.infoName}>작업자 성명</Text>
+						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+							<Icon style={styles.infoIcon} name="nametag" />
+							<Text style={styles.infoName}>이름</Text>
+						</View>
 						<Text style={styles.infoText}>
 							{workDetailInfo.userName || '없음'}
 						</Text>
 					</View>
 					<View style={styles.info}>
-						<Text style={styles.infoName}>
-							{workDetailInfo.workState === '작업완료' ?
-								"작업완료일" : "작업예정일"}
-						</Text>
-						<Text style={styles.infoText}>
-							{workDetailInfo.workState === '작업완료' ?
-								workDetailInfo.workCompleteDate || '없음'
-								:
-								workDetailInfo.workDueDate || '없음'}
-						</Text>
-					</View>
-					<View style={styles.info}>
-						<Text style={styles.infoName}>작업자 연락처
-						</Text>
-						<Text style={styles.infoText}>
-							{<Text
-								style={{
-									fontSize: 24,
-									color: '#0000aa',
-									textDecorationColor: '#0000aa',
-									textDecorationLine: 'underline',
-								}}
-							// onPress={() => Linking.openURL(`tel:${workDetailInfo.userPhoneNumber}`)}
-							>
-								{workDetailInfo.userPhoneNumber || '없음'}
-							</Text>}
-						</Text>
+						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+							<Icon style={styles.infoIcon} name="phone" />
+							<Text style={styles.infoName}>연락처</Text>
+						</View>
+						<Text
+							style={{
+								fontSize: 24,
+								color: '#0000aa',
+								textDecorationColor: '#0000aa',
+								textDecorationLine: 'underline',
+							}}
+						// onPress={() => Linking.openURL(`tel:${workDetailInfo.userPhoneNumber}`)}
+						>{workDetailInfo.userPhoneNumber || '없음'}</Text>
 					</View>
 				</ContentView>
 			</ScrollView>
 			<BottomButton data={[{ value: '돌아가기', onPress: navigation.goBack }]} />
-		</View>
+		</View >
 	)
 }
 
@@ -137,20 +143,24 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		paddingVertical: GS.padding
+		paddingVertical: GS.padding,
+	},
+	infoIcon: {
+		width: 28,
+		height: 28,
+		opacity: 0.7,
+		marginRight: GS.margin
 	},
 	infoName: {
 		color: GS.text_color,
 		fontFamily: GS.font_family,
-		fontSize: 19,
-		fontWeight: GS.font_weight.regular,
+		fontSize: 18,
+		fontWeight: GS.font_weight.bold,
 	},
 	infoText: {
 		color: GS.text_color,
 		fontFamily: GS.font_family,
-		fontSize: 24,
+		fontSize: 22,
 		fontWeight: GS.font_weight.regular,
 	},
-
-
 });

@@ -10,8 +10,8 @@ const GS = {
     distructive_color: '#ff0000',
     font_family: 'Noto Sans KR',
     font_weight: {
-        light: '300',
-        regular: '500',
+        light: '400',
+        regular: '600',
         bold: '700',
         bolder: '800',
         boldest: '900'
@@ -27,7 +27,7 @@ const GS = {
         shadowColor: '#505090',
         shadowRadius: 6,
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2
+        shadowOpacity: 0.2,
     },
     linked_text: {
         color: '#0000aa',
@@ -53,21 +53,44 @@ const BlockStyle = StyleSheet.create({
         fontWeight: GS.font_weight.bold,
         color: GS.text_color,
         fontFamily: GS.font_family,
-        textAlignVertical: 'center'
+    },
+    stateText: {
+        fontSize: 18,
+        fontFamily: GS.font_family,
+        fontWeight: GS.font_weight.regular,
+        paddingHorizontal: GS.padding,
+        paddingVertical: 2,
+        borderRadius: GS.border_radius,
+        ...GS.shadow,
+        elevation: 4,
     },
     openButton: {
         width: 28,
         height: 28,
     },
     body: {
+        flexDirection: 'row',
         paddingVertical: 4,
     },
+    infoContainer: {
+        flex: 1
+    },
     info: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    infoIcon: {
+        width: 20,
+        height: 20,
+        marginRight: GS.margin,
+        opacity: 0.7
+    },
+    infoText: {
         fontSize: 20,
         fontFamily: GS.font_family,
         fontWeight: GS.font_weight.regular,
         color: GS.text_color,
-        lineHeight: Platform.select({ ios: 28, android: null })
+        // lineHeight: Platform.select({ ios: 28, android: null })
     }
 })
 

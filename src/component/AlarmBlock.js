@@ -1,8 +1,9 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { BS } from '../GlobalStyles';
 import Block from './Block';
+import Icon from './Icon';
 
 export default function AlarmBlock({ navigation, route, select, ...props }) {
 	const [workStateColor, setWorkStateColor] = useState('#404040');
@@ -34,20 +35,32 @@ export default function AlarmBlock({ navigation, route, select, ...props }) {
 			onTouchEnd={() => !props.selected ? select(props) : select(null)}
 			toDetail={{ screenName: "AlarmDetail", params: { workData: props } }}
 			selected={props.selected}>
-			<Text style={[styles.info, { color: workStateColor }]}>
-				작업상태: {props.notiType}
-			</Text>
-			<Text style={styles.info}>
-				작업주소: {props.workLocation ?? '정보 없음'}
-			</Text>
-			<Text style={styles.info}>
-				작업자명: {props.userName ?? '정보 없음'}
-			</Text>
-			<Text style={styles.info}>
-				{props.workState === '작업완료'
-					? `작업완료일: ${props.workCompleteDate ?? '미정'}`
-					: `작업예정일: ${props.workDueDate ?? '미정'}`}
-			</Text>
+			<View style={styles.info}>
+				<Icon style={styles.infoIcon} />
+				<Text style={[styles.infoText, { color: workStateColor }]}>
+					상태: {props.workState || "없음"}
+				</Text>
+			</View>
+			<View style={styles.info}>
+				<Icon style={styles.infoIcon} name="location" color="black" />
+				<Text style={styles.infoText}>
+					주소: {props.workLocation || "없음"}
+				</Text>
+			</View>
+			<View style={styles.info}>
+				<Icon style={styles.infoIcon} name="nametag" />
+				<Text style={styles.infoText}>
+					작업자명: {props.userName || "없음"}
+				</Text>
+			</View>
+			<View style={styles.info}>
+				<Icon style={styles.infoIcon} name="watch" />
+				<Text style={styles.infoText}>
+					{props.workState === '작업완료'
+						? `작업완료일: ${props.workCompleteDate || '없음'}`
+						: `작업예정일: ${props.workDueDate || '없음'}`}
+				</Text>
+			</View>
 		</Block>
 	);
 }

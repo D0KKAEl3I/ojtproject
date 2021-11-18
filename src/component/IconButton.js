@@ -2,8 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet, Pressable } from 'react-native';
 
-export default function HeaderButton({
-	size,
+export default function IconButton({
 	onPress,
 	children,
 	style = {},
