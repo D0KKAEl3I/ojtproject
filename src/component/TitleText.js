@@ -14,9 +14,10 @@ const styles = StyleSheet.create({
     title: {
         margin: GS.margin,
         paddingHorizontal: GS.padding_horizontal,
-        fontSize: 24,
+        fontSize: 20,
         fontFamily: GS.font_family,
         fontWeight: GS.font_weight.bold,
         color: GS.text_color,
     },
 })
+

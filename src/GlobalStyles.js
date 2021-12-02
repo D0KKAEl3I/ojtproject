@@ -55,9 +55,9 @@ const BlockStyle = StyleSheet.create({
         fontFamily: GS.font_family,
     },
     stateText: {
-        fontSize: 18,
+        fontSize: 14,
         fontFamily: GS.font_family,
-        fontWeight: GS.font_weight.regular,
+        fontWeight: GS.font_weight.boldest,
         paddingHorizontal: GS.padding,
         paddingVertical: 2,
         borderRadius: GS.border_radius,

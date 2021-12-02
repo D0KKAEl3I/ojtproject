@@ -7,6 +7,7 @@ import GS from '../../GlobalStyles';
 import ContentView from '../../component/ContentView';
 import TitleText from '../../component/TitleText';
 import BottomButton from '../../component/BottomButton';
+import Icon from '../../component/Icon';
 
 export default function AlarmDetail({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext);
@@ -51,10 +52,11 @@ export default function AlarmDetail({ navigation, route, ...props }) {
 			<ScrollView>
 				<ContentView  >
 					<View style={styles.info}>
-						<Text style={styles.infoName}>작업 지점</Text>
-						<Text style={styles.infoText}>
-							{alarmDetailInfo.workName || "없음"}
-						</Text>
+						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+							<Icon name="" />
+							<Text style={styles.infoName}>작업 지점</Text>
+						</View>
+						<Text style={styles.infoText}>{alarmDetailInfo.workName || "없음"}</Text>
 					</View>
 					<View style={styles.info}>
 						<Text style={styles.infoName}>알림 사항</Text>

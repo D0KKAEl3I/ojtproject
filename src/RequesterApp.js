@@ -34,6 +34,7 @@ export default function RequesterApp() {
     const [onMenu, setOnMenu] = useState(false);
     const [onFilter, setOnFilter] = useState(false);
     const [isAppLoading, setIsAppLoading] = useState(false); // 시작 시 앱이 로딩중인지 여부, true면 로딩 화면을 띄움
+    const [onRequestFail, setOnRequestFail] = useState(false);
     const [onLoading, setOnLoading] = useState(false);
     const loadingDelayTimeout = useRef()
     const workListPageNum = useRef(1);
@@ -72,28 +73,37 @@ export default function RequesterApp() {
     }, [])
 
     useEffect(() => {
-        (async () => {
-            workListPageNum.current = 1;
-            setContext({ workList: [] });
-            setIsAppLoading(true);
-            await loadMoreWorkList();
-            await loadWorkerList();
-            await loadAlarmList();
-            setIsAppLoading(false);
-        })();
+        try {
+            loadApp()
+        } catch (e) {
+            setOnRequestFail(true)
+            Alert.alert("연결 실패", "서버와 연결에 실패하였습니다. 네트워크 연결을 확인해주세요.", [
+                {
+                    text: "확인",
+                    style: "default"
+                }
+            ])
+        }
     }, []); // 앱 렌더링시 리스트 로딩
+
+    const loadApp = async () => {
+        workListPageNum.current = 1;
+        setContext({ workList: [] });
+        setIsAppLoading(true);
+        await loadMoreWorkList();
+        await loadWorkerList();
+        await loadAlarmList();
+        setOnRequestFail(false)
+        setIsAppLoading(false);
+    }
 
     const getWorkerList = useCallback(async function (searchKeyword) {
         // 작업자 목록 조회
-        try {
-            let url = makeGetUrl(config.APISERVER.URL + '/api/v1/workerList', { searchKeyword })
-            let response = await fetch(url);
-            response = await response.json();
-            return response;
-        } catch (e) {
-            console.log(e);
-            Alert.alert("서버와 연결에 실패하였습니다. 네트워크 연결을 확인해주세요.")
-        }
+        let url = makeGetUrl(config.APISERVER.URL + '/api/v1/workerList', { searchKeyword })
+        let response = await fetch(url);
+        response = await response.json();
+        return response;
+
     })
 
     const loadWorkerList = async function (searchKeyword) {
@@ -103,15 +113,10 @@ export default function RequesterApp() {
 
     const getAlarmList = useCallback(async function (params) {
         // 알람 목록 조회
-        try {
-            let url = makeGetUrl(config.APISERVER.URL + '/api/v1/messageList', params)
-            let response = await fetch(url);
-            response = await response.json();
-            return response;
-        } catch (e) {
-            console.log(e);
-            Alert.alert("서버와 연결에 실패하였습니다. 네트워크 연결을 확인해주세요.")
-        }
+        let url = makeGetUrl(config.APISERVER.URL + '/api/v1/messageList', params)
+        let response = await fetch(url);
+        response = await response.json();
+        return response;
     });
     const loadAlarmList = async function (searchKeyword) {
         let alarmList = await getAlarmList({ userSn: userData.userSn, searchKeyword });
@@ -119,15 +124,10 @@ export default function RequesterApp() {
     };
     const getWorkList = useCallback(async function (params) {
         // 작업 목록 조회
-        try {
-            let url = makeGetUrl(config.APISERVER.URL + '/api/v1/workList', params)
-            let response = await fetch(url);
-            response = await response.json();
-            return response;
-        } catch (e) {
-            console.log(e);
-            Alert.alert("서버와 연결에 실패하였습니다. 네트워크 연결을 확인해주세요.")
-        }
+        let url = makeGetUrl(config.APISERVER.URL + '/api/v1/workList', params)
+        let response = await fetch(url);
+        response = await response.json();
+        return response;
     });
 
     const loadWorkList = async function (searchKeyword) {
@@ -174,8 +174,18 @@ export default function RequesterApp() {
                 barStyle="dark-content"
                 backgroundColor={GS.background_color}
             />
-            <ActivityIndicator size="large" />
-            <Text style={{ fontWeight: GS.font_weight.bold, fontSize: 18 }}>로딩 중입니다...</Text>
+            {
+                onRequestFail ?
+                    <>
+                        <Text style={{ fontWeight: GS.font_weight.bold, fontSize: 18 }}>이런, 연결에 실패했어요 :(</Text>
+                        <Button title="새로고침" onPress={() => loadWorkList()} />
+                    </>
+                    :
+                    <>
+                        <ActivityIndicator size="large" />
+                        <Text style={{ fontWeight: GS.font_weight.bold, fontSize: 18 }}>로딩 중입니다...</Text>
+                    </>
+            }
         </SafeAreaView>
     ) : (
         <GlobalContext.Provider

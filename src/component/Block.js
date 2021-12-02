@@ -17,7 +17,12 @@ export default function Block({ navigation, route, title, children, onTouchEnd, 
                     onTouchEnd={onTouchEnd}>
                     <View style={styles.title}>
                         <Text style={styles.titleText}>{title}</Text>
-                        <Text style={[styles.stateText, { paddingHorizontal: GS.padding, color: '#fff', backgroundColor: workState.color, shadowColor: workState.color }]}>{workState.value}</Text>
+                        {workState.value !== "" && <Text style={[styles.stateText, {
+                            paddingHorizontal: GS.padding,
+                            color: '#fff',
+                            backgroundColor: workState.color,
+                            shadowColor: workState.color
+                        }]}>{workState.value}</Text>}
                     </View>
                     <View style={styles.body}>
                         <View style={styles.infoContainer}>
