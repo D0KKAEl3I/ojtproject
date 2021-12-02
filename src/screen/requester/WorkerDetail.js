@@ -73,7 +73,7 @@ export default function WorkerDetail({ navigation, route, ...props }) {
 				<ContentView label="위치 정보" style={{ paddingHorizontal: GS.padding }}>
 					<View style={styles.map}>
 						<NaverMap
-							initialRegion={{ latitude: 37.481073, longitude: 127.123328 }}
+							center={{ latitude: 37.481073, longitude: 127.123328 }}
 							markers={[{ latitude: 37.481073, longitude: 127.123328 }]}
 						/>
 					</View>

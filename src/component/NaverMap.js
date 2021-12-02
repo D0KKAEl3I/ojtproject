@@ -3,12 +3,12 @@ import { Linking, StyleSheet, Text, View } from 'react-native';
 import NaverMapView, { Marker } from 'react-native-nmap';
 import GS from '../GlobalStyles';
 
-export default function NaverMap({ markers = [{ latitude: null, longitude: null }], initialRegion = { latitude: null, longitude: null } }) {
+export default function NaverMap({ markers = [{ latitude: null, longitude: null }], center = { latitude: null, longitude: null } }) {
     return (
         <NaverMapView
             style={{ flex: 1 }}
             center={{
-                ...initialRegion,
+                ...center,
                 zoom: 20
             }}>
             {markers.map(({ latitude, longitude }, i) => (
@@ -18,7 +18,7 @@ export default function NaverMap({ markers = [{ latitude: null, longitude: null 
                 <Text style={{ color: '#fff' }}
                 // onPress={() => {
                 //     const scheme = Platform.select({ ios: 'map:0,0?q=', android: 'geo:0,0?q=' });
-                //     const latLng = `${initialRegion.latitude},${initialRegion.longitude}`;
+                //     const latLng = `${center.latitude},${center.longitude}`;
                 //     const url = Platform.select({
                 //         ios: `${scheme}@${latLng}`,
                 //         android: `${scheme}${latLng}`
