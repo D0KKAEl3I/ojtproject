@@ -2,7 +2,8 @@
   package="com.ojtproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>    
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
@@ -11,9 +12,11 @@
       android:allowBackup="false"
       android:theme="@style/AppTheme">
 
-      <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyA0uACfaEoiaVjn_pJDft3nsRAnL9lkdJU"/> 
+      <meta-data android:name="com.naver.maps.map.CLIENT_ID" android:value="z7ec4m9nap" />
+
+      <!-- <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyA0uACfaEoiaVjn_pJDft3nsRAnL9lkdJU"/>  -->
       <!-- You will also only need to add this uses-libray tag --> 
-      <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+      <!-- <uses-library android:name="org.apache.http.legacy" android:required="false"/> -->
 
       <activity
         android:name=".MainActivity"

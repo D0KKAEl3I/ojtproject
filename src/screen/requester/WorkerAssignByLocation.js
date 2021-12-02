@@ -10,8 +10,6 @@ import TitleText from '../../component/TitleText'
 import GlobalContext from '../../GlobalContext';
 import GS from '../../GlobalStyles';
 import ContentView from '../../component/ContentView';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import GoogleMap from '../../component/GoogleMap';
 
 let windowSize = Dimensions.get('window')
 

@@ -48,6 +48,8 @@
 		<string>Fonts/NotoSansKR-Bold.otf</string>
 		<string>Fonts/NotoSansKR-Black.otf</string>
 	</array>
+	<key>NMFClientId</key>
+    <string>z7ec4m9nap</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

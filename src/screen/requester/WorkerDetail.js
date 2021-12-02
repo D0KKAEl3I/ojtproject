@@ -6,9 +6,8 @@ import GS from '../../GlobalStyles';
 import TitleText from '../../component/TitleText';
 import ContentView from '../../component/ContentView';
 import GlobalContext from '../../GlobalContext';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import GoogleMap from '../../component/GoogleMap';
 import BottomButton from '../../component/BottomButton';
+import NaverMap from '../../component/NaverMap';
 
 export default function WorkerDetail({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext)
@@ -73,7 +72,7 @@ export default function WorkerDetail({ navigation, route, ...props }) {
 				</ContentView>
 				<ContentView label="위치 정보" style={{ paddingHorizontal: GS.padding }}>
 					<View style={styles.map}>
-						<GoogleMap
+						<NaverMap
 							initialRegion={{ latitude: 37.481073, longitude: 127.123328 }}
 							markers={[{ latitude: 37.481073, longitude: 127.123328 }]}
 						/>

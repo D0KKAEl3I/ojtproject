@@ -1,20 +1,18 @@
 import React from 'react';
 import { Linking, StyleSheet, Text, View } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import NaverMapView, { Marker } from 'react-native-nmap';
 import GS from '../GlobalStyles';
 
-export default function GoogleMap({ markers = [{ latitude: null, longitude: null }], initialRegion = { latitude: null, longitude: null } }) {
+export default function NaverMap({ markers = [{ latitude: null, longitude: null }], initialRegion = { latitude: null, longitude: null } }) {
     return (
-        <MapView
-            provider={PROVIDER_GOOGLE}
+        <NaverMapView
             style={{ flex: 1 }}
-            initialRegion={{
+            center={{
                 ...initialRegion,
-                latitudeDelta: 0.004,
-                longitudeDelta: 0.00,
+                zoom: 20
             }}>
             {markers.map(({ latitude, longitude }, i) => (
-                <Marker coordinate={{ latitude, longitude }} key={i} />
+                <Marker coordinate={{ latitude, longitude }} pinColor="#50ff50" key={i} />
             ))}
             {/* <View style={styles.text}>
                 <Text style={{ color: '#fff' }}
@@ -30,7 +28,7 @@ export default function GoogleMap({ markers = [{ latitude: null, longitude: null
                 // }}
                 >앱에서 확인하기</Text>
             </View> */}
-        </MapView>
+        </NaverMapView>
     )
 }
 
