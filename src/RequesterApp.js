@@ -162,7 +162,7 @@ export default function RequesterApp() {
 
     const makeGetUrl = useCallback((url, params) => {
         let reqParams = new URLSearchParams();
-        Object.entries(params).filter(([key, value]) => value && reqParams.append(key, value))
+        Object.entries(params).map(([key, value]) => value && reqParams.append(key, value))
         url += reqParams.toString() ? "/?" + reqParams.toString() : ""
         return url
     })
@@ -203,6 +203,7 @@ export default function RequesterApp() {
                 config,
                 setContext,
                 setOnLoading,
+                setOnFilter,
                 makeGetUrl
             }}>
             <SafeAreaView style={styles.container}>

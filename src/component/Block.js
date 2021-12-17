@@ -1,7 +1,7 @@
 // Work/Alarm/Work 블록의 기본형
 import 'react-native-gesture-handler';
 import React from 'react';
-import { View, Text, Image, Pressable } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import GlobalContext from '../GlobalContext';
 import GS, { BS } from '../GlobalStyles';
 import ContentView from './ContentView';
@@ -18,8 +18,6 @@ export default function Block({ navigation, route, title, children, onTouchEnd, 
                     <View style={styles.title}>
                         <Text style={styles.titleText}>{title}</Text>
                         {workState.value !== "" && <Text style={[styles.stateText, {
-                            paddingHorizontal: GS.padding,
-                            color: '#fff',
                             backgroundColor: workState.color,
                             shadowColor: workState.color
                         }]}>{workState.value}</Text>}

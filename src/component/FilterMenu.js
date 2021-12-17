@@ -57,7 +57,7 @@ export default function FilterMenu(props) {
 	});
 	const slideOut = useCallback(() => {
 		Animated.timing(slideAnim, {
-			toValue: -filterMenuHeight,
+			toValue: filterMenuHeight,
 			duration: animDuration,
 			useNativeDriver: true,
 		}).start();
@@ -219,11 +219,11 @@ const styles = StyleSheet.create({
 	},
 	menu: {
 		position: 'absolute',
-		top: 0,
+		bottom: 0,
 		left: 0,
 		right: 0,
 		backgroundColor: GS.background_color,
-		transform: [{ translateY: -filterMenuHeight }],
+		transform: [{ translateY: filterMenuHeight }],
 		zIndex: 2,
 	},
 	title: {

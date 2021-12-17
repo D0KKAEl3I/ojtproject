@@ -1,35 +1,44 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Linking, StyleSheet, Text, View } from 'react-native';
-import NaverMapView, { Marker } from 'react-native-nmap';
+import NaverMapView, { Marker, Path, Polyline } from 'react-native-nmap';
 import GS from '../GlobalStyles';
 
-export default function NaverMap({ markers = [{ latitude: null, longitude: null }], center = { latitude: null, longitude: null } }) {
+export default function NaverMap({
+    markers = [{ latitude: null, longitude: null }],
+    center = { latitude: null, longitude: null },
+    path = [{ latitude: null, longitude: null }]
+}) {
     return (
         <NaverMapView
             style={{ flex: 1 }}
+            scaleBar={false}
+            zoomControl={false}
             center={{
                 ...center,
-                zoom: 20
+                zoom: 15
             }}>
             {markers.map(({ latitude, longitude }, i) => (
                 <Marker coordinate={{ latitude, longitude }} pinColor="#50ff50" key={i} />
             ))}
-            {/* <View style={styles.text}>
-                <Text style={{ color: '#fff' }}
-                // onPress={() => {
-                //     const scheme = Platform.select({ ios: 'map:0,0?q=', android: 'geo:0,0?q=' });
-                //     const latLng = `${center.latitude},${center.longitude}`;
-                //     const url = Platform.select({
-                //         ios: `${scheme}@${latLng}`,
-                //         android: `${scheme}${latLng}`
-                //     });
-
-                //     Linking.openURL(url)
-                // }}
-                >앱에서 확인하기</Text>
-            </View> */}
+            {
+                path.length > 1 && (
+                    <Path coordinates={path} color="#50ff50" outlineColor="#505050" />
+                )
+            }
         </NaverMapView>
     )
+}
+
+export async function getTraoptimal(coordinates = [{ latitude: null, longitude: null }]) {
+    const NMAPAPIURL = "https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving"
+    let response = await fetch(NMAPAPIURL + `?start=${coordinates[0].longitude},${coordinates[0].latitude}&goal=${coordinates[1].longitude},${coordinates[1].latitude}`, {
+        headers: {
+            "X-NCP-APIGW-API-KEY-ID": "z7ec4m9nap",
+            "X-NCP-APIGW-API-KEY": "sCbZedTIgni1D4Ylqrl4zdo3lxk9Bd8YIjhSPBTb"
+        }
+    })
+    response = await response.json()
+    return response.route.traoptimal;
 }
 
 const styles = StyleSheet.create({

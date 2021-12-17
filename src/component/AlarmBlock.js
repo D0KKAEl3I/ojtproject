@@ -8,7 +8,7 @@ import Icon from './Icon';
 export default function AlarmBlock({ navigation, route, select, ...props }) {
 	const [workStateColor, setWorkStateColor] = useState('#404040');
 	useEffect(() => {
-		switch (props.notiType) {
+		switch (props.workState) {
 			case '배정취소':
 				setWorkStateColor('#f00000');
 				break;
@@ -33,14 +33,9 @@ export default function AlarmBlock({ navigation, route, select, ...props }) {
 			route={route}
 			title={`알림 / ${props.notiDate}`}
 			onTouchEnd={() => !props.selected ? select(props) : select(null)}
+			workState={{ value: props.workState, color: workStateColor }}
 			toDetail={{ screenName: "AlarmDetail", params: { workData: props } }}
 			selected={props.selected}>
-			<View style={styles.info}>
-				<Icon style={styles.infoIcon} />
-				<Text style={[styles.infoText, { color: workStateColor }]}>
-					상태: {props.workState || "없음"}
-				</Text>
-			</View>
 			<View style={styles.info}>
 				<Icon style={styles.infoIcon} name="location" color="black" />
 				<Text style={styles.infoText}>

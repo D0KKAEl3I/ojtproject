@@ -23,8 +23,6 @@ export default function AlarmDetail({ navigation, route, ...props }) {
 					userSn: context.userData.userSn,
 					messageSn: route.params.workData.notiSn,
 				})
-				console.log(url);
-				console.log("rp", route.params.workData.notiSn);
 				response = await fetch(url);
 				response = await response.json();
 				setAlarmDetailInfo({ ...route.params.workData, ...response });

@@ -42,10 +42,10 @@ export default function WorkDetail({ navigation, route, ...props }) {
 				setWorkStateColor('#f00000');
 				break;
 			case '배정완료':
-				setWorkStateColor('#80a000');
+				setWorkStateColor('#f0a000');
 				break;
 			case '준비':
-				setWorkStateColor('#a08000');
+				setWorkStateColor('#f0a000');
 				break;
 			case '진행중':
 				setWorkStateColor('#00a000');
@@ -69,28 +69,28 @@ export default function WorkDetail({ navigation, route, ...props }) {
 			<ScrollView>
 				<ContentView>
 					<View style={styles.info}>
-						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<View style={styles.label}>
 							<Icon />
 							<Text style={styles.infoName}>상태</Text>
 						</View>
 						<Text style={[styles.infoText, { color: workStateColor }]}>{workDetailInfo.workState}</Text>
 					</View>
 					<View style={styles.info}>
-						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<View style={styles.label}>
 							<Icon style={styles.infoIcon} name="location_city" />
 							<Text style={styles.infoName}>지점</Text>
 						</View>
 						<Text style={styles.infoText}>{workDetailInfo.workName}</Text>
 					</View>
 					<View style={styles.info}>
-						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<View style={styles.label}>
 							<Icon style={styles.infoIcon} name="location" />
 							<Text style={styles.infoName}>주소</Text>
 						</View>
 						<Text style={styles.infoText}>{workDetailInfo.workLocation}</Text>
 					</View>
 					<View style={styles.info}>
-						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<View style={styles.label}>
 							<Icon style={styles.infoIcon} name="watch" />
 							<Text style={styles.infoName}>{workDetailInfo.workState === '작업완료' ? "완료일" : "예정일"}</Text>
 						</View>
@@ -103,7 +103,7 @@ export default function WorkDetail({ navigation, route, ...props }) {
 				</ContentView>
 				<ContentView label="작업자 정보">
 					<View style={styles.info}>
-						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<View style={styles.label}>
 							<Icon style={styles.infoIcon} name="nametag" />
 							<Text style={styles.infoName}>이름</Text>
 						</View>
@@ -112,7 +112,7 @@ export default function WorkDetail({ navigation, route, ...props }) {
 						</Text>
 					</View>
 					<View style={styles.info}>
-						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<View style={styles.label}>
 							<Icon style={styles.infoIcon} name="phone" />
 							<Text style={styles.infoName}>연락처</Text>
 						</View>
@@ -144,6 +144,10 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		paddingVertical: GS.padding,
+	},
+	label: {
+		flexDirection: 'row',
+		alignItems: 'center'
 	},
 	infoIcon: {
 		width: 28,

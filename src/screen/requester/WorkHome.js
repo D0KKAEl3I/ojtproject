@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, KeyboardAvoidingView, Text, Button, Platform, Touchable } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { StyleSheet, View, KeyboardAvoidingView, Text, Platform } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import WorkBlock from '../../component/requester/WorkBlock';
 import BottomMenu from '../../component/BottomMenu';
@@ -9,6 +9,7 @@ import GlobalContext from '../../GlobalContext';
 import GS from '../../GlobalStyles';
 import TitleText from '../../component/TitleText';
 import Icon from '../../component/Icon';
+import Button from '../../component/Button';
 
 export default function WorkHome({ navigation, route, ...props }) {
 	const context = useContext(GlobalContext);
@@ -34,7 +35,19 @@ export default function WorkHome({ navigation, route, ...props }) {
 				<View style={styles.container}>
 					<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingRight: GS.padding_horizontal }}>
 						<TitleText>작업 목록</TitleText>
-						{/* <Button title="새로고침" onPress={() => context.loadWorkList()} /> */}
+						<View style={styles.buttonContainer}>
+							<Button style={styles.button} onPress={() => context.status === 'WorkHome' && state.setOnFilter(true)}>
+								<Icon name="filter" color='white' style={styles.buttonIcon} />
+								<Text style={styles.buttonText}>필터</Text>
+							</Button>
+							<Button style={styles.button} onPress={() => {
+								context.setContext({ status: 'Search' });
+								setOnSearch(true);
+							}}>
+								<Icon name="search" color='white' style={styles.buttonIcon} />
+								<Text style={styles.buttonText}>검색</Text>
+							</Button>
+						</View>
 					</View>
 					<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
 						{(() => {
@@ -116,14 +129,14 @@ export default function WorkHome({ navigation, route, ...props }) {
 					)}
 					<BottomMenu
 						data={[
-							{
-								value: '작업 검색하기',
-								onPress: () => {
-									context.setContext({ status: 'Search' });
-									setOnSearch(true);
-								},
-								disable: false,
-							},
+							// {
+							// 	value: '작업 검색하기',
+							// 	onPress: () => {
+							// 		context.setContext({ status: 'Search' });
+							// 		setOnSearch(true);
+							// 	},
+							// 	disable: false,
+							// },
 							{
 								value: '검색으로\n작업 배정하기',
 								onPress: () => {
@@ -157,6 +170,26 @@ const styles = StyleSheet.create({
 	},
 	list: {
 		maxWidth: 512
+	},
+	buttonContainer: {
+		flexDirection: 'row'
+	},
+	button: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		paddingVertical: 2,
+		paddingHorizontal: 4,
+		marginLeft: 4
+	},
+	buttonIcon: {
+		width: 24,
+		height: 24,
+	},
+	buttonText: {
+		color: "#ffffff",
+		fontFamily: GS.font_family,
+		fontWeight: GS.font_weight.bold,
+		marginHorizontal: 2
 	},
 	backgroundFilter: {
 		position: 'absolute',

@@ -39,18 +39,14 @@ export default function WorkBlock({ navigation, route, select = () => { }, ...pr
             title={props.workName}
             workState={{ value: props.workState, color: workStateColor }}
             onTouchEnd={() => {
-                if (props.workState === '미배정') {
+                if (props.workState === '미배정' || props.workState === '배정완료')
                     !props.selected ? select(props) : select(null);
-                } else if (props.workState === '배정완료') {
-                    !props.selected ? select(props) : select(null);
-                } else {
-                    select(null);
-                }
+                else select(null);
             }}
             toDetail={{ screenName: 'WorkDetail', params: { workData: props } }}
             selected={props.selected}>
             <View style={styles.info}>
-                <Icon style={styles.infoIcon} name="location" color="black" />
+                <Icon style={styles.infoIcon} name="location" />
                 <Text style={styles.infoText}>
                     주소: {props.workLocation || "없음"}
                 </Text>
@@ -62,7 +58,7 @@ export default function WorkBlock({ navigation, route, select = () => { }, ...pr
                 </Text>
             </View>
             <View style={styles.info}>
-                <Icon style={styles.infoIcon} name="watch" />
+                <Icon style={styles.infoIcon} name={props.workState === '작업완료' ? "check" : "watch"} />
                 <Text style={styles.infoText}>
                     {props.workState === '작업완료'
                         ? `작업완료일: ${props.workCompleteDate || '없음'}`

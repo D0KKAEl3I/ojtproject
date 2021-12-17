@@ -61,6 +61,7 @@ const BlockStyle = StyleSheet.create({
         paddingHorizontal: GS.padding,
         paddingVertical: 2,
         borderRadius: GS.border_radius,
+        color: '#fff',
         ...GS.shadow,
         elevation: 4,
     },

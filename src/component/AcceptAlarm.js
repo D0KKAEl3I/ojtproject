@@ -45,13 +45,13 @@ export default function AcceptAlarm({ data, goBack, ...props }) {
 				<Text style={styles.info}>작업주소: {alarm.workLocation}</Text>
 				<Text style={styles.info}>
 					{alarm.workState === '작업완료'
-						? `작업완료일: ${alarm.workCompleteDate ?? '미정'}`
-						: `작업예정일: ${alarm.workDueDate ?? '미정'}`}
+						? `작업완료일: ${alarm.workCompleteDate ?? '없음'}`
+						: `작업예정일: ${alarm.workDueDate ?? '없음'}`}
 				</Text>
 				<Text style={styles.info}>
 					{alarm.workState === '작업완료'
-						? `완료작업자: ${alarm.userName ?? '미정'}`
-						: `예정작업자: ${alarm.userName ?? '미정'}`}
+						? `완료작업자: ${alarm.userName ?? '없음'}`
+						: `예정작업자: ${alarm.userName ?? '없음'}`}
 				</Text>
 				<Text style={styles.info}>
 					작업자 전화번호:{' '}

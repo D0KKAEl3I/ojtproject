@@ -4,6 +4,7 @@ import { Dimensions, KeyboardAvoidingView, Platform, StyleSheet, View } from 're
 import WorkBlock from '../../component/requester/WorkBlock';
 import { FlatList } from 'react-native-gesture-handler';
 import WorkerBlock from '../../component/requester/WorkerBlock';
+import NaverMap from '../../component/NaverMap';
 import BottomMenu from '../../component/BottomMenu';
 import SearchInput from '../../component/SearchInput'
 import TitleText from '../../component/TitleText'
@@ -47,7 +48,7 @@ export default function WorkerAssign({ navigation, route, ...props }) {
                         </View>
                         <ContentView label="위치 정보" style={{ paddingHorizontal: GS.padding }}>
                             <View style={styles.map}>
-                                <GoogleMap />
+                                <NaverMap />
                             </View>
                         </ContentView>
                         <View style={{ flex: 1 }}>

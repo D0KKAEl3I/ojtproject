@@ -51,16 +51,13 @@ export default function Header({ title, navigation, route, options, ...props }) 
 							</View>
 						)}
 					</IconButton>
-					<IconButton
-
-						onPress={() =>
-							context.status === 'WorkHome' && props.setOnFilter(true)
-						}>
+					{/* <IconButton
+						onPress={() => context.status === 'WorkHome' && props.setOnFilter(true)}>
 						<Icon
 							style={{ width: 36, height: 36, opacity: 0.8 }}
 							name="filter"
 						/>
-					</IconButton>
+					</IconButton> */}
 				</View>
 			)
 			}
