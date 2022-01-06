@@ -16,6 +16,10 @@ const GS = {
         bolder: '800',
         boldest: '900'
     },
+    wrapper: {
+        max_width: 512
+    },
+    max_width: 512,
     padding: 8,
     padding_horizontal: 16,
     margin: 8,
@@ -91,7 +95,6 @@ const BlockStyle = StyleSheet.create({
         fontFamily: GS.font_family,
         fontWeight: GS.font_weight.regular,
         color: GS.text_color,
-        // lineHeight: Platform.select({ ios: 28, android: null })
     }
 })
 

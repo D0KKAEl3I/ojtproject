@@ -10,12 +10,12 @@ let filterMenuHeight = 408 // 메뉴 전체 높이 360 + 확인버튼 높이 48
 const animDuration = 200 // 애니메이션 지속 시간
 let windowSize = Dimensions.get("window");
 
-export default function FilterMenu(props) {
+export default function FilterMenu({ show, setOnFilter }) {
 	const context = useContext(GlobalContext);
 	const [onCalendar, setOnCalendar] = useState(false)
 	const [calendar, setCalendar] = useState(""); // 작업예정일과 작업완료일중 어느것의 날짜를 선택중인가? "workDuteDate" 또는 "workCompleteDate"
+	const [filter, setFilter] = useState(context.filter)
 	const [onLandScape, setOnLandScape] = useState(false); // 화면이 눕혀져있는가?
-
 
 	useEffect(() => {
 		windowSize.width > windowSize.height && setOnLandScape(true)
@@ -23,31 +23,18 @@ export default function FilterMenu(props) {
 			windowSize = Dimensions.get('window');
 			setOnLandScape(width > height);
 		})
-	}, [])
+		if (show) {
+			context.setContext({ status: 'Filter' });
+			openFilterMenu();
+		}
+	}, [show])
 
 	useEffect(() => {
 		filterMenuHeight = onLandScape ? 204 : 408
 	}, [onLandScape])
 
-	const [filter, setFilter] = useState(context.filter)
-	const fadeAnim = useRef(new Animated.Value(0)).current;
-	const slideAnim = useRef(new Animated.Value(-filterMenuHeight)).current;
+	const slideAnim = useRef(new Animated.Value(filterMenuHeight)).current;
 
-
-	const fadeIn = useCallback(() => {
-		Animated.timing(fadeAnim, {
-			toValue: 1,
-			duration: animDuration,
-			useNativeDriver: true,
-		}).start();
-	});
-	const fadeOut = useCallback(() => {
-		Animated.timing(fadeAnim, {
-			toValue: 0,
-			duration: animDuration,
-			useNativeDriver: true,
-		}).start();
-	});
 	const slideIn = useCallback(() => {
 		Animated.timing(slideAnim, {
 			toValue: 0,
@@ -62,22 +49,18 @@ export default function FilterMenu(props) {
 			useNativeDriver: true,
 		}).start();
 	});
+
 	const openFilterMenu = useCallback(() => {
+		context.setOnBackgroundFilter(true)
 		slideIn();
-		fadeIn();
 	})
 	const closeFilterMenu = useCallback(() => {
 		slideOut();
-		fadeOut();
 		context.setContext({ status: 'WorkHome' });
 		setTimeout(() => {
-			props.setOnFilter(false);
+			setOnFilter(false);
 		}, animDuration);
 	})
-	useEffect(() => {
-		context.setContext({ status: 'Filter' });
-		openFilterMenu();
-	}, []);
 
 	useEffect(() => {
 		BackHandler.addEventListener('hardwareBackPress', () => {
@@ -87,11 +70,7 @@ export default function FilterMenu(props) {
 	}, [context.status])
 
 	return (
-		<View style={styles.container} >
-			<Animated.View
-				style={[styles.backgroundFilter, { opacity: fadeAnim }]}
-				onTouchEnd={closeFilterMenu}
-			/>
+		<View style={[styles.container, { display: show ? 'flex' : 'none' }]} >
 			<Animated.View
 				onTouchEnd={e => e.target === e.currentTarget && Keyboard.dismiss()}
 				style={[styles.menu, { transform: [{ translateY: slideAnim }] }]}>
@@ -209,7 +188,7 @@ function Calendar({ date, onSubmit, onCancle }) {
 const styles = StyleSheet.create({
 	container: {
 		position: 'absolute',
-		top: 40,
+		top: 0,
 		bottom: 0,
 		left: 0,
 		right: 0,
@@ -223,7 +202,7 @@ const styles = StyleSheet.create({
 		left: 0,
 		right: 0,
 		backgroundColor: GS.background_color,
-		transform: [{ translateY: filterMenuHeight }],
+		transform: [{ translateY: 0 }],
 		zIndex: 2,
 	},
 	title: {
@@ -266,13 +245,7 @@ const styles = StyleSheet.create({
 		height: 48,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#4099ff',
-		borderBottomLeftRadius: 16,
-		borderBottomRightRadius: 16,
-		position: 'absolute',
-		left: 0,
-		right: 0,
-		bottom: -48
+		backgroundColor: GS.active_color
 	},
 	submitButtonText: {
 		color: '#ffffff',
@@ -298,13 +271,5 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		backgroundColor: '#000a',
 		zIndex: 99
-	},
-	backgroundFilter: {
-		position: 'absolute',
-		top: 0,
-		bottom: 0,
-		left: 0,
-		right: 0,
-		backgroundColor: '#000a',
 	}
 });

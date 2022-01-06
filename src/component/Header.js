@@ -1,25 +1,30 @@
 import 'react-native-gesture-handler';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import IconButton from './IconButton';
 import GlobalContext from '../GlobalContext';
 import GS from '../GlobalStyles';
 import Icon from './Icon';
+import { getHeaderTitle } from '@react-navigation/elements';
 
-export default function Header({ title, navigation, route, options, ...props }) {
+export default function Header({ navigation, route, options, ...props }) {
 	const context = useContext(GlobalContext);
+	const title = getHeaderTitle(options, route.name);
+	const [alarmCount, setAlarmCount] = useState(0)
+	useEffect(() => {
+		setAlarmCount(context.alarmList.length)
+	}, [context.alarmList])
 
 	return (
 		<View style={styles.container}>
 			{/* 헤더 왼쪽 아이콘 버튼 */}
 			<IconButton
 				style={{ flexDirection: 'row' }}
-				onPress={
-					props.back
-						? // 뒤로 돌아갈 페이지가 있을 경우 뒤로가기 버튼이 됨
-						navigation.goBack
-						: // 필터 메뉴가 열려있을 시 비활성
-						() => context.status === 'WorkHome' && props.setOnMenu(true)
+				onPress={props.back ?
+					// 뒤로 돌아갈 페이지가 있을 경우 뒤로가기 버튼이 됨
+					navigation.goBack
+					: // 필터 메뉴가 열려있을 시 비활성
+					() => context.status === 'WorkHome' && props.setOnMenu(true)
 				}>
 				{props.back ? (
 					<>
@@ -27,26 +32,23 @@ export default function Header({ title, navigation, route, options, ...props }) 
 							name="back" />
 						<Text style={styles.back}>뒤로</Text>
 					</>
-				) : (
-					<Icon style={{ width: 36, height: 36, opacity: 0.8 }}
-						name="menu" />
-				)}
+				) : <Icon style={{ width: 36, height: 36, opacity: 0.8 }} name="menu" />}
 			</IconButton>
+
 			<Text style={styles.title}>{title}</Text>
+
 			{!props.back && (
 				<View style={{ height: '100%', flexDirection: 'row' }}>
-					<IconButton
-						onPress={() =>
-							context.status === 'WorkHome' && navigation.navigate('Alarm')
-						}>
-						<Icon
-							style={{ width: 36, height: 36, opacity: 0.8 }}
-							name={props.alarmCount > 0 ? "notice_on" : "notice_off"}
-						/>
-						{props.alarmCount > 0 && (
+					<IconButton onPress={() => context.status === 'WorkHome' && navigation.navigate('Alarm')}>
+						{alarmCount > 0 ?
+							<Icon style={{ width: 36, height: 36, opacity: 0.8 }} name="notice_on" />
+							:
+							<Icon style={{ width: 36, height: 36, opacity: 0.8 }} name="notice_off" />
+						}
+						{alarmCount > 0 && (
 							<View style={styles.alarmCount}>
 								<Text style={styles.alarmCountNum}>
-									{props.alarmCount < 10 ? props.alarmCount : '9+'}
+									{alarmCount < 10 ? alarmCount : '9+'}
 								</Text>
 							</View>
 						)}

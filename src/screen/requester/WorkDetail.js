@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
 
 	content: {
 		flex: 1,
-		maxWidth: 512,
+		maxWidth: GS.wrapper.max_width,
 	},
 	info: {
 		flexDirection: 'row',

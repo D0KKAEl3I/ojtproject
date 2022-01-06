@@ -1,14 +1,16 @@
 import 'react-native-gesture-handler';
 import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, Button, KeyboardAvoidingView, Platform, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, BackHandler, KeyboardAvoidingView, Platform, StyleSheet, Text, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import BottomMenu from '../../component/BottomMenu';
 import AlarmBlock from '../../component/AlarmBlock';
 import SearchInput from '../../component/SearchInput';
 import AcceptAlarm from '../../component/AcceptAlarm.js';
 
 import GlobalContext from '../../GlobalContext';
 import GS from '../../GlobalStyles';
+import TitleText from '../../component/TitleText';
+import Icon from '../../component/Icon';
+import Button from '../../component/Button';
 
 
 export default function Alarm({ navigation, route, ...props }) {
@@ -21,6 +23,7 @@ export default function Alarm({ navigation, route, ...props }) {
     const [selectedAlarm, setSelectedAlarm] = useState(null); // 선택된 알람 블럭의 알람 정보
 
     useEffect(() => {
+        context.setBottomMenuOptions(null)
         context.setContext({ status: route.name });
         async () => {
             setOnLoading(true);
@@ -29,84 +32,89 @@ export default function Alarm({ navigation, route, ...props }) {
         };
     }, []);
 
+    useEffect(() => {
+        context.setBottomMenuOptions(selectedAlarm ? [
+            {
+                value: '작업 검색하기',
+                onPress: () => setOnSearch(true),
+                disable: false,
+            },
+            {
+                value: '알림 수락',
+                onPress: () => setOnAcceptAlarm(true),
+                disable: !selectedAlarm && true,
+            },
+        ] : null)
+    }, [selectedAlarm])
+
     return (
-        <GlobalContext.Consumer>
-            {state => (
-                <View style={styles.container}>
-                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-                        {onLoading ? (
-                            <ActivityIndicator size="large" style={{ flex: 1 }} />
-                        ) : state.alarmList.length > 0 ? (
-                            <FlatList
-                                style={styles.list}
-                                data={state.alarmList}
-                                renderItem={({ item, index }) => (
-                                    <AlarmBlock
-                                        selected={
-                                            selectedAlarm &&
-                                            item.notiSn === selectedAlarm.notiSn
-                                        }
-                                        {...item}
-                                        navigation={navigation}
-                                        route={route}
-                                        select={alarm => setSelectedAlarm(alarm)}
-                                    />
-                                )}
-                                keyExtractor={item => item.notiSn}
-                            />
-                        ) : (
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', zIndex: -1 }}>
-                                <Text style={{ fontFamily: GS.font_family }}>알림이 더이상 없어요 :I</Text>
-                                <Button title="새로고침" onPress={() => context.loadAlarmList()} />
-                            </View>
-                        )}
+        <View style={styles.container} onTouchStart={() => setSelectedAlarm(null)}>
+            <View style={styles.wrapper}>
+                {onLoading && <ActivityIndicator size="large" style={{ flex: 1 }} />}
+                <View style={styles.subMenu}>
+                    <TitleText>알림 목록</TitleText>
+                    <View style={styles.buttonContainer}>
+                        <Button style={styles.button} onPress={() => {
+                            context.setContext({ status: 'Search' });
+                            setOnSearch(true);
+                        }}>
+                            <Icon name="search" style={styles.buttonIcon} />
+                            <Text style={styles.buttonText}>알림 검색</Text>
+                        </Button>
                     </View>
-                    {onSearch && (
-                        <KeyboardAvoidingView
-                            behavior={Platform.select({ ios: "padding", android: "height" })}
-                            style={styles.backgroundFilter}>
-                            <SearchInput
-                                label="작업 검색"
-                                defaultValue={searchData}
-                                onClose={() => {
-                                    setOnSearch(false);
-                                    setSearchData('');
-                                    context.setContext({ status: route.name })
-                                }}
-                                onSubmit={data => {
-                                    setOnSearch(false);
-                                    setSearchData(data)
-                                    context.setContext({ status: route.name })
-                                }}
-                            />
-                        </KeyboardAvoidingView>
-                    )}
-                    {onAcceptAlarm && (
-                        <View style={styles.backgroundFilter}>
-                            <AcceptAlarm
-                                data={selectedAlarm}
-                                goBack={() => setOnAcceptAlarm(false)}
-                            />
+                </View>
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+                    {context.alarmList.length > 0 ? (
+                        <FlatList
+                            data={context.alarmList}
+                            renderItem={({ item }) => (
+                                <AlarmBlock
+                                    selected={selectedAlarm && item.notiSn === selectedAlarm.notiSn}
+                                    {...item}
+                                    navigation={navigation}
+                                    route={route}
+                                    select={alarm => setSelectedAlarm(alarm)}
+                                />
+                            )}
+                            keyExtractor={item => item.notiSn}
+                        />
+                    ) : (
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', zIndex: -1 }}>
+                            <Text style={{ fontFamily: GS.font_family }}>알림이 더 이상 없어요 :I</Text>
+                            <Button title="새로고침" onPress={() => context.loadAlarmList()} />
                         </View>
                     )}
-                    <BottomMenu
-                        data={[
-                            {
-                                value: '작업 검색하기',
-                                onPress: () => setOnSearch(true),
-                                disable: false,
-                            },
-                            {
-                                value: '알림 수락',
-                                onPress: () => setOnAcceptAlarm(true),
-                                disable: !selectedAlarm && true,
-                            },
-                        ]}
+                </View>
+            </View>
+            {onSearch && (
+                <KeyboardAvoidingView
+                    behavior={Platform.select({ ios: "padding", android: "height" })}
+                    style={styles.backgroundFilter}>
+                    <SearchInput
+                        label="작업 검색"
+                        defaultValue={searchData}
+                        onClose={() => {
+                            setOnSearch(false);
+                            setSearchData('');
+                            context.setContext({ status: route.name })
+                        }}
+                        onSubmit={data => {
+                            setOnSearch(false);
+                            setSearchData(data)
+                            context.setContext({ status: route.name })
+                        }}
+                    />
+                </KeyboardAvoidingView>
+            )}
+            {/* {onAcceptAlarm && (
+                <View style={styles.backgroundFilter}>
+                    <AcceptAlarm
+                        data={selectedAlarm}
+                        goBack={() => setOnAcceptAlarm(false)}
                     />
                 </View>
-            )
-            }
-        </GlobalContext.Consumer >
+            )} */}
+        </View>
     );
 }
 
@@ -114,9 +122,50 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: GS.background_color,
+        alignItems: 'center'
     },
-    list: {
-        maxWidth: 512,
+    wrapper: {
+        flex: 1,
+        alignItems: 'center',
+        maxWidth: GS.max_width,
+        width: '100%',
+    },
+    subMenu: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+        paddingRight: GS.padding_horizontal
+    },
+    subMenu: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+        paddingRight: GS.padding_horizontal
+    },
+    buttonContainer: {
+        flexDirection: 'row'
+    },
+    button: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 2,
+        paddingHorizontal: 4,
+        marginLeft: 4
+    },
+    buttonIcon: {
+        width: 24,
+        height: 24,
+        opacity: 0.7
+    },
+    buttonText: {
+        fontFamily: GS.font_family,
+        fontWeight: GS.font_weight.bold,
+        marginRight: 2,
+        color: GS.text_color,
+        fontWeight: GS.font_weight.bold,
+        fontSize: 16
     },
     backgroundFilter: {
         position: 'absolute',

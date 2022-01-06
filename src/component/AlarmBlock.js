@@ -32,8 +32,8 @@ export default function AlarmBlock({ navigation, route, select, ...props }) {
 			navigation={navigation}
 			route={route}
 			title={`알림 / ${props.notiDate}`}
-			onTouchEnd={() => !props.selected ? select(props) : select(null)}
 			workState={{ value: props.workState, color: workStateColor }}
+			onTouchEnd={() => !props.selected ? select(props) : select(null)}
 			toDetail={{ screenName: "AlarmDetail", params: { workData: props } }}
 			selected={props.selected}>
 			<View style={styles.info}>

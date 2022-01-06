@@ -5,30 +5,15 @@ import GlobalContext from '../GlobalContext';
 import GS from '../GlobalStyles';
 import ContentView from './ContentView';
 import TitleText from './TitleText';
+import Button from './Button';
+import Icon from './Icon';
 
 const sideMenuWidth = 320;
 const animDuration = 200; // 애니메이션 지속 시간
 
 export default function SideMenu(props) {
   const context = useContext(GlobalContext);
-  const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(-sideMenuWidth)).current;
-
-  const fadeIn = useCallback(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: animDuration,
-      useNativeDriver: true,
-    }).start();
-  });
-
-  const fadeOut = useCallback(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: animDuration,
-      useNativeDriver: true,
-    }).start();
-  });
 
   const slideIn = useCallback(() => {
     Animated.timing(slideAnim, {
@@ -47,15 +32,16 @@ export default function SideMenu(props) {
   });
 
   const openSideMenu = useCallback(() => {
+    console.log('open');
     context.setContext({ status: 'Menu' });
-    fadeIn();
     slideIn();
   })
   const closeSideMenu = useCallback(() => {
-    fadeOut();
-    slideOut();
+    console.log('close');
     context.setContext({ status: 'WorkHome' });
+    slideOut();
     setTimeout(() => {
+      context.setOnBackgroundFilter(false);
       props.setOnMenu(false);
     }, animDuration);
   })
@@ -69,20 +55,28 @@ export default function SideMenu(props) {
 
 
   useEffect(() => {
-    openSideMenu();
-  }, []);
+    if (props.show) {
+      context.setOnBackgroundFilter(true)
+      openSideMenu();
+    }
+  }, [props.show]);
 
   return (
-    <View style={[styles.container]}>
-      <Animated.View
-        style={[styles.backgroundFilter, { opacity: fadeAnim }]}
-        onTouchEnd={e => e.target === e.currentTarget && closeSideMenu()}
-      />
+    <View style={[styles.container, { display: props.show ? 'flex' : 'none' }]}>
       <Animated.View
         style={[styles.menu, { transform: [{ translateX: slideAnim }] }]}>
-        <TitleText>
-          메인 메뉴
-        </TitleText>
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <TitleText>
+            메인 메뉴
+          </TitleText>
+          <Button style={{ marginRight: GS.margin }} onPress={closeSideMenu}>
+            <Icon name="close" style={{ width: 36, height: 36, opacity: 0.7 }} />
+          </Button>
+        </View>
         <ContentView style={{ paddingHorizontal: 0 }}>
           <Tab value="마이 페이지" />
           <Tab value="이용안내" />
@@ -119,11 +113,11 @@ function Tab({ value }) {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 40,
+    top: 0,
     bottom: 0,
     left: 0,
     right: 0,
-    zIndex: 9,
+    zIndex: 100,
   },
   menu: {
     width: sideMenuWidth,

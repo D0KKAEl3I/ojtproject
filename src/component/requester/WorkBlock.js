@@ -35,7 +35,6 @@ export default function WorkBlock({ navigation, route, select = () => { }, ...pr
         <Block
             navigation={navigation}
             route={route}
-            style={props.style}
             title={props.workName}
             workState={{ value: props.workState, color: workStateColor }}
             onTouchEnd={() => {

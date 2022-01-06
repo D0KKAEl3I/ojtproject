@@ -14,7 +14,5 @@ export default function Button({ onPress, style, children }) {
 const styles = StyleSheet.create({
     container: {
         borderRadius: GS.border_radius,
-        backgroundColor: GS.active_color,
-        color: "#ffffff",
-    }
+    },
 })
